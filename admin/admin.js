@@ -50,6 +50,29 @@ async function supabaseProxy(endpoint, options) {
     return json;
   };
 
+  if (body) {
+    if (body.stack_json !== undefined) { body.stack = JSON.parse(body.stack_json||'[]'); delete body.stack_json; }
+    if (body.links_json !== undefined) { body.links = JSON.parse(body.links_json||'[]'); delete body.links_json; }
+    if (body.gallery_json !== undefined) { body.gallery = JSON.parse(body.gallery_json||'[]'); delete body.gallery_json; }
+    if (body.highlights_json !== undefined) { body.highlights = JSON.parse(body.highlights_json||'[]'); delete body.highlights_json; }
+    if (body.tags_json !== undefined) { body.tags = JSON.parse(body.tags_json||'[]'); delete body.tags_json; }
+    if (body.skills_json !== undefined) { body.skills = JSON.parse(body.skills_json||'[]'); delete body.skills_json; }
+    if (body.current !== undefined && typeof body.current === 'number') { body.current = body.current === 1; }
+  }
+
+  const mapOut = (r) => {
+    if (!r) return r;
+    const out = { ...r };
+    if (out.stack !== undefined) { out.stack_json = JSON.stringify(out.stack); delete out.stack; }
+    if (out.links !== undefined) { out.links_json = JSON.stringify(out.links); delete out.links; }
+    if (out.gallery !== undefined) { out.gallery_json = JSON.stringify(out.gallery); delete out.gallery; }
+    if (out.highlights !== undefined) { out.highlights_json = JSON.stringify(out.highlights); delete out.highlights; }
+    if (out.tags !== undefined) { out.tags_json = JSON.stringify(out.tags); delete out.tags; }
+    if (out.skills !== undefined) { out.skills_json = JSON.stringify(out.skills); delete out.skills; }
+    if (out.current !== undefined && typeof out.current === 'boolean') { out.current = out.current ? 1 : 0; }
+    return out;
+  };
+
   if (endpoint === '/auth/verify') return { success: true, valid: true };
   if (endpoint === '/auth/logout') return { success: true };
   if (endpoint === '/auth/login' && method === 'POST') {
@@ -58,7 +81,6 @@ async function supabaseProxy(endpoint, options) {
     throw new Error('Kredensial tidak valid');
   }
 
-  // Profile
   if (endpoint === '/profile' && method === 'GET') {
     const res = await req('profile?id=eq.1', { method: 'GET' });
     return { success: true, data: res[0] || {} };
@@ -68,7 +90,6 @@ async function supabaseProxy(endpoint, options) {
     return { success: true, data: res[0] };
   }
 
-  // Landing
   if (endpoint === '/landing' && method === 'GET') {
     const res = await req('landing_sections', { method: 'GET' });
     const data = {};
@@ -85,28 +106,25 @@ async function supabaseProxy(endpoint, options) {
     return { success: true, data: res[0] };
   }
 
-  // Generic Tables (projects, skills, experience, education, certificates)
   const tables = ['projects', 'skills', 'experience', 'education', 'certificates'];
   for (const table of tables) {
-    // Exact match for GET all and POST
     if (endpoint === '/' + table || endpoint.startsWith('/' + table + '?')) {
       if (method === 'GET') {
         const res = await req(table, { method: 'GET' });
-        return { success: true, data: res };
+        return { success: true, data: res.map(mapOut) };
       }
       if (method === 'POST') {
-        if (!body.id) body.id = Date.now().toString(); // Generate simple ID if missing
+        if (!body.id) body.id = Date.now().toString();
         const res = await req(table, { method: 'POST', body: JSON.stringify(body) });
-        return { success: true, data: res[0] };
+        return { success: true, data: mapOut(res[0]) };
       }
     }
-    // Match /table/id for PUT, DELETE
     if (endpoint.startsWith('/' + table + '/')) {
       const parts = endpoint.split('/');
       const id = parts[2];
       if (method === 'PUT' && id) {
         const res = await req(`${table}?id=eq.${encodeURIComponent(id)}`, { method: 'PATCH', body: JSON.stringify(body) });
-        return { success: true, data: res[0] };
+        return { success: true, data: mapOut(res[0]) };
       }
       if (method === 'DELETE' && id) {
         await req(`${table}?id=eq.${encodeURIComponent(id)}`, { method: 'DELETE' });
@@ -121,8 +139,6 @@ async function supabaseProxy(endpoint, options) {
   }
 
   if (endpoint === '/upload' && method === 'POST') {
-    // For GitHub pages, we can't easily upload to local assets. 
-    // Return base64 as the URL directly so it saves to DB.
     return { success: true, url: body.data, filename: body.filename };
   }
 
