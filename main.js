@@ -708,24 +708,53 @@
       if (heroName) {
         const titleRaw = (landing && landing.hero && landing.hero.title) || profile.name || '';
         heroName.innerHTML = formatHeading(titleRaw);
+        heroName.style.whiteSpace = 'nowrap';
       }
 
       const heroRole = document.querySelector('.hero-role');
       if (heroRole) {
         const roleRaw = (landing && landing.hero && landing.hero.role) || profile.title || '';
-        const cleanRole = escapeHTML(roleRaw).replace(/<br\s*\/?>/gi, ' ');
+        const cleanRole = escapeHTML(roleRaw).replace(/<br\s*\/?>/gi, ' ').trim();
         heroRole.innerHTML = '<span id="heroRoleText"></span><span class="typing-cursor">|</span>';
         const roleTextEl = document.getElementById('heroRoleText');
         
-        let i = 0;
+        if (window.heroTypingTimeout) clearTimeout(window.heroTypingTimeout);
+        
+        // Split by pipeline, bullet, unicode replacement char (), or comma
+        let phrases = cleanRole.split(/[\|•\-\uFFFD,]/).map(s => s.trim()).filter(Boolean);
+        if (phrases.length === 0) phrases = [cleanRole];
+        
+        let phraseIdx = 0;
+        let charIdx = 0;
+        let isDeleting = false;
+
         function typeWriter() {
-          if (i < cleanRole.length) {
-            roleTextEl.innerHTML += cleanRole.charAt(i);
-            i++;
-            setTimeout(typeWriter, 40);
+          if (!document.getElementById('heroRoleText')) return;
+          const currentPhrase = phrases[phraseIdx % phrases.length];
+          
+          if (isDeleting) {
+            roleTextEl.innerHTML = currentPhrase.substring(0, charIdx - 1);
+            charIdx--;
+          } else {
+            roleTextEl.innerHTML = currentPhrase.substring(0, charIdx + 1);
+            charIdx++;
           }
+          
+          let speed = isDeleting ? 30 : 70;
+          
+          if (!isDeleting && charIdx === currentPhrase.length) {
+            speed = 2500; // pause before delete
+            isDeleting = true;
+          } else if (isDeleting && charIdx === 0) {
+            isDeleting = false;
+            phraseIdx++;
+            speed = 500; // pause before next word
+          }
+          
+          window.heroTypingTimeout = setTimeout(typeWriter, speed);
         }
-        setTimeout(typeWriter, 500); // slight delay before starting
+        
+        window.heroTypingTimeout = setTimeout(typeWriter, 500);
       }
 
       const heroBio = document.querySelector('#hero .hero-desc, #hero .hero-bio, .hero-desc, .hero-bio');
