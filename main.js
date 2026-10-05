@@ -713,7 +713,19 @@
       const heroRole = document.querySelector('.hero-role');
       if (heroRole) {
         const roleRaw = (landing && landing.hero && landing.hero.role) || profile.title || '';
-        heroRole.innerHTML = escapeHTML(roleRaw).replace(/<br\s*\/?>/gi, '<br>');
+        const cleanRole = escapeHTML(roleRaw).replace(/<br\s*\/?>/gi, ' ');
+        heroRole.innerHTML = '<span id="heroRoleText"></span><span class="typing-cursor">|</span>';
+        const roleTextEl = document.getElementById('heroRoleText');
+        
+        let i = 0;
+        function typeWriter() {
+          if (i < cleanRole.length) {
+            roleTextEl.innerHTML += cleanRole.charAt(i);
+            i++;
+            setTimeout(typeWriter, 40);
+          }
+        }
+        setTimeout(typeWriter, 500); // slight delay before starting
       }
 
       const heroBio = document.querySelector('#hero .hero-desc, #hero .hero-bio, .hero-desc, .hero-bio');

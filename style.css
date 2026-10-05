@@ -360,6 +360,7 @@ main, nav, footer { position: relative; z-index: 1; }
   letter-spacing: -0.03em;
   color: var(--text);
   margin-bottom: 18px;
+  white-space: nowrap;
 }
 
 .hero-name em {
@@ -377,6 +378,16 @@ main, nav, footer { position: relative; z-index: 1; }
   margin-bottom: 18px;
   border-left: 2px solid var(--accent);
   padding-left: 14px;
+}
+
+.typing-cursor {
+  display: inline-block;
+  margin-left: 4px;
+  animation: blink 1s step-end infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 .hero-desc {
@@ -1601,11 +1612,11 @@ section {
     margin-bottom: 16px;
   }
   .hero-name {
-    font-size: clamp(2.3rem, 9.2vw, 3.2rem);
+    font-size: clamp(1.5rem, 7vw, 3.2rem);
     line-height: 1.05;
     margin-bottom: 14px;
     letter-spacing: -0.025em;
-    word-break: break-word;
+    white-space: nowrap;
   }
   .hero-role {
     font-size: 0.82rem;
@@ -1837,7 +1848,8 @@ section {
     --pad-x: 16px;
   }
   .hero-name {
-    font-size: 2.05rem;
+    font-size: 1.5rem;
+    white-space: nowrap;
   }
   .hero-meta-row {
     grid-template-columns: 1fr;
