@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" width="1200" height="720">
+  <defs>
+    <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#14141f"/><stop offset="100%" stop-color="#0e0e18"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="720" fill="url(#g2)" rx="12"/>
+  <rect x="0" y="0" width="1200" height="44" fill="#18181f" rx="12"/>
+  <rect x="0" y="32" width="1200" height="12" fill="#18181f"/>
+  <circle cx="24" cy="22" r="6" fill="#ff5f57" opacity="0.7"/>
+  <circle cx="44" cy="22" r="6" fill="#febc2e" opacity="0.7"/>
+  <circle cx="64" cy="22" r="6" fill="#28c840" opacity="0.7"/>
+  <rect x="120" y="12" width="480" height="20" rx="10" fill="#22222a"/>
+  <text x="360" y="26" text-anchor="middle" font-family="monospace" font-size="10" fill="#6a6762">analytics.dashboard.io</text>
+  <!-- Sidebar -->
+  <rect x="0" y="44" width="220" height="676" fill="#12121a"/>
+  <rect x="20" y="80" width="100" height="20" rx="4" fill="#22222a"/>
+  <rect x="20" y="140" width="180" height="14" rx="3" fill="#1e1e28" opacity="0.9"/>
+  <rect x="20" y="165" width="180" height="14" rx="3" fill="#252532" opacity="0.9"/>
+  <rect x="20" y="190" width="180" height="14" rx="3" fill="#1e1e28" opacity="0.9"/>
+  <rect x="20" y="215" width="180" height="14" rx="3" fill="#1e1e28" opacity="0.9"/>
+  <rect x="20" y="240" width="180" height="14" rx="3" fill="#1e1e28" opacity="0.9"/>
+  <!-- Main area -->
+  <rect x="220" y="44" width="980" height="60" fill="#14141f"/>
+  <rect x="240" y="62" width="200" height="22" rx="4" fill="#1e1e28"/>
+  <rect x="1020" y="58" width="160" height="30" rx="6" fill="#6c63ff" opacity="0.4"/>
+  <!-- KPI cards -->
+  <rect x="240" y="130" width="210" height="100" rx="8" fill="#1a1a24"/>
+  <rect x="240" y="130" width="210" height="4" rx="2" fill="#6c63ff" opacity="0.6"/>
+  <text x="252" y="162" font-family="monospace" font-size="10" fill="#6a6762">REVENUE</text>
+  <text x="252" y="196" font-family="Georgia,serif" font-size="26" fill="#e8dcc8">$84.2k</text>
+  <rect x="470" y="130" width="210" height="100" rx="8" fill="#1a1a24"/>
+  <rect x="470" y="130" width="210" height="4" rx="2" fill="#5fdb6f" opacity="0.6"/>
+  <text x="482" y="162" font-family="monospace" font-size="10" fill="#6a6762">USERS</text>
+  <text x="482" y="196" font-family="Georgia,serif" font-size="26" fill="#e8dcc8">12,840</text>
+  <rect x="700" y="130" width="210" height="100" rx="8" fill="#1a1a24"/>
+  <rect x="700" y="130" width="210" height="4" rx="2" fill="#f0a070" opacity="0.6"/>
+  <text x="712" y="162" font-family="monospace" font-size="10" fill="#6a6762">CONVERSION</text>
+  <text x="712" y="196" font-family="Georgia,serif" font-size="26" fill="#e8dcc8">3.4%</text>
+  <rect x="930" y="130" width="250" height="100" rx="8" fill="#1a1a24"/>
+  <rect x="930" y="130" width="250" height="4" rx="2" fill="#c8b89a" opacity="0.6"/>
+  <text x="942" y="162" font-family="monospace" font-size="10" fill="#6a6762">SESSIONS</text>
+  <text x="942" y="196" font-family="Georgia,serif" font-size="26" fill="#e8dcc8">48.9k</text>
+  <!-- Chart area -->
+  <rect x="240" y="256" width="650" height="280" rx="8" fill="#1a1a24"/>
+  <text x="258" y="282" font-family="monospace" font-size="10" fill="#6a6762">REVENUE OVER TIME</text>
+  <!-- Simplified chart lines -->
+  <polyline points="258,480 318,440 378,460 438,400 498,380 558,410 618,350 678,330 738,360 798,300 858,280" fill="none" stroke="#6c63ff" stroke-width="2" opacity="0.7"/>
+  <polyline points="258,500 318,490 378,485 438,470 498,460 558,475 618,450 678,440 738,455 798,420 858,410" fill="none" stroke="#c8b89a" stroke-width="1.5" opacity="0.5"/>
+  <!-- Right panel: pie/doughnut -->
+  <rect x="910" y="256" width="270" height="280" rx="8" fill="#1a1a24"/>
+  <text x="928" y="282" font-family="monospace" font-size="10" fill="#6a6762">TRAFFIC SOURCE</text>
+  <circle cx="1045" cy="380" r="70" fill="none" stroke="#6c63ff" stroke-width="28" stroke-dasharray="120 320" opacity="0.7"/>
+  <circle cx="1045" cy="380" r="70" fill="none" stroke="#c8b89a" stroke-width="28" stroke-dasharray="80 360" stroke-dashoffset="-120" opacity="0.6"/>
+  <circle cx="1045" cy="380" r="70" fill="none" stroke="#5fdb6f" stroke-width="28" stroke-dasharray="50 370" stroke-dashoffset="-200" opacity="0.5"/>
+  <!-- Data table -->
+  <rect x="240" y="558" width="940" height="130" rx="8" fill="#1a1a24"/>
+  <rect x="240" y="558" width="940" height="34" rx="8" fill="#1e1e28"/>
+  <text x="260" y="580" font-family="monospace" font-size="10" fill="#6a6762">RECENT TRANSACTIONS</text>
+  <rect x="260" y="606" width="900" height="1" fill="#ffffff" opacity="0.04"/>
+  <rect x="260" y="620" width="200" height="10" rx="3" fill="#22222a"/>
+  <rect x="260" y="640" width="160" height="10" rx="3" fill="#22222a"/>
+  <rect x="260" y="660" width="180" height="10" rx="3" fill="#22222a"/>
+</svg>

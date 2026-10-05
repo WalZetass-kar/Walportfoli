@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>M Ihwal Maulana — Mahasiswa Manajemen Informatika · Developer · AI Enthusiast</title>
+  <meta name="description" content="Portofolio resmi M Ihwal Maulana (WalZetass): WariPOS, CariKostKita Android, Duo Chat, dan Civic Report berbasis Google Gemini AI." />
+  <meta name="theme-color" content="#111110" />
+  <meta property="og:title" content="M Ihwal Maulana — Mahasiswa Manajemen Informatika · Developer · AI Enthusiast" />
+  <meta property="og:description" content="Mahasiswa Manajemen Informatika Politeknik LP3I Pekanbaru · Developer Multi-Platform & AI Enthusiast." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Three.js Canvas Background -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Navigation -->
+  <nav id="nav">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">WalZetass</a>
+      <div class="nav-links">
+        <a href="#about" class="nav-link">Tentang</a>
+        <a href="#projects" class="nav-link">Karya</a>
+        <a href="#skills" class="nav-link">Keahlian</a>
+        <a href="#experience" class="nav-link">Perjalanan</a>
+        <a href="#certificates" class="nav-link">Sertifikasi</a>
+        <a href="#contact" class="nav-link">Kontak</a>
+      </div>
+      <button class="nav-menu-btn" id="menuBtn" aria-label="Menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-inner">
+      <a href="#about" class="mobile-link">Tentang</a>
+      <a href="#projects" class="mobile-link">Karya</a>
+      <a href="#skills" class="mobile-link">Keahlian</a>
+      <a href="#experience" class="mobile-link">Perjalanan</a>
+      <a href="#certificates" class="mobile-link">Sertifikasi</a>
+      <a href="#contact" class="mobile-link">Kontak</a>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- ═══════════════════════════════════════ HERO ═══════════════════════════════════════ -->
+    <section id="hero">
+      <div class="hero-layout">
+
+        <div class="hero-left">
+          <p class="hero-eyebrow reveal-up" style="display: none;"></p>
+          <h1 class="hero-name reveal-up"></h1>
+          <p class="hero-role reveal-up"></p>
+          <p class="hero-desc reveal-up"></p>
+
+          <div class="hero-meta-row reveal-up">
+            <div class="hero-meta-item">
+              <span class="hero-meta-value"></span>
+              <span class="hero-meta-label"></span>
+            </div>
+            <div class="hero-meta-item">
+              <span class="hero-meta-value"></span>
+              <span class="hero-meta-label"></span>
+            </div>
+            <div class="hero-meta-item">
+              <span class="hero-meta-value"></span>
+              <span class="hero-meta-label"></span>
+            </div>
+          </div>
+
+          <div class="hero-actions reveal-up">
+            <a href="#projects" class="btn-primary"></a>
+            <a href="#contact" class="btn-ghost"></a>
+          </div>
+        </div>
+
+        <div class="hero-right reveal-fade">
+          <div class="portrait-frame">
+            <div class="portrait-img">
+              <img id="heroPortraitImg" src="assets/profil.png" alt="Foto Profil" onerror="this.onerror=null;this.src='profil.png'" />
+              <div class="portrait-overlay"></div>
+            </div>
+            <div class="portrait-tag">
+              <span class="dot"></span>
+              <span class="tag-mono"></span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="hero-scroll-hint reveal-up">
+        <div class="scroll-line"></div>
+        <span>Gulir</span>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ ABOUT ═══════════════════════════════════════ -->
+    <section id="about">
+
+      <!-- Section Marquee Header — Integrated Chapter Intro -->
+      <div class="marquee-wrap" id="marquee">
+        <div class="marquee-track" aria-hidden="true"></div>
+      </div>
+
+      <div class="section-inner about-layout">
+
+        <div class="about-left">
+          <div class="section-label reveal-up"></div>
+          <h2 class="section-heading reveal-up"></h2>
+        </div>
+
+        <div class="about-right">
+          <p class="about-text reveal-up"></p>
+          <p class="about-text reveal-up"></p>
+          <div class="about-stats reveal-up">
+            <div class="stat">
+              <span class="stat-number"></span>
+              <span class="stat-label"></span>
+            </div>
+            <div class="stat">
+              <span class="stat-number"></span>
+              <span class="stat-label"></span>
+            </div>
+            <div class="stat">
+              <span class="stat-number"></span>
+              <span class="stat-label"></span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ PROJECTS ═══════════════════════════════════════ -->
+    <section id="projects">
+      <div class="section-inner">
+        <div class="projects-header">
+          <div class="section-label reveal-up"></div>
+          <div class="projects-header-right reveal-up">
+            <h2 class="section-heading"></h2>
+            <a href="projects.html" class="btn-ghost"></a>
+          </div>
+        </div>
+
+        <!-- Editorial project showcase — 100% dynamic from Admin / DB -->
+        <div class="project-showcase" id="projectListContainer"></div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ SKILLS ═══════════════════════════════════════ -->
+    <section id="skills">
+      <div class="section-inner skills-layout">
+
+        <div class="skills-left">
+          <div class="section-label reveal-up"></div>
+          <h2 class="section-heading reveal-up"></h2>
+          <p class="skills-intro reveal-up"></p>
+        </div>
+
+        <div class="skills-right" id="skillsContainer"></div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ EXPERIENCE ═══════════════════════════════════════ -->
+    <section id="experience">
+      <div class="section-inner">
+        <div class="section-label reveal-up"></div>
+        <h2 class="section-heading reveal-up"></h2>
+
+        <div class="timeline-wrap" id="timelineContainer"></div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ CERTIFICATES ═══════════════════════════════════════ -->
+    <section id="certificates">
+      <div class="section-inner">
+        <div class="section-label reveal-up"></div>
+        <h2 class="section-heading reveal-up"></h2>
+
+        <div class="certs-gallery" id="certsContainer"></div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════ CONTACT ═══════════════════════════════════════ -->
+    <section id="contact">
+      <div class="section-inner contact-layout">
+
+        <div class="contact-left">
+          <div class="section-label reveal-up"></div>
+          <h2 class="section-heading reveal-up"></h2>
+          <p class="contact-sub reveal-up"></p>
+
+          <div class="contact-direct-card reveal-up">
+            <div class="email-copy-wrap">
+              <span class="email-text" id="contactEmailDisplay"></span>
+              <button type="button" class="btn-copy" id="copyEmailBtn" aria-label="Salin email ke clipboard">Salin Email</button>
+            </div>
+            <div class="contact-socials" id="contactSocialsContainer"></div>
+          </div>
+        </div>
+
+        <div class="contact-right reveal-fade">
+          <form class="contact-form" id="contactForm" novalidate>
+            <div class="form-field">
+              <label for="name">Nama Lengkap</label>
+              <input type="text" id="name" name="name" placeholder="Nama Anda" required />
+            </div>
+            <div class="form-field">
+              <label for="email">Alamat Email</label>
+              <input type="email" id="email" name="email" placeholder="email@domain.com" required />
+            </div>
+            <div class="form-field">
+              <label for="project">Cakupan / Kebutuhan Rekayasa</label>
+              <input type="text" id="project" name="project" placeholder="Sistem POS · Mobile Android · Google Gemini AI" />
+            </div>
+            <div class="form-field">
+              <label for="message">Pesan Anda</label>
+              <textarea id="message" name="message" rows="4" placeholder="Ceritakan tujuan, kebutuhan sistem, atau peluang kolaborasi..." required></textarea>
+            </div>
+            <button type="submit" class="btn-primary btn-full">
+              <span class="btn-text">Kirim Pesan</span>
+              <span class="btn-icon">→</span>
+            </button>
+            <div class="form-status" id="formStatus"></div>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════ FOOTER ═══════════════════════════════════════ -->
+  <footer id="footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <span class="footer-logo"></span>
+        <span class="footer-copy"></span>
+      </div>
+      <div class="footer-right">
+        <span class="footer-mono"></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <!-- Universal Dynamic API Client -->
+  <script src="api.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

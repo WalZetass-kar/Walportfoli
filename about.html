@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tentang — M Ihwal Maulana</title>
+  <meta name="description" content="Tentang M Ihwal Maulana — pengembang kreatif, toolbox teknologi, riwayat pengalaman, pendidikan, dan kredensial." />
+  <meta name="theme-color" content="#111110" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="about.css" />
+</head>
+<body class="page-about">
+
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- ── Navigation ──────────────────────────────────────────── -->
+  <nav id="nav" class="scrolled">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">WalZetass</a>
+      <div class="nav-links">
+        <a href="about.html" class="nav-active">Tentang</a>
+        <a href="projects.html">Karya</a>
+        <a href="about.html#toolbox">Toolbox</a>
+        <a href="about.html#experience">Pengalaman</a>
+        <a href="about.html#contact">Kontak</a>
+      </div>
+      <button class="nav-menu-btn" id="menuBtn" aria-label="Menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── Mobile Menu ─────────────────────────────────────────── -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-inner">
+      <a href="about.html" class="mobile-link">Tentang</a>
+      <a href="projects.html" class="mobile-link">Karya</a>
+      <a href="about.html#toolbox" class="mobile-link">Toolbox</a>
+      <a href="about.html#experience" class="mobile-link">Pengalaman</a>
+      <a href="about.html#education" class="mobile-link">Pendidikan</a>
+      <a href="about.html#certificates" class="mobile-link">Kredensial</a>
+      <a href="about.html#contact" class="mobile-link">Kontak</a>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- ════════════════════════════════════════════════════════
+         § 01  ABOUT — Large editorial statement
+    ════════════════════════════════════════════════════════ -->
+    <section id="about" class="s-about">
+
+      <!-- Vertical chapter label -->
+      <div class="chapter-rail">
+        <span class="chapter-num">01</span>
+        <span class="chapter-line"></span>
+        <span class="chapter-label">Tentang</span>
+      </div>
+
+      <div class="about-main">
+
+        <!-- Opening statement — massive type -->
+        <div class="about-statement">
+          <p class="statement-kicker reveal-up">
+            <span class="dot"></span> Pekanbaru, Riau, Indonesia · Mahasiswa Manajemen Informatika &amp; Developer
+          </p>
+          <h1 class="statement-title reveal-up">
+            Saya merancang sistem<br>
+            yang <em>efisien</em> dan<br>
+            berorientasi <em>solusi nyata.</em>
+          </h1>
+        </div>
+
+        <!-- Portrait + meta column -->
+        <div class="about-portrait-col reveal-fade">
+          <div class="about-portrait">
+            <img id="aboutPortraitImg" src="assets/profil.png" alt="M Ihwal Maulana" onerror="this.onerror=null;this.src='profil.png'" />
+            <div class="portrait-grain"></div>
+          </div>
+          <div class="about-meta">
+            <div class="about-meta-item">
+              <span class="meta-label">Nama</span>
+              <span class="meta-val">M Ihwal Maulana</span>
+            </div>
+            <div class="about-meta-item">
+              <span class="meta-label">Akun</span>
+              <span class="meta-val">WalZetass</span>
+            </div>
+            <div class="about-meta-item">
+              <span class="meta-label">Lokasi</span>
+              <span class="meta-val">Pekanbaru, Indonesia</span>
+            </div>
+            <div class="about-meta-item">
+              <span class="meta-label">Fokus</span>
+              <span class="meta-val">Aplikasi Bisnis &amp; Native System</span>
+            </div>
+            <div class="about-meta-item">
+              <span class="meta-label">Status</span>
+              <span class="meta-val meta-available"><span class="dot"></span>Aktif Mahasiswa LP3I</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Body copy — two columns -->
+      <div class="about-body-row">
+        <div class="about-body-left">
+          <p class="about-body-text reveal-up">
+            Saya adalah mahasiswa Manajemen Informatika di Politeknik LP3I Kampus Pekanbaru sekaligus pengembang perangkat lunak independen. Berfokus pada perancangan sistem nyata mulai dari aplikasi kasir retail offline-first (WariPOS), platform Android native (CariKostKita), hingga sistem komunikasi privat (Duo Chat).
+          </p>
+        </div>
+        <div class="about-body-right">
+          <p class="about-body-text reveal-up">
+            Pendekatan rekayasa saya berakar dari pemecahan masalah konkret di lapangan: bagaimana sistem tetap andal bekerja tanpa koneksi internet, bagaimana alur data kasir tetap presisi, dan bagaimana antarmuka mempermudah pengguna harian. Saya percaya perangkat lunak yang baik dibangun dengan disiplin teknis dan pemahaman mendalam atas kebutuhan pengguna.
+          </p>
+          <p class="about-body-text reveal-up">
+            Ketika tidak sedang membuat kode, saya aktif dalam organisasi BEM Politeknik LP3I Pekanbaru pada Divisi Kominfo &amp; Media Kreatif, mendalami Google GenAI SDK, dan mengelola 21+ repositori open source di GitHub.
+          </p>
+        </div>
+      </div>
+
+      <!-- Manifesto strip -->
+      <div class="about-manifesto reveal-up">
+        <blockquote class="manifesto-quote">
+          "Kode adalah instrumen. Solusi nyata adalah dampaknya."
+        </blockquote>
+        <div class="manifesto-divider"></div>
+        <div class="about-counters">
+          <div class="counter-item">
+            <span class="counter-num" data-target="21">0</span>
+            <span class="counter-suffix">+</span>
+            <span class="counter-label">Repositori GitHub</span>
+          </div>
+          <div class="counter-item">
+            <span class="counter-num" data-target="4">0</span>
+            <span class="counter-suffix">+</span>
+            <span class="counter-label">Sistem Mandiri Selesai</span>
+          </div>
+          <div class="counter-item">
+            <span class="counter-num" data-target="3">0</span>
+            <span class="counter-suffix">+</span>
+            <span class="counter-label">Kredensial Kompetensi</span>
+          </div>
+          <div class="counter-item">
+            <span class="counter-num" data-target="100">0</span>
+            <span class="counter-suffix">%</span>
+            <span class="counter-label">Dedikasi &amp; Kesiapan</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════
+         § 02  TOOLBOX — Technology categories
+    ════════════════════════════════════════════════════════ -->
+    <section id="toolbox" class="s-toolbox">
+
+      <div class="chapter-rail">
+        <span class="chapter-num">02</span>
+        <span class="chapter-line"></span>
+        <span class="chapter-label">Toolbox</span>
+      </div>
+
+      <div class="toolbox-main">
+
+        <div class="toolbox-header">
+          <p class="section-label reveal-up">Alat &amp; Teknologi</p>
+          <h2 class="toolbox-title reveal-up">
+            Keahlian di balik<br>setiap <em>karya</em>
+          </h2>
+          <p class="toolbox-intro reveal-up">
+            Rangkaian teknologi yang dikurasi — bukan sekadar setiap alat yang ada, melainkan alat yang membuat hasil karya lebih baik.
+          </p>
+        </div>
+
+        <div class="toolbox-categories">
+
+          <!-- Desktop & POS -->
+          <div class="tool-category reveal-up">
+            <div class="tool-cat-header">
+              <span class="tool-cat-icon">◈</span>
+              <h3 class="tool-cat-name">Desktop &amp; POS</h3>
+              <span class="tool-cat-count">6 teknologi</span>
+            </div>
+            <div class="tool-grid">
+              <div class="tool-item" data-level="expert">
+                <span class="tool-name">Electron</span>
+                <span class="tool-level">Ahli</span>
+              </div>
+              <div class="tool-item" data-level="advanced">
+                <span class="tool-name">Capacitor</span>
+                <span class="tool-level">Lanjutan</span>
+              </div>
+              <div class="tool-item" data-level="expert">
+                <span class="tool-name">React</span>
+                <span class="tool-level">Ahli</span>
+              </div>
+              <div class="tool-item" data-level="expert">
+                <span class="tool-name">TypeScript</span>
+                <span class="tool-level">Ahli</span>
+              </div>
+              <div class="tool-item" data-level="expert">
+                <span class="tool-name">SQLite (Drizzle ORM)</span>
+                <span class="tool-level">Ahli</span>
+              </div>
+              <div class="tool-item" data-level="advanced">
+                <span class="tool-name">Thermal ESC/POS</span>
+                <span class="tool-level">Lanjutan</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mobile & Native -->
+          <div class="tool-category reveal-up">
+            <div class="tool-cat-header">
+              <span class="tool-cat-icon">◈</span>
+              <h3 class="tool-cat-name">Mobile &amp; Native</h3>
+              <span class="tool-cat-count">5 teknologi</span>
+            </div>
+            <div class="tool-grid">
+              <div class="tool-item" data-level="advanced">
+                <span class="tool-name">Android SDK (Java)</span>
+                <span class="tool-level">Lanjutan</span>
+              </div>
+              <div class="tool-item" data-level="intermediate">
+                <span class="tool-name">Kotlin</span>
+                <span class="tool-level">Menengah</span>
+              </div>
+              <div class="tool-item" data-level="advanced">
+                <span class="tool-name">Room Database</span>
+                <span class="tool-level">Lanjutan</span>
+              </div>
+              <div class="tool-item" data-level="advanced">
+                <span class="tool-name">Material Design 3</span>
+                <span class="tool-level">Lanjutan</span>
+              </div>
+              <div class="tool-item" data-level="advanced">
+                <span class="tool-name">Google Maps Intent</span>
+                <span class="tool-level">Lanjutan</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Web & Frontend -->
+          <div class="tool-category reveal-up">
+            <div class="tool-cat-header">
+              <span class="tool-cat-icon">◈</span>
+              <h3 class="tool-cat-name">Web &amp; Frontend</h3>
+              <span class="tool-cat-count">4 teknologi</span>
+            </div>
+            <div class="tool-grid">
+              <div class="tool-item" data-level="expert">
+                <span class="tool-name">JavaScript (ES6+)</span>
+                <span class="tool-level">Ahli</span>
+              </div>
+              <div class="tool-item" data-level="advanced">
+                <span class="tool-name">Three.js / WebGL</span>
+                <span class="tool-level">Lanjutan</span>
+              </div>
+              <div class="tool-item" data-level="expert">
+                <span class="tool-name">CSS Grid / Flexbox</span>
+                <span class="tool-level">Ahli</span>
+              </div>
+              <div class="tool-item" data-level="advanced">
+                <span class="tool-name">Canvas API</span>
+                <span class="tool-level">Lanjutan</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Backend & Database -->
+          <div class="tool-category reveal-up">
+            <div class="tool-cat-header">
+              <span class="tool-cat-icon">◈</span>
+              <h3 class="tool-cat-name">Backend &amp; Database</h3>
+              <span class="tool-cat-count">4 teknologi</span>
+            </div>
+            <div class="tool-grid">
+              <div class="tool-item" data-level="expert">
+                <span class="tool-name">Node.js (SQLite)</span>
+                <span class="tool-level">Ahli</span>
+              </div>
+              <div class="tool-item" data-level="advanced">
+                <span class="tool-name">RESTful APIs</span>
+                <span class="tool-level">Lanjutan</span>
+              </div>
+              <div class="tool-item" data-level="advanced">
+                <span class="tool-name">Express.js</span>
+                <span class="tool-level">Lanjutan</span>
+              </div>
+              <div class="tool-item" data-level="intermediate">
+                <span class="tool-name">Firebase / Supabase</span>
+                <span class="tool-level">Menengah</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- AI & Emerging -->
+          <div class="tool-category reveal-up">
+            <div class="tool-cat-header">
+              <span class="tool-cat-icon">◈</span>
+              <h3 class="tool-cat-name">AI &amp; Emerging</h3>
+              <span class="tool-cat-count">4 teknologi</span>
+            </div>
+            <div class="tool-grid">
+              <div class="tool-item" data-level="advanced">
+                <span class="tool-name">Google GenAI SDK</span>
+                <span class="tool-level">Lanjutan</span>
+              </div>
+              <div class="tool-item" data-level="advanced">
+                <span class="tool-name">LLM Integration</span>
+                <span class="tool-level">Lanjutan</span>
+              </div>
+              <div class="tool-item" data-level="advanced">
+                <span class="tool-name">Prompt Engineering</span>
+                <span class="tool-level">Lanjutan</span>
+              </div>
+              <div class="tool-item" data-level="intermediate">
+                <span class="tool-name">Geospatial Data</span>
+                <span class="tool-level">Menengah</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tools & Workflow -->
+          <div class="tool-category reveal-up">
+            <div class="tool-cat-header">
+              <span class="tool-cat-icon">◈</span>
+              <h3 class="tool-cat-name">Alat &amp; Alur Kerja</h3>
+              <span class="tool-cat-count">4 alat</span>
+            </div>
+            <div class="tool-grid">
+              <div class="tool-item" data-level="expert">
+                <span class="tool-name">Git / GitHub</span>
+                <span class="tool-level">Ahli</span>
+              </div>
+              <div class="tool-item" data-level="expert">
+                <span class="tool-name">VS Code</span>
+                <span class="tool-level">Ahli</span>
+              </div>
+              <div class="tool-item" data-level="advanced">
+                <span class="tool-name">Figma</span>
+                <span class="tool-level">Lanjutan</span>
+              </div>
+              <div class="tool-item" data-level="advanced">
+                <span class="tool-name">Android Studio</span>
+                <span class="tool-level">Lanjutan</span>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /toolbox-categories -->
+
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════
+         § 03  EXPERIENCE — Minimal timeline
+    ════════════════════════════════════════════════════════ -->
+    <section id="experience" class="s-experience">
+
+      <div class="chapter-rail">
+        <span class="chapter-num">03</span>
+        <span class="chapter-line"></span>
+        <span class="chapter-label">Pengalaman</span>
+      </div>
+
+      <div class="exp-main">
+
+        <div class="exp-header">
+          <p class="section-label reveal-up">Perjalanan Nyata</p>
+          <h2 class="exp-title reveal-up">
+            Jejak akademis,<br>organisasi &amp; <em>rekayasa</em>
+          </h2>
+        </div>
+
+        <div class="exp-timeline">
+
+          <!-- Role 01 -->
+          <div class="exp-entry reveal-up" data-current="true">
+            <div class="exp-year-col">
+              <span class="exp-period">2024 — Sekarang</span>
+              <span class="exp-badge exp-badge--current">Aktif</span>
+            </div>
+            <div class="exp-node">
+              <div class="exp-dot exp-dot--active"></div>
+              <div class="exp-connector"></div>
+            </div>
+            <div class="exp-content">
+              <h3 class="exp-role">Mahasiswa Manajemen Informatika</h3>
+              <p class="exp-company">Politeknik LP3I Kampus Pekanbaru <span class="exp-location">· Pekanbaru, Riau</span></p>
+              <p class="exp-desc">
+                Menempuh studi vokasi dengan fokus pada rekayasa perangkat lunak, sistem basis data, pemrograman web &amp; mobile, serta analisis perancangan sistem informasi bisnis.
+              </p>
+              <div class="exp-highlights">
+                <span class="highlight-item">Rekayasa Perangkat Lunak</span>
+                <span class="highlight-item">Manajemen Basis Data</span>
+                <span class="highlight-item">Analisis Sistem</span>
+                <span class="highlight-item">Akademik</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Role 02 -->
+          <div class="exp-entry reveal-up" data-current="true">
+            <div class="exp-year-col">
+              <span class="exp-period">2024 — Sekarang</span>
+              <span class="exp-badge exp-badge--current">Aktif</span>
+            </div>
+            <div class="exp-node">
+              <div class="exp-dot exp-dot--active"></div>
+              <div class="exp-connector"></div>
+            </div>
+            <div class="exp-content">
+              <h3 class="exp-role">Divisi Kominfo &amp; Media Kreatif</h3>
+              <p class="exp-company">BEM Politeknik LP3I Pekanbaru <span class="exp-location">· Organisasi Mahasiswa</span></p>
+              <p class="exp-desc">
+                Mengelola komunikasi publik kampus, publikasi digital, perancangan aset grafis media sosial organisasi, serta koordinasi dokumentasi kegiatan internal kemahasiswaan.
+              </p>
+              <div class="exp-highlights">
+                <span class="highlight-item">Publikasi Digital</span>
+                <span class="highlight-item">Desain Grafis</span>
+                <span class="highlight-item">Komunikasi Tim</span>
+                <span class="highlight-item">Media Kreatif</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Role 03 -->
+          <div class="exp-entry reveal-up">
+            <div class="exp-year-col">
+              <span class="exp-period">2023 — Sekarang</span>
+              <span class="exp-badge">Mandiri</span>
+            </div>
+            <div class="exp-node">
+              <div class="exp-dot"></div>
+              <div class="exp-connector"></div>
+            </div>
+            <div class="exp-content">
+              <h3 class="exp-role">Independent Engineering &amp; Open Source</h3>
+              <p class="exp-company">WalZetass-Kar <span class="exp-location">· GitHub Ecosystem</span></p>
+              <p class="exp-desc">
+                Mengembangkan 21+ repositori open source dan arsitektur aplikasi mandiri siap rilis: WariPOS (POS kasir offline-first), CariKostKita (Android native Room SQLite), Duo Chat (messenger privat), dan integrasi AI SDK.
+              </p>
+              <div class="exp-highlights">
+                <span class="highlight-item">21+ Repositori</span>
+                <span class="highlight-item">WariPOS Suite</span>
+                <span class="highlight-item">CariKostKita</span>
+                <span class="highlight-item">Duo Chat</span>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /exp-timeline -->
+
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════
+         § 04  EDUCATION — Timeline
+    ════════════════════════════════════════════════════════ -->
+    <section id="education" class="s-education">
+
+      <div class="chapter-rail">
+        <span class="chapter-num">04</span>
+        <span class="chapter-line"></span>
+        <span class="chapter-label">Pendidikan</span>
+      </div>
+
+      <div class="edu-main">
+
+        <div class="edu-header">
+          <p class="section-label reveal-up">Latar Belakang Akademis</p>
+          <h2 class="edu-title reveal-up">
+            Fondasi<br><em>pengetahuan</em>
+          </h2>
+        </div>
+
+        <div class="edu-list">
+
+          <div class="edu-entry reveal-up">
+            <div class="edu-year-col">
+              <span class="edu-period">2024 — Sekarang</span>
+            </div>
+            <div class="edu-node">
+              <div class="edu-dot edu-dot--pulse"></div>
+              <div class="edu-connector"></div>
+            </div>
+            <div class="edu-content">
+              <span class="edu-degree">D3 Manajemen Informatika</span>
+              <h3 class="edu-institution">Politeknik LP3I Kampus Pekanbaru</h3>
+              <p class="edu-detail">
+                Studi vokasi terapan konsentrasi Rekayasa Perangkat Lunak dan Sistem Informasi. Menitikberatkan pada arsitektur basis data, algoritma pemrograman, dan rekayasa aplikasi bisnis siap industri.
+              </p>
+              <div class="edu-tags">
+                <span class="tag-sm">Manajemen Informatika</span>
+                <span class="tag-sm">Basis Data</span>
+                <span class="tag-sm">RPL</span>
+                <span class="tag-sm">Mahasiswa Aktif</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="edu-entry reveal-up">
+            <div class="edu-year-col">
+              <span class="edu-period">2024</span>
+            </div>
+            <div class="edu-node">
+              <div class="edu-dot"></div>
+              <div class="edu-connector"></div>
+            </div>
+            <div class="edu-content">
+              <span class="edu-degree">Generative AI with Google Cloud &amp; SDK</span>
+              <h3 class="edu-institution">Google Cloud · Dicoding Indonesia</h3>
+              <p class="edu-detail">
+                Pelatihan komprehensif implementasi Large Language Models, prompt engineering terstruktur, dan integrasi Google GenAI SDK untuk sistem cerdas.
+              </p>
+              <div class="edu-tags">
+                <span class="tag-sm">Google GenAI SDK</span>
+                <span class="tag-sm">Prompt Engineering</span>
+                <span class="tag-sm">LLM Integration</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="edu-entry reveal-up">
+            <div class="edu-year-col">
+              <span class="edu-period">2023</span>
+            </div>
+            <div class="edu-node">
+              <div class="edu-dot"></div>
+            </div>
+            <div class="edu-content">
+              <span class="edu-degree">Dasar Pemrograman Web &amp; Front-End</span>
+              <h3 class="edu-institution">Dicoding Indonesia · IDCamp</h3>
+              <p class="edu-detail">
+                Pemahaman mendalam arsitektur web modern, standardisasi HTML5 semantik, CSS Grid &amp; Flexbox, serta manipulasi DOM dan JavaScript asinkron.
+              </p>
+              <div class="edu-tags">
+                <span class="tag-sm">JavaScript</span>
+                <span class="tag-sm">Web Standards</span>
+                <span class="tag-sm">Responsive UI</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════
+         § 05  CERTIFICATES — Preview cards
+    ════════════════════════════════════════════════════════ -->
+    <section id="certificates" class="s-certs">
+
+      <div class="chapter-rail">
+        <span class="chapter-num">05</span>
+        <span class="chapter-line"></span>
+        <span class="chapter-label">Kredensial</span>
+      </div>
+
+      <div class="certs-main">
+
+        <div class="certs-header">
+          <p class="section-label reveal-up">Sertifikasi</p>
+          <h2 class="certs-title reveal-up">
+            Bukti<br><em>pembelajaran</em>
+          </h2>
+          <p class="certs-intro reveal-up">
+            Setiap sertifikasi adalah investasi yang disengaja — mengonfirmasi kompetensi teknis dan pemahaman arsitektural.
+          </p>
+        </div>
+
+        <div class="certs-grid-editorial">
+
+          <!-- Cert 01 — Featured large -->
+          <div class="cert-card cert-card--featured reveal-up">
+            <div class="cert-card-top">
+              <div class="cert-logo">
+                <svg viewBox="0 0 48 48" width="32" height="32" fill="none">
+                  <rect width="48" height="48" rx="10" fill="#c8b89a" opacity="0.15"/>
+                  <path d="M10 24C10 16.27 16.27 10 24 10C31.73 10 38 16.27 38 24C38 31.73 31.73 38 24 38C16.27 38 10 31.73 10 24Z" stroke="#c8b89a" stroke-width="1.5" opacity="0.7"/>
+                  <path d="M20 24L22.5 26.5L28 21" stroke="#c8b89a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <span class="cert-year-badge">2024</span>
+            </div>
+            <div class="cert-card-body">
+              <span class="cert-issuer-name">Politeknik LP3I</span>
+              <h3 class="cert-title-text">Sertifikasi Kompetensi Basis Data<br>&amp; Pemrograman Terstruktur</h3>
+              <p class="cert-desc">Uji kompetensi keahlian perancangan basis data relasional, normalisasi skema, kueri SQL teroptimasi, dan logika pemrograman aplikasi bisnis terstruktur.</p>
+            </div>
+            <div class="cert-card-footer">
+              <div class="cert-skills">
+                <span class="cert-skill">Basis Data</span>
+                <span class="cert-skill">SQL</span>
+                <span class="cert-skill">Algoritma</span>
+              </div>
+              <a href="#" class="cert-verify-link" target="_blank" rel="noopener">
+                Kredensial Resmi ↗
+              </a>
+            </div>
+          </div>
+
+          <!-- Cert 02 -->
+          <div class="cert-card reveal-up">
+            <div class="cert-card-top">
+              <div class="cert-logo">
+                <svg viewBox="0 0 48 48" width="32" height="32" fill="none">
+                  <rect width="48" height="48" rx="10" fill="#4285F4" opacity="0.12"/>
+                  <path d="M24 14L30 20V34H18V20L24 14Z" stroke="#4285F4" stroke-width="1.5" opacity="0.8"/>
+                  <path d="M20 28H28M20 32H26" stroke="#4285F4" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/>
+                </svg>
+              </div>
+              <span class="cert-year-badge">2024</span>
+            </div>
+            <div class="cert-card-body">
+              <span class="cert-issuer-name">Google Cloud · Dicoding</span>
+              <h3 class="cert-title-text">Generative AI with Google Cloud &amp; SDK</h3>
+              <p class="cert-desc">Sertifikasi penerapan model AI generatif melalui API &amp; SDK, rekayasa prompt tingkat lanjut, dan deployment solusi AI berbasis cloud.</p>
+            </div>
+            <div class="cert-card-footer">
+              <div class="cert-skills">
+                <span class="cert-skill">GenAI SDK</span>
+                <span class="cert-skill">LLMs</span>
+                <span class="cert-skill">Prompt Eng</span>
+              </div>
+              <a href="#" class="cert-verify-link" target="_blank" rel="noopener">Kredensial Resmi ↗</a>
+            </div>
+          </div>
+
+          <!-- Cert 03 -->
+          <div class="cert-card reveal-up">
+            <div class="cert-card-top">
+              <div class="cert-logo">
+                <svg viewBox="0 0 48 48" width="32" height="32" fill="none">
+                  <rect width="48" height="48" rx="10" fill="#5fdb6f" opacity="0.1"/>
+                  <circle cx="24" cy="24" r="10" stroke="#5fdb6f" stroke-width="1.5" opacity="0.7"/>
+                  <path d="M19 24L22 27L29 20" stroke="#5fdb6f" stroke-width="1.8" stroke-linecap="round" opacity="0.9"/>
+                </svg>
+              </div>
+              <span class="cert-year-badge">2023</span>
+            </div>
+            <div class="cert-card-body">
+              <span class="cert-issuer-name">Dicoding Indonesia · IDCamp</span>
+              <h3 class="cert-title-text">Dasar Pemrograman Web<br>&amp; Arsitektur Frontend</h3>
+              <p class="cert-desc">Validasi keterampilan fundamental pengembangan front-end, standardisasi web W3C, layout responsif adaptif, dan JavaScript modern.</p>
+            </div>
+            <div class="cert-card-footer">
+              <div class="cert-skills">
+                <span class="cert-skill">HTML5/CSS3</span>
+                <span class="cert-skill">JavaScript</span>
+                <span class="cert-skill">Responsive UI</span>
+              </div>
+              <a href="#" class="cert-verify-link" target="_blank" rel="noopener">Kredensial Resmi ↗</a>
+            </div>
+          </div>
+
+        </div><!-- /certs-grid-editorial -->
+
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════
+         § 06  CONTACT — "LET'S BUILD SOMETHING."
+    ════════════════════════════════════════════════════════ -->
+    <section id="contact" class="s-contact">
+
+      <!-- Inline Three.js canvas -->
+      <canvas id="contact-canvas" aria-hidden="true"></canvas>
+
+      <div class="chapter-rail chapter-rail--light">
+        <span class="chapter-num">06</span>
+        <span class="chapter-line"></span>
+        <span class="chapter-label">Kontak</span>
+      </div>
+
+      <div class="contact-main">
+
+        <!-- The big statement -->
+        <div class="contact-statement">
+          <h2 class="contact-headline reveal-up">
+            <span class="headline-line">MARI</span>
+            <span class="headline-line headline-line--italic">KITA</span>
+            <span class="headline-line">BANGUN.</span>
+          </h2>
+          <div class="contact-sub-row reveal-up">
+            <p class="contact-tagline">
+              Terbuka untuk kolaborasi proyek, pengembangan sistem,<br>
+              dan peluang rekayasa perangkat lunak.
+            </p>
+            <a href="mailto:mihwalmaulana09@gmail.com" class="contact-email-link">
+              mihwalmaulana09@gmail.com
+              <span class="email-arrow">↗</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Contact grid — form + socials -->
+        <div class="contact-grid">
+
+          <!-- Left: form -->
+          <div class="contact-form-col">
+            <form class="contact-form" id="contactForm" novalidate>
+              <div class="form-row">
+                <div class="form-field">
+                  <label for="name">Nama</label>
+                  <input type="text" id="name" name="name" placeholder="Nama Anda" required autocomplete="name" />
+                </div>
+                <div class="form-field">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" name="email" placeholder="email@anda.com" required autocomplete="email" />
+                </div>
+              </div>
+              <div class="form-field">
+                <label for="subject">Topik Pembahasan</label>
+                <input type="text" id="subject" name="subject" placeholder="Aplikasi Kasir / POS · Android Native · Web System · Lainnya" />
+              </div>
+              <div class="form-field">
+                <label for="budget">Tipe Kolaborasi <span class="label-opt">(opsional)</span></label>
+                <input type="text" id="budget" name="budget" placeholder="Proyek Sistem · Kolaborasi Open Source · Diskusi Teknis" />
+              </div>
+              <div class="form-field">
+                <label for="message">Pesan Anda</label>
+                <textarea id="message" name="message" rows="5" placeholder="Jelaskan kebutuhan sistem, target implementasi, atau pertanyaan Anda..." required></textarea>
+              </div>
+              <div class="form-footer">
+                <button type="submit" class="btn-send" id="sendBtn">
+                  <span class="btn-send-text">Kirim Pesan</span>
+                  <span class="btn-send-arrow">→</span>
+                </button>
+                <div class="form-status" id="formStatus"></div>
+              </div>
+            </form>
+          </div>
+
+          <!-- Right: social links + info -->
+          <div class="contact-info-col">
+
+            <div class="contact-info-block">
+              <h3 class="info-block-title">Kanal Komunikasi</h3>
+              <div class="social-links">
+                <a href="mailto:mihwalmaulana09@gmail.com" class="social-row">
+                  <span class="social-platform">Email</span>
+                  <span class="social-handle">mihwalmaulana09@gmail.com ↗</span>
+                </a>
+                <a href="https://github.com/WalZetass-kar" target="_blank" rel="noopener" class="social-row">
+                  <span class="social-platform">GitHub</span>
+                  <span class="social-handle">@WalZetass-kar ↗</span>
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-row">
+                  <span class="social-platform">LinkedIn</span>
+                  <span class="social-handle">M Ihwal Maulana ↗</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="contact-info-block">
+              <h3 class="info-block-title">Waktu respon</h3>
+              <p class="info-body">Saya biasanya merespons dalam <strong>24 jam</strong> pada hari kerja. Untuk proyek mendesak, beri tanda [MENDESAK] pada subjek pesan.</p>
+            </div>
+
+            <div class="contact-info-block">
+              <h3 class="info-block-title">Jam kerja</h3>
+              <p class="info-body">WIB (UTC+7) · Sen–Jum<br>09:00 — 18:00 waktu lokal</p>
+              <p class="info-body-sm">Tersedia untuk kolaborasi asinkron di zona waktu mana pun.</p>
+            </div>
+
+            <div class="availability-card">
+              <div class="avail-dot"></div>
+              <div>
+                <p class="avail-status">Tersedia untuk proyek</p>
+                <p class="avail-next">Slot terdekat: <strong>Oktober 2026</strong></p>
+              </div>
+            </div>
+
+          </div>
+
+        </div><!-- /contact-grid -->
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Footer ──────────────────────────────────────────────── -->
+  <footer id="footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <a href="index.html" class="footer-logo">WalZetass</a>
+        <span class="footer-copy">© 2026 M Ihwal Maulana. Hak cipta dilindungi.</span>
+      </div>
+      <div class="footer-right">
+        <a href="index.html" class="footer-mono" style="border-bottom:1px solid var(--border)">← Kembali ke Beranda</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="api.js"></script>
+  <script src="main.js"></script>
+  <script src="about.js"></script>
+</body>
+</html>

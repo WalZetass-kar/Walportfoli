@@ -1,0 +1,628 @@
+{
+  "profile": {
+    "name": "M Ihwal Maulana",
+    "handle": "WalZetass-Kar",
+    "title": "Mahasiswa Manajemen Informatika · Developer · AI Enthusiast",
+    "role": "Mahasiswa Manajemen Informatika · Developer · AI Enthusiast",
+    "location": "Pekanbaru · Indonesia",
+    "bio": "Saya mahasiswa aktif Manajemen Informatika di Politeknik LP3I Kampus Pekanbaru. Berfokus pada rekayasa perangkat lunak multi-platform, sistem kasir ritel offline-first, dan integrasi kecerdasan buatan berbasis Google Gemini.",
+    "longbio": "Saya M Ihwal Maulana (dikenal di komunitas sebagai WalZetass), mahasiswa aktif program studi Manajemen Informatika di Politeknik LP3I Kampus Pekanbaru. Saya berdedikasi membangun aplikasi yang tidak sekadar memiliki tampilan estetis, melainkan memiliki pondasi arsitektur data yang kokoh, berintegritas tinggi, dan andal digunakan di dunia nyata. Fokus rekayasa saya mencakup pembangunan sistem kasir ritel offline-first (WariPOS), aplikasi mobile Android native (CariKostKita), perpesanan privat intim dua arah (Duo Chat), serta penerapan agen dan model multimodal Google Gemini API.",
+    "email": "mihwalmaulana09@gmail.com",
+    "website": "https://github.com/WalZetass-kar",
+    "github": "https://github.com/WalZetass-kar",
+    "linkedin": "https://www.linkedin.com/in/m-ihwal-maulana-15792a353/",
+    "twitter": "https://twitter.com/walzetass",
+    "dribbble": "https://github.com/WalZetass-kar",
+    "meta-title": "M Ihwal Maulana — Mahasiswa Manajemen Informatika · Developer · AI Enthusiast",
+    "meta-desc": "Portofolio resmi M Ihwal Maulana: Mahasiswa Manajemen Informatika LP3I Pekanbaru, Lead Developer WariPOS POS Suite, CariKostKita Android, Duo Chat, dan Civic Report.",
+    "meta_title": "M Ihwal Maulana — Mahasiswa Manajemen Informatika · Developer · AI Enthusiast",
+    "meta_desc": "Portofolio resmi M Ihwal Maulana: Mahasiswa Manajemen Informatika LP3I Pekanbaru, Lead Developer WariPOS POS Suite, CariKostKita Android, Duo Chat, dan Civic Report.",
+    "available": false,
+    "avatar": "/assets/uploads/1791165479717_ChatGPT_Image_Jul_12__2026__04_59_40_PM.png"
+  },
+  "landing": {
+    "hero": {
+      "btn1Link": "#projects",
+      "btn2Link": "#contact",
+      "btn1Text": "Lihat Karya Pilihan",
+      "btn2Text": "Hubungi Saya",
+      "enabled": true
+    },
+    "marquee": {
+      "text": "",
+      "enabled": true
+    },
+    "about": {
+      "enabled": true,
+      "label": "02 — Tentang",
+      "headline": "Rekayasa sistem<br>yang <em>berdaya guna</em>",
+      "text1": "Saya <strong>M Ihwal Maulana</strong> (dikenal di komunitas sebagai <em>WalZetass</em>), mahasiswa aktif program studi Manajemen Informatika di Politeknik LP3I Kampus Pekanbaru. Saya berdedikasi membangun aplikasi yang tidak sekadar memiliki tampilan estetis, melainkan memiliki pondasi arsitektur data yang kokoh, berintegritas tinggi, dan andal digunakan di dunia nyata.",
+      "text2": "Fokus rekayasa saya mencakup pembangunan sistem kasir ritel offline-first (WariPOS), aplikasi mobile Android native (CariKostKita), perpesanan privat intim dua arah (Duo Chat), serta penerapan agen dan model multimodal Google Gemini API.",
+      "stat1Num": "",
+      "stat1Label": "",
+      "stat2Num": "",
+      "stat2Label": "",
+      "stat3Num": "",
+      "stat3Label": ""
+    },
+    "projects": {
+      "btnLink": "projects.html",
+      "btnText": "Lihat Arsip Lengkap",
+      "enabled": true
+    },
+    "skills": {
+      "enabled": true,
+      "label": "04 — Keahlian",
+      "headline": "Alat &<br><em>Teknologi Nyata</em>",
+      "intro": "Kumpulan bahasa pemrograman, kerangka kerja, dan perkakas teknis yang digunakan secara konsisten dalam proyek nyata dan rekayasa multi-platform."
+    },
+    "experience": {
+      "enabled": true,
+      "label": "05 — Jejak Perjalanan",
+      "headline": "Pendidikan &<br><em>Kontribusi</em>"
+    },
+    "certs": {
+      "enabled": true,
+      "label": "06 — Pembelajaran & Kredensial",
+      "headline": "Validasi & <em>Sertifikasi Keahlian</em>"
+    },
+    "contact": {
+      "enabled": true,
+      "label": "07 — Kontak & Kolaborasi",
+      "headline": "Mari membangun<br>sesuatu yang <em>berdampak</em>",
+      "sub": "Terbuka untuk kolaborasi proyek rekayasa sistem, eksplorasi kecerdasan buatan, maupun diskusi teknis. Kirimkan pesan langsung melalui formulir atau email.",
+      "email": "mihwalmaulana09@gmail.com"
+    }
+  },
+  "projects": [],
+  "skills": [
+    {
+      "id": "s1791167169521",
+      "name": "HTML & CSS",
+      "category": "Frontend",
+      "level": "advanced",
+      "order_index": 0
+    },
+    {
+      "id": "s1791167169550",
+      "name": "JavaScript",
+      "category": "Frontend",
+      "level": "intermediate",
+      "order_index": 0
+    },
+    {
+      "id": "s1791167169561",
+      "name": "React.js",
+      "category": "Frontend",
+      "level": "intermediate",
+      "order_index": 0
+    },
+    {
+      "id": "s1791167169574",
+      "name": "Tailwind CSS",
+      "category": "Frontend",
+      "level": "advanced",
+      "order_index": 0
+    },
+    {
+      "id": "s1791167169584",
+      "name": "Bootstrap",
+      "category": "Frontend",
+      "level": "advanced",
+      "order_index": 0
+    },
+    {
+      "id": "s1791167169593",
+      "name": "Node.js",
+      "category": "Backend",
+      "level": "intermediate",
+      "order_index": 0
+    },
+    {
+      "id": "s1791167169603",
+      "name": "Express.js",
+      "category": "Backend",
+      "level": "intermediate",
+      "order_index": 0
+    },
+    {
+      "id": "s1791167169614",
+      "name": "Python",
+      "category": "Backend",
+      "level": "intermediate",
+      "order_index": 0
+    },
+    {
+      "id": "s1791167169624",
+      "name": "MySQL",
+      "category": "Database",
+      "level": "intermediate",
+      "order_index": 0
+    },
+    {
+      "id": "s1791167169634",
+      "name": "SQLite",
+      "category": "Database",
+      "level": "intermediate",
+      "order_index": 0
+    },
+    {
+      "id": "s1791167169644",
+      "name": "Git & GitHub",
+      "category": "Tools & DevOps",
+      "level": "intermediate",
+      "order_index": 0
+    },
+    {
+      "id": "s1791167169656",
+      "name": "VS Code",
+      "category": "Tools & DevOps",
+      "level": "expert",
+      "order_index": 0
+    },
+    {
+      "id": "s1791167169668",
+      "name": "Postman",
+      "category": "Tools & DevOps",
+      "level": "intermediate",
+      "order_index": 0
+    },
+    {
+      "id": "s1791167169679",
+      "name": "Figma",
+      "category": "Design",
+      "level": "intermediate",
+      "order_index": 0
+    },
+    {
+      "id": "s1791167169689",
+      "name": "Canva",
+      "category": "Design",
+      "level": "advanced",
+      "order_index": 0
+    },
+    {
+      "id": "s1791167169699",
+      "name": "ChatGPT / GPT-4",
+      "category": "Prompt Engineering",
+      "level": "advanced",
+      "order_index": 0
+    },
+    {
+      "id": "s1791167169709",
+      "name": "Claude AI",
+      "category": "Prompt Engineering",
+      "level": "advanced",
+      "order_index": 0
+    },
+    {
+      "id": "s1791167169723",
+      "name": "Prompt Chaining",
+      "category": "Prompt Engineering",
+      "level": "intermediate",
+      "order_index": 0
+    },
+    {
+      "id": "s1791167169733",
+      "name": "Zero-shot & Few-shot Prompting",
+      "category": "Prompt Engineering",
+      "level": "intermediate",
+      "order_index": 0
+    },
+    {
+      "id": "s1791167169743",
+      "name": "Midjourney / DALL�E",
+      "category": "Prompt Engineering",
+      "level": "intermediate",
+      "order_index": 0
+    },
+    {
+      "id": "s1791167169756",
+      "name": "LangChain",
+      "category": "Prompt Engineering",
+      "level": "learning",
+      "order_index": 0
+    },
+    {
+      "id": "s1791167169767",
+      "name": "Linux CLI",
+      "category": "Tools & DevOps",
+      "level": "intermediate",
+      "order_index": 0
+    },
+    {
+      "id": "s1791167169801",
+      "name": "Docker (Dasar)",
+      "category": "Tools & DevOps",
+      "level": "learning",
+      "order_index": 0
+    }
+  ],
+  "experience": [],
+  "education": [
+    {
+      "id": "ed1791166668989",
+      "degree": "D2 Manajement Informatika",
+      "institution": "Politeknik LP3I Pekanbaru",
+      "period": "2025 - Sekarang",
+      "gpa": "3,7",
+      "detail": "",
+      "tags": [],
+      "order_index": 0
+    },
+    {
+      "id": "ed1791166684663",
+      "degree": "IPA",
+      "institution": "SMA N 2 KUBU BABUSSALAM",
+      "period": "2022 - 2025",
+      "gpa": "90",
+      "detail": "",
+      "tags": [],
+      "order_index": 1
+    }
+  ],
+  "certificates": [],
+  "sections": [
+    {
+      "id": "hero",
+      "name": "Hero & Pengantar",
+      "desc": "Judul, nama, foto potret, dan slogan pengembang kreatif",
+      "icon": "✦",
+      "visible": true,
+      "locked": true
+    },
+    {
+      "id": "marquee",
+      "name": "Ticker Marquee",
+      "desc": "Pita teks berjalan kontinu tak terbatas secara tipografis",
+      "icon": "◈",
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "about",
+      "name": "Tentang & Metrik",
+      "desc": "Pernyataan editorial, angka metrik, dan ikhtisar bio",
+      "icon": "01",
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "projects",
+      "name": "Karya Pilihan",
+      "desc": "Studi kasus editorial unggulan & daftar proyek",
+      "icon": "02",
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "skills",
+      "name": "Keahlian & Teknologi",
+      "desc": "Kategori teknologi, tingkat kemahiran, dan tag keahlian",
+      "icon": "03",
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "experience",
+      "name": "Linimasa Pengalaman",
+      "desc": "Riwayat karier, peran pada klien, dan pencapaian utama",
+      "icon": "04",
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "certificates",
+      "name": "Kredensial & Sertifikat",
+      "desc": "Sertifikasi terverifikasi dengan tautan kredensial",
+      "icon": "05",
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "contact",
+      "name": "Pernyataan Kontak",
+      "desc": "Judul MARI MEMBANGUN SESUATU, formulir kontak & tautan sosial",
+      "icon": "06",
+      "visible": true,
+      "locked": false
+    }
+  ],
+  "three": {
+    "activePage": "homepage",
+    "pages": {
+      "homepage": {
+        "enabled": true,
+        "parallax": true,
+        "parallaxStrength": 40,
+        "hover": true,
+        "opacity": 55,
+        "particles": {
+          "enabled": true,
+          "count": 600,
+          "size": 25,
+          "opacity": 35,
+          "drift": 20,
+          "color": "#c8b89a"
+        },
+        "lighting": {
+          "ambientColor": "#111110",
+          "ambientIntensity": 40,
+          "dirColor": "#c8b89a",
+          "dirIntensity": 60,
+          "shadows": false
+        },
+        "objects": [
+          {
+            "id": "geo1",
+            "name": "Icosahedron",
+            "type": "Icosahedron",
+            "wireframe": true,
+            "visible": true,
+            "rotX": 5,
+            "rotY": 7,
+            "rotZ": 0,
+            "scale": 100,
+            "posX": 3.5,
+            "posY": -0.5,
+            "posZ": -1
+          },
+          {
+            "id": "geo2",
+            "name": "Torus Ring",
+            "type": "Torus",
+            "wireframe": true,
+            "visible": true,
+            "rotX": 3,
+            "rotY": 0,
+            "rotZ": 4,
+            "scale": 100,
+            "posX": -3.8,
+            "posY": 1.5,
+            "posZ": -2
+          },
+          {
+            "id": "geo3",
+            "name": "Octahedra Floaters (x5)",
+            "type": "Octahedron",
+            "wireframe": true,
+            "visible": true,
+            "rotX": 6,
+            "rotY": 6,
+            "rotZ": 2,
+            "scale": 70,
+            "posX": 0,
+            "posY": 0,
+            "posZ": 0
+          }
+        ]
+      },
+      "about": {
+        "enabled": true,
+        "parallax": true,
+        "parallaxStrength": 30,
+        "hover": true,
+        "opacity": 18,
+        "particles": {
+          "enabled": true,
+          "count": 280,
+          "size": 18,
+          "opacity": 25,
+          "drift": 15,
+          "color": "#c8b89a"
+        },
+        "lighting": {
+          "ambientColor": "#111110",
+          "ambientIntensity": 30,
+          "dirColor": "#c8b89a",
+          "dirIntensity": 50,
+          "shadows": false
+        },
+        "objects": [
+          {
+            "id": "geo_a1",
+            "name": "Large Torus Ring",
+            "type": "Torus",
+            "wireframe": true,
+            "visible": true,
+            "rotX": 6,
+            "rotY": 12,
+            "rotZ": 0,
+            "scale": 120,
+            "posX": 0,
+            "posY": 0,
+            "posZ": 0
+          },
+          {
+            "id": "geo_a2",
+            "name": "Center Icosahedron",
+            "type": "Icosahedron",
+            "wireframe": true,
+            "visible": true,
+            "rotX": 4,
+            "rotY": 6,
+            "rotZ": 2,
+            "scale": 80,
+            "posX": 3,
+            "posY": -1,
+            "posZ": -1
+          }
+        ]
+      },
+      "projects": {
+        "enabled": true,
+        "parallax": true,
+        "parallaxStrength": 35,
+        "hover": true,
+        "opacity": 25,
+        "particles": {
+          "enabled": true,
+          "count": 400,
+          "size": 20,
+          "opacity": 30,
+          "drift": 20,
+          "color": "#c8b89a"
+        },
+        "lighting": {
+          "ambientColor": "#111110",
+          "ambientIntensity": 40,
+          "dirColor": "#c8b89a",
+          "dirIntensity": 60,
+          "shadows": false
+        },
+        "objects": [
+          {
+            "id": "geo_p1",
+            "name": "Showcase Torus",
+            "type": "Torus",
+            "wireframe": true,
+            "visible": true,
+            "rotX": 3,
+            "rotY": 5,
+            "rotZ": 0,
+            "scale": 100,
+            "posX": -2,
+            "posY": 1,
+            "posZ": -1
+          }
+        ]
+      },
+      "detail": {
+        "enabled": true,
+        "parallax": false,
+        "parallaxStrength": 15,
+        "hover": false,
+        "opacity": 20,
+        "particles": {
+          "enabled": true,
+          "count": 250,
+          "size": 15,
+          "opacity": 20,
+          "drift": 10,
+          "color": "#c8b89a"
+        },
+        "lighting": {
+          "ambientColor": "#111110",
+          "ambientIntensity": 30,
+          "dirColor": "#c8b89a",
+          "dirIntensity": 40,
+          "shadows": false
+        },
+        "objects": [
+          {
+            "id": "geo_d1",
+            "name": "Subtle Background Wire",
+            "type": "Icosahedron",
+            "wireframe": true,
+            "visible": true,
+            "rotX": 2,
+            "rotY": 2,
+            "rotZ": 0,
+            "scale": 90,
+            "posX": 2,
+            "posY": 0,
+            "posZ": -2
+          }
+        ]
+      }
+    },
+    "accentColor": "#c8b89a"
+  },
+  "seo": {
+    "activePage": "home",
+    "pages": {
+      "home": {
+        "title": "M Ihwal Maulana — Developer & AI Enthusiast",
+        "desc": "Portofolio M Ihwal Maulana (WalZetass) — Mahasiswa Manajemen Informatika Politeknik LP3I Pekanbaru, pengembang WariPOS, CariKostKita, Duo Chat, dan Civic Report.",
+        "canonical": "https://walzetass-kar.github.io",
+        "keywords": "M Ihwal Maulana, WalZetass, WariPOS, CariKostKita, Duo Chat, LP3I Pekanbaru, Manajemen Informatika, Android Developer, POS Electron",
+        "ogTitle": "M Ihwal Maulana — Developer & AI Enthusiast",
+        "ogDesc": "Mahasiswa Manajemen Informatika Politeknik LP3I Pekanbaru · Developer · AI Enthusiast.",
+        "ogImage": "assets/mockups/waripos-icon.png",
+        "sitemap": true,
+        "robots": true,
+        "schema": true,
+        "twitterCard": true,
+        "twitterHandle": "@WalZetass-kar"
+      },
+      "about": {
+        "title": "Tentang — M Ihwal Maulana | Mahasiswa & Developer",
+        "desc": "Profil, keahlian teknis, riwayat pendidikan Politeknik LP3I Pekanbaru, organisasi BEM, dan repositori open source oleh M Ihwal Maulana.",
+        "canonical": "https://walzetass-kar.github.io/about.html",
+        "keywords": "tentang, biografi, Politeknik LP3I, BEM LP3I, WariPOS, CariKostKita, WalZetass-Kar",
+        "ogTitle": "Tentang M Ihwal Maulana",
+        "ogDesc": "Perjalanan akademis Politeknik LP3I, organisasi BEM, dan rekayasa perangkat lunak mandiri.",
+        "ogImage": "assets/profil.png",
+        "sitemap": true,
+        "robots": true,
+        "schema": true,
+        "twitterCard": true,
+        "twitterHandle": "@WalZetass-kar"
+      },
+      "projects": {
+        "title": "Karya Nyata — M Ihwal Maulana",
+        "desc": "Studi kasus sistem mandiri: WariPOS (POS offline-first), CariKostKita (Android Room), Duo Chat (private messenger), dan Civic Report AI.",
+        "canonical": "https://walzetass-kar.github.io/projects.html",
+        "keywords": "WariPOS, CariKostKita, Duo Chat, Civic Report, portfolio developer, open source",
+        "ogTitle": "Karya Nyata — WalZetass",
+        "ogDesc": "Koleksi sistem dan aplikasi siap rilis oleh M Ihwal Maulana.",
+        "ogImage": "assets/mockups/waripos-icon.png",
+        "sitemap": true,
+        "robots": true,
+        "schema": true,
+        "twitterCard": true,
+        "twitterHandle": "@walzetass"
+      }
+    }
+  },
+  "social": {
+    "links": [
+      {
+        "id": "soc_email",
+        "platform": "Email",
+        "handle": "mihwalmaulana09@gmail.com",
+        "url": "mailto:mihwalmaulana09@gmail.com",
+        "visible": true
+      },
+      {
+        "id": "soc_gh",
+        "platform": "GitHub",
+        "handle": "@WalZetass-kar",
+        "url": "https://github.com/WalZetass-kar",
+        "visible": true
+      },
+      {
+        "id": "soc_li",
+        "platform": "LinkedIn",
+        "handle": "M Ihwal Maulana",
+        "url": "https://linkedin.com/in/walzetass",
+        "visible": true
+      },
+      {
+        "id": "soc_x",
+        "platform": "Twitter/X",
+        "handle": "@walzetass",
+        "url": "https://twitter.com/walzetass",
+        "visible": true
+      },
+      {
+        "id": "soc_dr",
+        "platform": "Proyek",
+        "handle": "WalZetass-kar",
+        "url": "https://github.com/WalZetass-kar?tab=repositories",
+        "visible": true
+      }
+    ],
+    "showInFooter": true,
+    "showInContact": true,
+    "showInHero": false,
+    "openNewTab": true,
+    "heroMax": 4
+  },
+  "settings": {
+    "accent": "#c8b89a",
+    "siteTitle": "WalZetass — M Ihwal Maulana",
+    "analytics": ""
+  },
+  "timestamp": "2026-10-05T03:16:35.738Z"
+}

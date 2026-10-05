@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 533" width="400" height="533">
+  <defs>
+    <linearGradient id="bg-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1c1c1a"/>
+      <stop offset="100%" stop-color="#111110"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="533" fill="url(#bg-grad)"/>
+  <line x1="0" y1="266" x2="400" y2="266" stroke="#ffffff" stroke-opacity="0.03" stroke-width="1"/>
+  <line x1="200" y1="0" x2="200" y2="533" stroke="#ffffff" stroke-opacity="0.03" stroke-width="1"/>
+  <path d="M20,20 L50,20 M20,20 L20,50" stroke="#c8b89a" stroke-opacity="0.3" stroke-width="1.5" fill="none"/>
+  <path d="M380,20 L350,20 M380,20 L380,50" stroke="#c8b89a" stroke-opacity="0.3" stroke-width="1.5" fill="none"/>
+  <path d="M20,513 L50,513 M20,513 L20,483" stroke="#c8b89a" stroke-opacity="0.3" stroke-width="1.5" fill="none"/>
+  <path d="M380,513 L350,513 M380,513 L380,483" stroke="#c8b89a" stroke-opacity="0.3" stroke-width="1.5" fill="none"/>
+  <ellipse cx="200" cy="340" rx="100" ry="50" fill="#252523"/>
+  <rect x="100" y="310" width="200" height="223" rx="8" fill="#252523"/>
+  <ellipse cx="200" cy="178" rx="82" ry="95" fill="#2a2a28"/>
+  <ellipse cx="200" cy="165" rx="68" ry="78" fill="#323230"/>
+  <ellipse cx="175" cy="165" rx="8" ry="9" fill="#1a1a18"/>
+  <ellipse cx="225" cy="165" rx="8" ry="9" fill="#1a1a18"/>
+  <circle cx="178" cy="162" r="2.5" fill="#c8b89a" opacity="0.6"/>
+  <circle cx="228" cy="162" r="2.5" fill="#c8b89a" opacity="0.6"/>
+  <path d="M165,150 Q175,145 188,148" stroke="#4a4a48" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M212,148 Q225,145 238,150" stroke="#4a4a48" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M196,178 Q200,195 204,178" stroke="#4a4a48" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M185,200 Q200,212 215,200" stroke="#c8b89a" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.7"/>
+  <line x1="140" y1="440" x2="260" y2="440" stroke="#c8b89a" stroke-opacity="0.15" stroke-width="1"/>
+  <text x="200" y="460" text-anchor="middle" font-family="Georgia, serif" font-size="18" fill="#e8dcc8" letter-spacing="1" opacity="0.9">M Ihwal Maulana</text>
+  <text x="200" y="485" text-anchor="middle" font-family="monospace" font-size="11" fill="#6a6762" letter-spacing="3">CREATIVE DEVELOPER</text>
+</svg>

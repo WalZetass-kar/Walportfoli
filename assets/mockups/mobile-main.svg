@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 1200" width="600" height="1200">
+  <defs>
+    <linearGradient id="g4" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#141412"/><stop offset="100%" stop-color="#0f0f0e"/>
+    </linearGradient>
+  </defs>
+  <!-- Phone frame -->
+  <rect x="50" y="0" width="500" height="1200" rx="44" fill="#1a1a18"/>
+  <rect x="60" y="10" width="480" height="1180" rx="38" fill="url(#g4)"/>
+  <!-- Notch -->
+  <rect x="200" y="20" width="200" height="30" rx="15" fill="#1a1a18"/>
+  <!-- Status bar -->
+  <text x="90" y="50" font-family="monospace" font-size="14" fill="#a09d96">9:41</text>
+  <text x="490" y="50" text-anchor="end" font-family="monospace" font-size="11" fill="#a09d96">●●● ▮</text>
+  <!-- App header -->
+  <rect x="60" y="70" width="480" height="64" fill="#161614"/>
+  <text x="120" y="110" font-family="Georgia,serif" font-size="22" fill="#e8dcc8">Focus</text>
+  <circle cx="500" cy="102" r="18" fill="#1f1f1d"/>
+  <text x="500" y="107" text-anchor="middle" font-family="monospace" font-size="12" fill="#c8b89a">⊞</text>
+  <!-- Today header -->
+  <text x="90" y="168" font-family="monospace" font-size="11" fill="#6a6762" letter-spacing="3">TODAY</text>
+  <text x="90" y="198" font-family="Georgia,serif" font-size="32" fill="#e8dcc8">Monday</text>
+  <text x="90" y="226" font-family="monospace" font-size="11" fill="#6a6762">Sep 29 · 4 tasks remaining</text>
+  <!-- Task cards -->
+  <rect x="80" y="250" width="440" height="80" rx="10" fill="#1c1c1a"/>
+  <rect x="80" y="250" width="4" height="80" rx="2" fill="#5fdb6f"/>
+  <circle cx="118" cy="290" r="14" fill="#1f1f1d" stroke="#5fdb6f" stroke-width="1.5"/>
+  <text x="148" y="284" font-family="Georgia,serif" font-size="15" fill="#e8dcc8">Finish portfolio redesign</text>
+  <text x="148" y="306" font-family="monospace" font-size="10" fill="#6a6762">Design · Due today</text>
+  <rect x="440" y="268" width="60" height="22" rx="11" fill="#5fdb6f" fill-opacity="0.15"/>
+  <text x="470" y="283" text-anchor="middle" font-family="monospace" font-size="9" fill="#5fdb6f">HIGH</text>
+
+  <rect x="80" y="346" width="440" height="80" rx="10" fill="#1c1c1a"/>
+  <rect x="80" y="346" width="4" height="80" rx="2" fill="#c8b89a"/>
+  <circle cx="118" cy="386" r="14" fill="#1f1f1d" stroke="#c8b89a" stroke-width="1.5"/>
+  <text x="148" y="380" font-family="Georgia,serif" font-size="15" fill="#e8dcc8">Review client feedback</text>
+  <text x="148" y="402" font-family="monospace" font-size="10" fill="#6a6762">Development · 2h left</text>
+  <rect x="440" y="364" width="60" height="22" rx="11" fill="#c8b89a" fill-opacity="0.15"/>
+  <text x="470" y="379" text-anchor="middle" font-family="monospace" font-size="9" fill="#c8b89a">MED</text>
+
+  <rect x="80" y="442" width="440" height="80" rx="10" fill="#1c1c1a" opacity="0.6"/>
+  <rect x="80" y="442" width="4" height="80" rx="2" fill="#a09d96" opacity="0.5"/>
+  <circle cx="118" cy="482" r="14" fill="#5fdb6f" fill-opacity="0.2"/>
+  <text x="118" cy="482" text-anchor="middle"/>
+  <text x="118" y="487" text-anchor="middle" font-family="monospace" font-size="12" fill="#5fdb6f">✓</text>
+  <text x="148" y="476" font-family="Georgia,serif" font-size="15" fill="#6a6762" text-decoration="line-through">Update dependencies</text>
+  <text x="148" y="498" font-family="monospace" font-size="10" fill="#4a4a48">Completed · 10:30 AM</text>
+
+  <!-- Progress ring section -->
+  <text x="90" y="570" font-family="monospace" font-size="11" fill="#6a6762" letter-spacing="3">FOCUS TIMER</text>
+  <circle cx="300" cy="680" r="110" fill="none" stroke="#1f1f1d" stroke-width="16"/>
+  <circle cx="300" cy="680" r="110" fill="none" stroke="#c8b89a" stroke-width="16" stroke-dasharray="483" stroke-dashoffset="155" stroke-linecap="round" transform="rotate(-90 300 680)" opacity="0.8"/>
+  <text x="300" y="668" text-anchor="middle" font-family="Georgia,serif" font-size="40" fill="#e8dcc8">18:42</text>
+  <text x="300" y="698" text-anchor="middle" font-family="monospace" font-size="11" fill="#6a6762">remaining</text>
+  <rect x="200" y="820" width="200" height="52" rx="26" fill="#c8b89a" fill-opacity="0.9"/>
+  <text x="300" y="852" text-anchor="middle" font-family="monospace" font-size="14" fill="#111110">■  Pause</text>
+
+  <!-- Bottom nav -->
+  <rect x="60" y="1100" width="480" height="80" fill="#161614"/>
+  <text x="150" y="1146" text-anchor="middle" font-family="monospace" font-size="20" fill="#c8b89a">⌂</text>
+  <text x="300" y="1146" text-anchor="middle" font-family="monospace" font-size="20" fill="#6a6762">◎</text>
+  <text x="450" y="1146" text-anchor="middle" font-family="monospace" font-size="20" fill="#6a6762">⊛</text>
+  <!-- Home indicator -->
+  <rect x="220" y="1174" width="160" height="4" rx="2" fill="#6a6762" opacity="0.5"/>
+</svg>

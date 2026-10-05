@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detail Proyek — M Ihwal Maulana</title>
+  <meta name="description" content="Studi kasus proyek oleh M Ihwal Maulana." />
+  <meta name="theme-color" content="#111110" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="projects.css" />
+</head>
+<body class="page-detail">
+
+  <canvas id="bg-canvas"></canvas>
+
+  <nav id="nav" class="scrolled">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">WalZetass</a>
+      <div class="nav-links">
+        <a href="about.html">Tentang</a>
+        <a href="projects.html" class="nav-active">Karya</a>
+        <a href="about.html#toolbox">Keahlian</a>
+        <a href="about.html#experience">Pengalaman</a>
+        <a href="about.html#contact">Kontak</a>
+      </div>
+      <button class="nav-menu-btn" id="menuBtn" aria-label="Menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-inner">
+      <a href="index.html#about" class="mobile-link">Tentang</a>
+      <a href="projects.html" class="mobile-link">Karya</a>
+      <a href="index.html#skills" class="mobile-link">Keahlian</a>
+      <a href="index.html#experience" class="mobile-link">Pengalaman</a>
+      <a href="index.html#contact" class="mobile-link">Kontak</a>
+    </div>
+  </div>
+
+  <!-- ── Progress Bar ──────────────────────────────── -->
+  <div class="read-progress" id="readProgress"></div>
+
+  <main id="detail-main">
+
+    <!-- ── Detail Hero ──────────────────────────────── -->
+    <section class="detail-hero">
+      <div class="detail-hero-inner">
+
+        <div class="detail-breadcrumb reveal-up">
+          <a href="projects.html">Karya</a>
+          <span class="breadcrumb-sep">→</span>
+          <span id="d-breadcrumb">WariPOS — Point of Sale Suite</span>
+        </div>
+
+        <div class="detail-hero-layout">
+          <div class="detail-hero-left">
+            <div class="detail-num reveal-up" id="d-num">01</div>
+            <h1 class="detail-title reveal-up" id="d-title">
+              WariPOS — Point of Sale<br><em>&amp; Retail Management</em>
+            </h1>
+            <p class="detail-tagline reveal-up" id="d-tagline">
+              Sistem kasir dan manajemen ritel multi-platform dengan arsitektur offline-first, pencetakan struk termal ESC/POS dinamis, rekonsiliasi kas shift, dan sinkronisasi inventori.
+            </p>
+          </div>
+          <div class="detail-hero-right reveal-fade">
+            <div class="detail-meta-grid">
+              <div class="detail-meta-item">
+                <span class="detail-meta-label">Kategori</span>
+                <span class="detail-meta-val" id="d-category">Desktop &amp; Mobile POS</span>
+              </div>
+              <div class="detail-meta-item">
+                <span class="detail-meta-label">Tahun</span>
+                <span class="detail-meta-val" id="d-year">2024 — 2026</span>
+              </div>
+              <div class="detail-meta-item">
+                <span class="detail-meta-label">Peran</span>
+                <span class="detail-meta-val" id="d-role">Lead System Developer</span>
+              </div>
+              <div class="detail-meta-item">
+                <span class="detail-meta-label">Durasi</span>
+                <span class="detail-meta-val" id="d-duration">Pengembangan Berkelanjutan</span>
+              </div>
+            </div>
+            <div class="detail-hero-links reveal-up">
+              <a href="https://github.com/WalZetass-kar/WariPOS/releases/latest" class="btn-primary" id="d-live-btn" target="_blank" rel="noopener">Rilis Unduhan ↗</a>
+              <a href="https://github.com/WalZetass-kar/WariPOS" class="btn-ghost" id="d-github-btn" target="_blank" rel="noopener">GitHub ↗</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── Hero Image ──────────────────────────────── -->
+    <div class="detail-cover reveal-clip">
+      <img id="d-cover" class="contain-fit" src="assets/mockups/waripos-icon.png" alt="Ikon WariPOS Point of Sale" />
+    </div>
+
+    <!-- ── Tech Stack Bar ──────────────────────────── -->
+    <div class="detail-stack-bar">
+      <div class="detail-stack-inner reveal-up">
+        <span class="stack-label">Stack Teknologi</span>
+        <div class="stack-tags" id="d-stack">
+          <span class="tag">Electron</span>
+          <span class="tag">Capacitor</span>
+          <span class="tag">React</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">SQLite</span>
+          <span class="tag">Drizzle ORM</span>
+          <span class="tag">Thermal ESC/POS</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Overview ──────────────────────────────────── -->
+    <section class="detail-section">
+      <div class="detail-section-inner">
+        <div class="detail-section-label reveal-up">Ringkasan</div>
+        <div class="detail-two-col">
+          <div class="detail-col-main">
+            <h2 class="detail-section-title reveal-up" id="d-overview-title">
+              Keandalan Operasional Ritel Penuh<br>Tanpa <em>Ketergantungan Internet</em>
+            </h2>
+          </div>
+          <div class="detail-col-body">
+            <p class="detail-body reveal-up" id="d-overview-body">
+              UMKM dan toko ritel kerap mengalami antrean tersendat dan risiko kehilangan transaksi saat koneksi internet terputus. WariPOS dirancang dengan prinsip offline-first menyeluruh: seluruh transaksi kasir, pemotongan stok, pembuatan nota, dan pencatatan shift disimpan langsung di database SQLite lokal perangkat.
+            </p>
+            <p class="detail-body reveal-up" id="d-overview-body2">
+              Mendukung pemindai barcode USB/kamera, pencetakan struk termal ESC/POS (58mm/80mm) dengan Dynamic Stacking agar teks nota tidak saling bertumpuk, ekspor PDF kontinu, serta pembagian nota digital langsung ke WhatsApp pelanggan.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── First Screenshot Spread ──────────────────── -->
+    <div class="detail-spread reveal-clip">
+      <div class="detail-spread-inner">
+        <div class="spread-main">
+          <img id="d-spread1" class="contain-fit" src="assets/mockups/waripos-icon.png" alt="Tangkapan layar proyek — tampilan utama" loading="lazy" />
+        </div>
+        <div class="spread-aside">
+          <img id="d-spread2" src="assets/mockups/dashboard-main.svg" alt="Tangkapan layar proyek — tampilan detail" loading="lazy" />
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Challenge ─────────────────────────────────── -->
+    <section class="detail-section detail-section--alt">
+      <div class="detail-section-inner">
+        <div class="detail-section-label reveal-up">Tantangan</div>
+        <div class="detail-two-col">
+          <div class="detail-col-main">
+            <h2 class="detail-section-title reveal-up">
+              Tantangan nyata<br>yang <em>dihadapi</em>
+            </h2>
+          </div>
+          <div class="detail-col-body">
+            <div class="challenge-block reveal-up" id="d-challenge">
+              <div class="challenge-item">
+                <span class="challenge-icon">◆</span>
+                <div>
+                  <h4>Integritas Transaksi Offline</h4>
+                  <p>Menjamin konsistensi pemotongan stok dan audit rekonsiliasi uang fisik kasir (Open/Close Shift) di SQLite lokal tanpa ada selisih data saat sinkronisasi.</p>
+                </div>
+              </div>
+              <div class="challenge-item">
+                <span class="challenge-icon">◆</span>
+                <div>
+                  <h4>Pencetakan Struk Termal Dinamis</h4>
+                  <p>Mengatasi keterbatasan lebar kertas POS dengan dynamic vertical stacking agar nama barang panjang dan harga tetap rapi di printer 58mm maupun 80mm.</p>
+                </div>
+              </div>
+              <div class="challenge-item">
+                <span class="challenge-icon">◆</span>
+                <div>
+                  <h4>Keseragaman Desktop &amp; Mobile</h4>
+                  <p>Menyatukan basis kode TypeScript dan komponen React untuk platform desktop Windows/Linux (Electron) dan perangkat ponsel kasir (Capacitor Android).</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Solution ──────────────────────────────────── -->
+    <section class="detail-section">
+      <div class="detail-section-inner">
+        <div class="detail-section-label reveal-up">Solusi</div>
+        <div class="detail-two-col">
+          <div class="detail-col-main">
+            <h2 class="detail-section-title reveal-up">
+              Pendekatan teknis<br>yang <em>berhasil</em>
+            </h2>
+          </div>
+          <div class="detail-col-body" id="d-solution">
+            <p class="detail-body reveal-up">
+              <strong>Arsitektur Offline-First:</strong> Memanfaatkan SQLite lokal dengan Drizzle ORM untuk pemrosesan transaksi berkecepatan tinggi tanpa latensi jaringan.
+            </p>
+            <p class="detail-body reveal-up">
+              <strong>ESC/POS &amp; Dynamic Stacking:</strong> Engine pencetakan nota kustom mendukung Bluetooth dan USB printer, ekspor PDF kontinu, serta pengiriman nota instan via WhatsApp.
+            </p>
+            <p class="detail-body reveal-up">
+              <strong>Audit Kas &amp; Inventori:</strong> Fitur buka/tutup kasir dengan audit surplus/defisit otomatis serta notifikasi Low Stock Alert saat stok menipis.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Full-width screenshot ──────────────────────── -->
+    <div class="detail-fullwidth reveal-clip">
+      <img id="d-fullwidth" class="contain-fit" src="assets/mockups/waripos-icon.png" alt="Tampilan penuh produk" loading="lazy" />
+    </div>
+
+    <!-- ── Results ───────────────────────────────────── -->
+    <section class="detail-section">
+      <div class="detail-section-inner">
+        <div class="detail-section-label reveal-up">Hasil</div>
+        <h2 class="detail-section-title reveal-up">
+          Dampak nyata<br><em>terukur</em>
+        </h2>
+        <div class="results-grid reveal-up" id="d-results">
+          <div class="result-stat">
+            <span class="result-num">100%</span>
+            <span class="result-label">Operasional luring tanpa koneksi internet</span>
+          </div>
+          <div class="result-stat">
+            <span class="result-num">&lt; 50ms</span>
+            <span class="result-label">Waktu proses transaksi &amp; pemotongan stok</span>
+          </div>
+          <div class="result-stat">
+            <span class="result-num">58/80mm</span>
+            <span class="result-label">Dukungan printer thermal ESC/POS multi-ukuran</span>
+          </div>
+          <div class="result-stat">
+            <span class="result-num">Multi</span>
+            <span class="result-label">Platform Desktop Windows, Linux &amp; Android APK</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Additional Screenshots ─────────────────────── -->
+    <section class="detail-section detail-section--dark">
+      <div class="detail-section-inner">
+        <div class="detail-section-label reveal-up">Galeri</div>
+        <h2 class="detail-section-title reveal-up">Tangkapan <em>layar lainnya</em></h2>
+        <div class="gallery-grid reveal-up" id="d-gallery">
+          <div class="gallery-item">
+            <img src="assets/mockups/waripos-icon.png" class="contain-fit" alt="Identitas WariPOS" loading="lazy" />
+            <span class="gallery-caption">Identitas &amp; Logo WariPOS</span>
+          </div>
+          <div class="gallery-item">
+            <img src="assets/mockups/dashboard-main.svg" alt="Dasbor Manajemen Stok &amp; Kasir" loading="lazy" />
+            <span class="gallery-caption">Dasbor Manajemen Stok &amp; Kasir</span>
+          </div>
+          <div class="gallery-item">
+            <img src="assets/mockups/ecommerce-main.svg" alt="Katalog Produk &amp; Fitur Held Cart" loading="lazy" />
+            <span class="gallery-caption">Katalog Produk &amp; Fitur Held Cart</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Next Project ────────────────────────────────── -->
+    <section class="next-project reveal-fade" id="d-next">
+      <a href="project-detail.html?id=carikostkita" class="next-project-link">
+        <div class="next-project-inner">
+          <div class="next-label">
+            <span class="section-label">Proyek Selanjutnya</span>
+          </div>
+          <h2 class="next-title">
+            CariKostKita<br><em>Android App</em>
+          </h2>
+          <div class="next-arrow">→</div>
+        </div>
+      </a>
+    </section>
+
+  </main>
+
+  <footer id="footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <span class="footer-logo">WalZetass</span>
+        <span class="footer-copy">© 2026 M Ihwal Maulana. Hak cipta dilindungi undang-undang.</span>
+      </div>
+      <div class="footer-right">
+        <a href="projects.html" class="footer-mono" style="border-bottom:1px solid var(--border);">← Kembali ke Karya</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="api.js"></script>
+  <script src="main.js"></script>
+  <script src="projects.js"></script>
+</body>
+</html>

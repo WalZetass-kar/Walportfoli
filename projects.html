@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Karya — M Ihwal Maulana</title>
+  <meta name="description" content="Proyek pilihan oleh M Ihwal Maulana — pengembang kreatif." />
+  <meta name="theme-color" content="#111110" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="projects.css" />
+</head>
+<body class="page-projects">
+
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Navigation -->
+  <nav id="nav" class="scrolled">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">WalZetass</a>
+      <div class="nav-links">
+        <a href="about.html">Tentang</a>
+        <a href="projects.html" class="nav-active">Karya</a>
+        <a href="about.html#toolbox">Toolbox</a>
+        <a href="about.html#experience">Pengalaman</a>
+        <a href="about.html#contact">Kontak</a>
+      </div>
+      <button class="nav-menu-btn" id="menuBtn" aria-label="Menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-inner">
+      <a href="index.html#about" class="mobile-link">Tentang</a>
+      <a href="projects.html" class="mobile-link">Karya</a>
+      <a href="index.html#skills" class="mobile-link">Keahlian</a>
+      <a href="index.html#experience" class="mobile-link">Pengalaman</a>
+      <a href="index.html#contact" class="mobile-link">Kontak</a>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- ── Page Header ──────────────────────────────────────── -->
+    <section class="page-hero">
+      <div class="page-hero-inner">
+        <p class="section-label reveal-up">Karya Pilihan</p>
+        <h1 class="page-hero-title reveal-up">
+          Sistem &amp; Aplikasi<br>
+          <em>berorientasi solusi nyata</em>
+        </h1>
+        <p class="page-hero-sub reveal-up">
+          Koleksi proyek mandiri terverifikasi: sistem kasir offline-first, aplikasi Android native,<br class="br-lg">
+          protokol pesan privat aman, dan platform pelaporan spasial bertenaga AI.
+        </p>
+        <div class="page-hero-meta reveal-up">
+          <span class="meta-item"><span class="meta-num">04</span> Sistem Utama</span>
+          <span class="meta-sep">·</span>
+          <span class="meta-item"><span class="meta-num">2023</span> – Sekarang</span>
+          <span class="meta-sep">·</span>
+          <span class="meta-item">WalZetass-Kar Ecosystem</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Filter Bar ──────────────────────────────────────── -->
+    <div class="filter-bar reveal-up">
+      <div class="filter-inner">
+        <button class="filter-btn active" data-filter="all">Semua</button>
+        <button class="filter-btn" data-filter="pos">Desktop &amp; POS</button>
+        <button class="filter-btn" data-filter="android">Android Native</button>
+        <button class="filter-btn" data-filter="chat">Private Chat</button>
+        <button class="filter-btn" data-filter="ai">AI &amp; Spasial</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         PROJECT SHOWCASES — alternating layout
+    ═══════════════════════════════════════════════════════ -->
+    <div id="projectsShowcaseContainer">
+
+    <!-- ── 01 / WariPOS ────── image LEFT ──────────────── -->
+    <article class="showcase" data-category="Desktop &amp; Mobile POS" data-tags="pos desktop offline-first retail" id="proj-01">
+      <div class="showcase-inner">
+
+        <div class="showcase-image reveal-clip">
+          <a href="project-detail.html?id=waripos" class="showcase-img-link" aria-label="Lihat proyek WariPOS">
+            <div class="showcase-img-wrap">
+              <img src="assets/mockups/waripos-icon.png" class="contain-fit" alt="Ikon WariPOS Point of Sale" loading="lazy" />
+              <div class="showcase-img-overlay">
+                <span class="overlay-cta">Lihat Studi Kasus ↗</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="showcase-content">
+          <div class="showcase-eyebrow reveal-up">
+            <span class="showcase-num">01</span>
+            <span class="showcase-cat">Desktop &amp; Mobile POS · 2024 — 2026</span>
+          </div>
+          <h2 class="showcase-title reveal-up">
+            WariPOS — Point of Sale<br><em>&amp; Retail Management</em>
+          </h2>
+          <p class="showcase-desc reveal-up">
+            Sistem kasir dan manajemen ritel multi-platform dengan arsitektur offline-first, pencetakan struk termal ESC/POS dinamis, rekonsiliasi kas shift, dan sinkronisasi inventori.
+          </p>
+          <div class="showcase-stack reveal-up">
+            <span class="stack-label">Teknologi</span>
+            <div class="stack-tags">
+              <span class="tag">Electron</span>
+              <span class="tag">Capacitor</span>
+              <span class="tag">React</span>
+              <span class="tag">TypeScript</span>
+              <span class="tag">SQLite</span>
+              <span class="tag">Thermal ESC/POS</span>
+            </div>
+          </div>
+          <div class="showcase-actions reveal-up">
+            <a href="project-detail.html?id=waripos" class="btn-primary">Studi Kasus →</a>
+            <a href="https://github.com/WalZetass-kar/WariPOS/releases/latest" class="btn-ghost" target="_blank" rel="noopener">Rilis Unduhan ↗</a>
+            <a href="https://github.com/WalZetass-kar/WariPOS" class="btn-ghost" target="_blank" rel="noopener">GitHub ↗</a>
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ── 02 / CariKostKita ────── image RIGHT ──────────────── -->
+    <article class="showcase showcase--reverse" data-category="Android Native" data-tags="android mobile java sqlite" id="proj-02">
+      <div class="showcase-inner">
+
+        <div class="showcase-image reveal-clip">
+          <a href="project-detail.html?id=carikostkita" class="showcase-img-link" aria-label="Lihat proyek CariKostKita">
+            <div class="showcase-img-wrap">
+              <img src="assets/mockups/carikostkita-icon.png" class="contain-fit" alt="Ikon CariKostKita Android App" loading="lazy" />
+              <div class="showcase-img-overlay">
+                <span class="overlay-cta">Lihat Studi Kasus ↗</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="showcase-content">
+          <div class="showcase-eyebrow reveal-up">
+            <span class="showcase-num">02</span>
+            <span class="showcase-cat">Android Native · 2026</span>
+          </div>
+          <h2 class="showcase-title reveal-up">
+            CariKostKita<br><em>Android App</em>
+          </h2>
+          <p class="showcase-desc reveal-up">
+            Aplikasi Android native untuk eksplorasi dan pemetaan hunian kost di Pekanbaru dengan filter interaktif, Room database offline, dan integrasi intent langsung ke pemilik kost.
+          </p>
+          <div class="showcase-stack reveal-up">
+            <span class="stack-label">Teknologi</span>
+            <div class="stack-tags">
+              <span class="tag">Android SDK (Java)</span>
+              <span class="tag">Material Design 3</span>
+              <span class="tag">Room SQLite</span>
+              <span class="tag">Google Maps Intent</span>
+            </div>
+          </div>
+          <div class="showcase-actions reveal-up">
+            <a href="project-detail.html?id=carikostkita" class="btn-primary">Studi Kasus →</a>
+            <a href="https://github.com/WalZetass-kar" class="btn-ghost" target="_blank" rel="noopener">GitHub ↗</a>
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ── 03 / Duo Chat ────── image LEFT ──────────────── -->
+    <article class="showcase" data-category="Private Messenger" data-tags="chat web privacy realtime" id="proj-03">
+      <div class="showcase-inner">
+
+        <div class="showcase-image reveal-clip">
+          <a href="project-detail.html?id=duochat" class="showcase-img-link" aria-label="Lihat proyek Duo Chat">
+            <div class="showcase-img-wrap">
+              <img src="assets/mockups/duochat-screen.png" alt="Tangkapan layar Duo Chat Private Messenger" loading="lazy" />
+              <div class="showcase-img-overlay">
+                <span class="overlay-cta">Lihat Studi Kasus ↗</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="showcase-content">
+          <div class="showcase-eyebrow reveal-up">
+            <span class="showcase-num">03</span>
+            <span class="showcase-cat">Private Messenger · 2026</span>
+          </div>
+          <h2 class="showcase-title reveal-up">
+            Duo Chat<br><em>(ChatPrivate)</em>
+          </h2>
+          <p class="showcase-desc reveal-up">
+            Aplikasi percakapan intim berpasangan (1-on-1 private messenger) dengan visual neubrutalist retro, autentikasi sesi aman, dan pairing invitation token real-time.
+          </p>
+          <div class="showcase-stack reveal-up">
+            <span class="stack-label">Teknologi</span>
+            <div class="stack-tags">
+              <span class="tag">React</span>
+              <span class="tag">Tailwind CSS</span>
+              <span class="tag">Supabase</span>
+              <span class="tag">Google Auth</span>
+              <span class="tag">Web Crypto</span>
+            </div>
+          </div>
+          <div class="showcase-actions reveal-up">
+            <a href="project-detail.html?id=duochat" class="btn-primary">Studi Kasus →</a>
+            <a href="https://github.com/WalZetass-kar" class="btn-ghost" target="_blank" rel="noopener">GitHub ↗</a>
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- ── 04 / Civic Report ────── image RIGHT ──────────────── -->
+    <article class="showcase showcase--reverse" data-category="AI &amp; Geospatial" data-tags="ai geospatial gemini fullstack" id="proj-04">
+      <div class="showcase-inner">
+
+        <div class="showcase-image reveal-clip">
+          <a href="project-detail.html?id=civic-report" class="showcase-img-link" aria-label="Lihat proyek Civic Report">
+            <div class="showcase-img-wrap">
+              <img src="assets/mockups/dashboard-main.svg" alt="Tangkapan layar Civic Report AI Platform" loading="lazy" />
+              <div class="showcase-img-overlay">
+                <span class="overlay-cta">Lihat Studi Kasus ↗</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="showcase-content">
+          <div class="showcase-eyebrow reveal-up">
+            <span class="showcase-num">04</span>
+            <span class="showcase-cat">AI &amp; Geospatial · 2025</span>
+          </div>
+          <h2 class="showcase-title reveal-up">
+            Civic Report<br><em>Platform Pengaduan Publik AI</em>
+          </h2>
+          <p class="showcase-desc reveal-up">
+            Platform pelaporan kerusakan infrastruktur kota dengan verifikasi gambar otomatis Google Gemini Vision, clustering radius spasial Haversine, dan pelacakan transparan.
+          </p>
+          <div class="showcase-stack reveal-up">
+            <span class="stack-label">Teknologi</span>
+            <div class="stack-tags">
+              <span class="tag">Next.js</span>
+              <span class="tag">Google GenAI SDK</span>
+              <span class="tag">Leaflet GIS</span>
+              <span class="tag">Node.js</span>
+              <span class="tag">MySQL</span>
+            </div>
+          </div>
+          <div class="showcase-actions reveal-up">
+            <a href="project-detail.html?id=civic-report" class="btn-primary">Studi Kasus →</a>
+            <a href="https://github.com/WalZetass-kar" class="btn-ghost" target="_blank" rel="noopener">GitHub ↗</a>
+          </div>
+        </div>
+
+      </div>
+    </article>
+    </div>
+
+    <!-- ── CTA ──────────────────────────────────────────────── -->
+    <section class="projects-cta">
+      <div class="projects-cta-inner reveal-up">
+        <p class="section-label">Punya ide proyek?</p>
+        <h2 class="cta-title">Mari bangun<br><em>sesuatu yang hebat</em></h2>
+        <a href="index.html#contact" class="btn-primary">Hubungi Saya →</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer id="footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <span class="footer-logo">WalZetass</span>
+        <span class="footer-copy">© 2026 M Ihwal Maulana. Hak cipta dilindungi.</span>
+      </div>
+      <div class="footer-right">
+        <span class="footer-mono">Dirancang &amp; Dibangun dengan ♥</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="api.js"></script>
+  <script src="main.js"></script>
+  <script src="projects.js"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Database (SQLite local only, Supabase is cloud)
+data/portfolio.db
+data/portfolio.db-shm
+data/portfolio.db-wal
+*.db
+*.sqlite
+
+# Environment secrets
+.env
+.env.local
+.env.production
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+dist/
+.next/
+
+# Editor
+.vscode/
+.idea/
+
+# Temp files
+data/current_data_export.json
