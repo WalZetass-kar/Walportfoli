@@ -1109,3 +1109,22 @@ button { cursor: pointer; font-family: inherit; }
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+/* RESPONSIVE MOBILE */
+@media (max-width: 860px) {
+  .dashboard-shell { flex-direction: column; }
+  .sidebar { width: 100%; min-height: auto; border-right: none; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+  .sidebar-header { padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; }
+  .sidebar-nav { flex-direction: row; overflow-x: auto; padding: 0 16px 12px 16px; gap: 8px; border-bottom: none; scrollbar-width: none; }
+  .sidebar-nav::-webkit-scrollbar { display: none; }
+  .nav-group-label { display: none; }
+  .nav-item { white-space: nowrap; padding: 8px 12px; }
+  .sidebar-footer { display: none; }
+  .main-content { margin-left: 0; }
+  .content-header { position: static; flex-direction: column; align-items: flex-start; padding: 20px 16px; gap: 16px; }
+  #sectionPanels { padding: 20px 16px; }
+  .form-row-2, .form-row-3 { grid-template-columns: 1fr; }
+  .msg-header, .cert-card, .timeline-item { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .item-actions { margin-top: 8px; }
+  .list-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+}
