@@ -443,6 +443,14 @@ main, nav, footer { position: relative; z-index: 1; }
   margin-left: auto;
   margin-right: 0;
   width: 100%;
+  animation: float 7s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-12px) rotate(2deg); }
+  66% { transform: translateY(6px) rotate(-1deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
 }
 
 .portrait-img {
