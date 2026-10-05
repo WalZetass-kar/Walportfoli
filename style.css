@@ -652,6 +652,13 @@ section {
   border-bottom: 1px solid var(--border);
 }
 
+.projects-header-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
 .projects-header-right {
   display: flex;
   flex-direction: column;
@@ -1865,6 +1872,13 @@ section {
   gap: 24px;
   padding-bottom: 28px;
   border-bottom: 1px solid var(--border);
+}
+
+.projects-header-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
 }
 
 .projects-header-right {
