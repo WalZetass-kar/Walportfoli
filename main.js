@@ -300,9 +300,9 @@
         const dist = Math.hypot(dx, dy);
 
         if (dist < maxConnectionDistance) {
-          // Quadratic soft alpha fade
-          const lineAlpha = (1 - dist / maxConnectionDistance) * 0.09;
-          ctx.strokeStyle = `rgba(200, 184, 154, ${lineAlpha})`;
+          // Quadratic soft alpha fade with subtle cyan/blue tint
+          const lineAlpha = (1 - dist / maxConnectionDistance) * 0.1;
+          ctx.strokeStyle = `rgba(56, 189, 248, ${lineAlpha})`;
           ctx.beginPath();
           ctx.moveTo(p1.screenX, p1.screenY);
           ctx.lineTo(p2.screenX, p2.screenY);
@@ -851,7 +851,7 @@
       const topSkills = skills.slice(0, 8);
       glanceStack.innerHTML = topSkills.map(s => {
         const sName = escapeHTML(typeof s === 'string' ? s : (s.name || s.title || ''));
-        return `<span class="tech-chip">${sName}</span>`;
+        return `<span class="editorial-chip">${sName}</span>`;
       }).join('');
     }
 
@@ -861,12 +861,11 @@
         const pTitle = escapeHTML(p.title || 'Project');
         const pSub = escapeHTML(p.tagline || p.category || p.role || 'Featured Project');
         return `
-          <a href="#projects" class="glance-link-item">
-            <div class="glance-link-meta">
-              <span class="glance-link-title">${pTitle}</span>
-              <span class="glance-link-sub">${pSub}</span>
-            </div>
-            <span class="glance-link-arrow">↗</span>
+          <a href="#projects" class="editorial-project-row">
+            <span class="proj-title">${pTitle}</span>
+            <span class="proj-sep">—</span>
+            <span class="proj-subtitle">${pSub}</span>
+            <span class="proj-arrow">↗</span>
           </a>
         `;
       }).join('');
@@ -1310,7 +1309,7 @@
     let currentTiltX = 0;
     let currentTiltY = 0;
     let isHovered = false;
-    const maskRadius = 150; // sweetspot 120px - 180px
+    const maskRadius = 165; // radius 120-180px sweetspot for enlarged portrait
 
     function renderFrame() {
       if (!isHovered) {

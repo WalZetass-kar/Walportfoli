@@ -318,9 +318,10 @@ main, nav, footer { position: relative; z-index: 1; }
 .hero-layout,
 .hero-layout-3col {
   display: grid;
-  grid-template-columns: minmax(310px, 1.15fr) minmax(290px, 350px) minmax(280px, 1.05fr);
-  gap: clamp(24px, 3.2vw, 48px);
+  grid-template-columns: minmax(320px, 1.1fr) minmax(380px, 1.45fr) minmax(280px, 1.05fr);
+  gap: clamp(28px, 4vw, 64px);
   align-items: center;
+  width: 100%;
 }
 
 .hero-col {
@@ -339,11 +340,11 @@ main, nav, footer { position: relative; z-index: 1; }
   font-family: var(--font-mono);
   font-size: 0.7rem;
   letter-spacing: 0.12em;
-  color: var(--accent);
+  color: #38bdf8;
   margin-bottom: 22px;
   text-transform: uppercase;
-  background: rgba(200, 184, 154, 0.05);
-  border: 1px solid rgba(200, 184, 154, 0.18);
+  background: rgba(56, 189, 248, 0.05);
+  border: 1px solid rgba(56, 189, 248, 0.18);
   padding: 5px 14px;
   border-radius: 999px;
   width: fit-content;
@@ -352,8 +353,8 @@ main, nav, footer { position: relative; z-index: 1; }
 .dot {
   width: 6px; height: 6px;
   border-radius: 50%;
-  background: #5fdb6f;
-  box-shadow: 0 0 8px rgba(95, 219, 111, 0.6);
+  background: #38bdf8;
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.7);
   animation: pulse 2s ease-in-out infinite;
 }
 
@@ -404,7 +405,7 @@ main, nav, footer { position: relative; z-index: 1; }
 .hero-desc {
   font-size: clamp(0.96rem, 1.25vw, 1.08rem);
   color: var(--text-2);
-  max-width: 580px;
+  max-width: 540px;
   line-height: 1.7;
   margin-bottom: 24px;
 }
@@ -446,7 +447,7 @@ main, nav, footer { position: relative; z-index: 1; }
   flex-wrap: wrap;
 }
 
-/* ── Kolom Tengah: Interactive Dual-Layer Spotlight Portrait ── */
+/* ── Kolom Tengah: Foto Profil Utama (Besar, Frameless, Menyatu Background) ── */
 .hero-col-center {
   display: flex;
   justify-content: center;
@@ -456,7 +457,7 @@ main, nav, footer { position: relative; z-index: 1; }
 
 .portrait-stage {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
   width: 100%;
   position: relative;
@@ -464,26 +465,28 @@ main, nav, footer { position: relative; z-index: 1; }
 
 .portrait-interactive-frame {
   position: relative;
-  aspect-ratio: 3/4;
+  aspect-ratio: 1 / 1.32;
   width: 100%;
-  max-width: clamp(280px, 24vw, 350px);
-  border-radius: var(--radius);
-  overflow: hidden;
+  max-width: clamp(380px, 34vw, 520px); /* Diperbesar secara signifikan */
   background: transparent;
-  border: 1px solid var(--border-strong);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  border: none;
+  outline: none;
+  box-shadow: none;
   cursor: crosshair;
-  perspective: 1000px;
+  perspective: 1200px;
   transform-style: preserve-3d;
-  transition: border-color 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out), transform 0.45s var(--ease-out);
+  transition: transform 0.45s var(--ease-out);
   user-select: none;
   -webkit-user-select: none;
   touch-action: none;
+  /* Bagian tubuh bawah menyatu langsung dan memudar ke background dark */
+  mask-image: linear-gradient(to bottom, black 0%, black 72%, transparent 98%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 72%, transparent 98%);
 }
 
 .portrait-interactive-frame:hover {
-  border-color: rgba(56, 189, 248, 0.5);
-  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.65), 0 0 20px rgba(56, 189, 248, 0.12);
+  border: none;
+  box-shadow: none;
 }
 
 .portrait-layer {
@@ -502,33 +505,32 @@ main, nav, footer { position: relative; z-index: 1; }
   display: block;
 }
 
-/* Layer 1: Formal Photo (Base) */
+/* Layer 1 (Dasar): Foto Formal */
 .portrait-layer-base {
   z-index: 1;
 }
 
 .portrait-layer-base img {
-  filter: grayscale(12%) contrast(102%);
-  transition: filter 0.4s var(--ease-out);
+  filter: contrast(104%);
 }
 
-/* Layer 2: Anonymous Photo (Top, revealed via cursor radial mask) */
+/* Layer 2 (Atas): Foto Anonymous (Spotlight Reveal via Radial Mask) */
 .portrait-layer-anon {
   z-index: 2;
   opacity: var(--mask-opacity, 0);
   transition: opacity 0.38s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: mask-image, -webkit-mask-image, opacity;
   mask-image: radial-gradient(
-    circle var(--mask-r, 150px) at var(--mask-x, 50%) var(--mask-y, 50%),
+    circle var(--mask-r, 160px) at var(--mask-x, 50%) var(--mask-y, 50%),
     black 0%,
-    black calc(var(--mask-r, 150px) - 45px),
-    transparent var(--mask-r, 150px)
+    black calc(var(--mask-r, 160px) - 55px),
+    transparent var(--mask-r, 160px)
   );
   -webkit-mask-image: radial-gradient(
-    circle var(--mask-r, 150px) at var(--mask-x, 50%) var(--mask-y, 50%),
+    circle var(--mask-r, 160px) at var(--mask-x, 50%) var(--mask-y, 50%),
     black 0%,
-    black calc(var(--mask-r, 150px) - 45px),
-    transparent var(--mask-r, 150px)
+    black calc(var(--mask-r, 160px) - 55px),
+    transparent var(--mask-r, 160px)
   );
 }
 
@@ -536,140 +538,133 @@ main, nav, footer { position: relative; z-index: 1; }
   filter: contrast(108%) brightness(102%);
 }
 
-/* ── Kolom Kanan: Quick Glance Panel (Pure Editorial Seamless) ─ */
+/* ── Kolom Kanan: Teks Ringan Editorial (Tanpa Card / Menyatu Canvas) ── */
 .hero-col-right {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 
-.hero-glance-panel {
+.hero-editorial-aside {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 32px;
   padding: 0;
   background: transparent;
   border: none;
   box-shadow: none;
 }
 
-.glance-card {
+.editorial-block {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--border-subtle);
+  gap: 10px;
 }
 
-.glance-card:last-child {
-  padding-bottom: 0;
-  border-bottom: none;
-}
-
-.glance-head {
+.editorial-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #38bdf8;
+  font-weight: 700;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.glance-num {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  color: #38bdf8;
-  letter-spacing: 0.08em;
-  font-weight: 700;
+.editorial-label::before {
+  content: '';
+  width: 6px;
+  height: 1px;
+  background: #38bdf8;
+  opacity: 0.8;
 }
 
-.glance-label {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-3);
-  font-weight: 500;
-}
-
-.glance-desc {
-  font-size: 0.9rem;
+.editorial-text {
+  font-size: 0.94rem;
   color: var(--text-2);
-  line-height: 1.6;
+  line-height: 1.7;
+  max-width: 320px;
 }
 
-.glance-chips {
+.editorial-tech-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 8px;
+  max-width: 320px;
 }
 
-.tech-chip {
+.editorial-chip {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   letter-spacing: 0.04em;
-  color: var(--text);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  padding: 3px 8px;
+  color: var(--text-2);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(240, 237, 230, 0.1);
+  padding: 4px 10px;
   border-radius: var(--radius-xs);
-  transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
+  transition: border-color 0.25s ease, color 0.25s ease, background 0.25s ease;
 }
 
-.tech-chip:hover {
+.editorial-chip:hover {
   border-color: rgba(56, 189, 248, 0.45);
   color: #38bdf8;
-  background: var(--surface-hover);
-}
-
-.glance-links {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.glance-link-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 7px 10px;
-  border-radius: var(--radius-xs);
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid transparent;
-  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-}
-
-.glance-link-item:hover {
   background: rgba(56, 189, 248, 0.06);
-  border-color: rgba(56, 189, 248, 0.25);
-  transform: translateX(3px);
 }
 
-.glance-link-meta {
+.editorial-project-list {
   display: flex;
   flex-direction: column;
+  gap: 10px;
+  max-width: 340px;
 }
 
-.glance-link-title {
-  font-size: 0.86rem;
+.editorial-project-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(240, 237, 230, 0.06);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.editorial-project-row:hover {
+  transform: translateX(4px);
+  border-color: rgba(56, 189, 248, 0.3);
+}
+
+.editorial-project-row .proj-title {
+  font-size: 0.92rem;
   font-weight: 600;
   color: var(--text);
   line-height: 1.2;
 }
 
-.glance-link-sub {
+.editorial-project-row .proj-sep {
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: 0.7rem;
   color: var(--text-3);
-  letter-spacing: 0.04em;
+  opacity: 0.5;
 }
 
-.glance-link-arrow {
+.editorial-project-row .proj-subtitle {
   font-family: var(--font-mono);
-  font-size: 0.85rem;
+  font-size: 0.65rem;
+  color: var(--text-3);
+  letter-spacing: 0.04em;
+  flex: 1;
+}
+
+.editorial-project-row .proj-arrow {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
   color: #38bdf8;
   opacity: 0.7;
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.glance-link-item:hover .glance-link-arrow {
+.editorial-project-row:hover .proj-arrow {
   opacity: 1;
   transform: translate(2px, -2px);
 }
@@ -1853,12 +1848,24 @@ section {
     display: none;
   }
 
-  /* Hero Portrait Mobile (Anti-bleed) */
+  /* Hero Portrait Mobile (Centerpiece, Frameless, Faded Torso) */
   .portrait-interactive-frame {
     width: 100%;
-    max-width: min(280px, 78vw);
-    aspect-ratio: 3/4;
+    max-width: min(340px, 86vw);
+    aspect-ratio: 1 / 1.32;
     margin: 0 auto;
+  }
+
+  .hero-editorial-aside {
+    width: 100%;
+    gap: 24px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(240, 237, 230, 0.08);
+  }
+  .editorial-text,
+  .editorial-tech-list,
+  .editorial-project-list {
+    max-width: 100%;
   }
 
 
