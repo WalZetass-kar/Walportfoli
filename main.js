@@ -1309,7 +1309,7 @@
     let currentTiltX = 0;
     let currentTiltY = 0;
     let isHovered = false;
-    const maskRadius = 165; // radius 120-180px sweetspot for enlarged portrait
+    const maskRadius = 180; // optimal radius for grand enlarged portrait
 
     function renderFrame() {
       if (!isHovered) {
