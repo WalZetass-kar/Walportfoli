@@ -304,25 +304,30 @@ main, nav, footer { position: relative; z-index: 1; }
 
 /* ── Hero Section ────────────────────────────────────────────── */
 #hero {
-  min-height: calc(100vh - 40px);
+  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  padding: clamp(28px, 4vh, 48px) var(--pad-x) clamp(20px, 3vh, 36px);
+  justify-content: center;
+  padding-top: calc(72px + clamp(24px, 4vh, 48px));
+  padding-bottom: clamp(28px, 4.5vh, 52px);
+  padding-left: var(--pad-x);
+  padding-right: var(--pad-x);
   max-width: 1320px;
   margin: 0 auto;
   width: 100%;
   position: relative;
+  box-sizing: border-box;
 }
 
 .hero-layout,
 .hero-layout-3col {
   display: grid;
-  grid-template-columns: minmax(290px, 1.05fr) minmax(380px, 1.45fr) minmax(290px, 1.05fr);
-  gap: clamp(20px, 2.5vw, 42px);
+  grid-template-columns: minmax(280px, 1.05fr) minmax(350px, 1.35fr) minmax(280px, 1.05fr);
+  gap: clamp(20px, 2.5vw, 44px);
   align-items: flex-start;
   width: 100%;
-  padding-top: 0;
+  margin: auto 0;
 }
 
 .hero-col {
@@ -333,7 +338,7 @@ main, nav, footer { position: relative; z-index: 1; }
 /* ── Kolom Kiri: Nama & Intro Editorial ── */
 .hero-col-left {
   width: 100%;
-  padding-top: 0;
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
 }
@@ -360,9 +365,9 @@ main, nav, footer { position: relative; z-index: 1; }
 
 .hero-name {
   font-family: var(--font-serif);
-  font-size: clamp(2.8rem, 4.4vw, 4.4rem);
+  font-size: clamp(2.6rem, 4vw, 4.2rem);
   font-weight: 400;
-  line-height: 1.04;
+  line-height: 1.05;
   letter-spacing: -0.025em;
   color: #ffffff;
   margin: 0;
@@ -397,7 +402,7 @@ main, nav, footer { position: relative; z-index: 1; }
   align-items: center;
   gap: 14px;
   flex-wrap: wrap;
-  margin-bottom: 32px;
+  margin-bottom: 0;
 }
 
 #hero .btn-primary {
@@ -452,8 +457,8 @@ main, nav, footer { position: relative; z-index: 1; }
   letter-spacing: 0.14em;
   color: #7d8590;
   text-transform: uppercase;
-  margin-top: auto;
-  padding-top: 18px;
+  margin-top: clamp(28px, 4.5vh, 48px);
+  padding-top: 0;
 }
 
 .scroll-tag {
@@ -488,12 +493,13 @@ main, nav, footer { position: relative; z-index: 1; }
   100% { opacity: 0; transform: translate(-50%, 7px); }
 }
 
-/* ── Kolom Tengah: Foto Profil Focal Point Utama (Besar, Frameless, Menyatu Canvas) ── */
+/* ── Kolom Tengah: Foto Profil Focal Point Utama ── */
 .hero-col-center {
   display: flex;
   justify-content: center;
   align-items: flex-start;
   width: 100%;
+  padding-top: 0;
 }
 
 .portrait-stage {
@@ -506,9 +512,10 @@ main, nav, footer { position: relative; z-index: 1; }
 
 .portrait-interactive-frame {
   position: relative;
-  aspect-ratio: 1 / 1.28;
+  aspect-ratio: 1 / 1.25;
   width: 100%;
-  max-width: clamp(480px, 46vw, 700px); /* Diperbesar maksimal sesuai referensi contoh.png */
+  max-width: clamp(380px, 34vw, 500px);
+  max-height: min(65vh, 560px);
   background: transparent;
   border: none;
   outline: none;
@@ -584,7 +591,7 @@ main, nav, footer { position: relative; z-index: 1; }
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding-top: 0;
+  padding-top: 20px;
 }
 
 .hero-glance-editorial {
@@ -1881,8 +1888,8 @@ section {
   /* Hero Mobile */
   #hero {
     min-height: auto;
-    padding-top: 58px;
-    padding-bottom: 32px;
+    padding-top: calc(72px + 24px);
+    padding-bottom: 36px;
   }
   .hero-layout,
   .hero-layout-3col {
@@ -1901,10 +1908,12 @@ section {
   .hero-col-left {
     order: 2;
     width: 100%;
+    padding-top: 0;
   }
   .hero-col-right {
     order: 3;
     width: 100%;
+    padding-top: 0;
   }
   .hero-eyebrow {
     font-size: 0.65rem;
