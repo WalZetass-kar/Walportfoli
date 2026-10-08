@@ -469,9 +469,9 @@ main, nav, footer { position: relative; z-index: 1; }
   max-width: clamp(280px, 24vw, 350px);
   border-radius: var(--radius);
   overflow: hidden;
-  background: var(--surface);
+  background: transparent;
   border: 1px solid var(--border-strong);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(56, 189, 248, 0.08);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
   cursor: crosshair;
   perspective: 1000px;
   transform-style: preserve-3d;
@@ -483,7 +483,7 @@ main, nav, footer { position: relative; z-index: 1; }
 
 .portrait-interactive-frame:hover {
   border-color: rgba(56, 189, 248, 0.5);
-  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.65), 0 0 24px rgba(56, 189, 248, 0.18);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.65), 0 0 20px rgba(56, 189, 248, 0.12);
 }
 
 .portrait-layer {
@@ -536,76 +536,7 @@ main, nav, footer { position: relative; z-index: 1; }
   filter: contrast(108%) brightness(102%);
 }
 
-/* Minimalist Casing */
-.portrait-casing {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  pointer-events: none;
-  border-radius: var(--radius);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-}
-
-/* Location Tag */
-.portrait-stage .portrait-tag {
-  position: absolute;
-  bottom: 12px;
-  left: 12px;
-  background: rgba(22, 22, 20, 0.88);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid var(--border-strong);
-  padding: 6px 12px;
-  border-radius: var(--radius-sm);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
-  z-index: 4;
-  pointer-events: none;
-}
-
-.portrait-stage .tag-mono {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.12em;
-  color: var(--text-3);
-  text-transform: uppercase;
-}
-
-/* Hint text under portrait */
-.portrait-spotlight-hint {
-  margin-top: 12px;
-  display: flex;
-  justify-content: center;
-}
-
-.hint-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-family: var(--font-mono);
-  font-size: 0.64rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-3);
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border-subtle);
-  padding: 4px 12px;
-  border-radius: 999px;
-  transition: color 0.3s ease, border-color 0.3s ease;
-}
-
-.hint-glow {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #38bdf8;
-  box-shadow: 0 0 8px #38bdf8;
-  animation: pulse 2.2s infinite ease-in-out;
-}
-
-/* ── Kolom Kanan: Quick Glance Panel ────────────────────────── */
+/* ── Kolom Kanan: Quick Glance Panel (Pure Editorial Seamless) ─ */
 .hero-col-right {
   display: flex;
   flex-direction: column;
@@ -616,20 +547,10 @@ main, nav, footer { position: relative; z-index: 1; }
   display: flex;
   flex-direction: column;
   gap: 18px;
-  padding: 22px 20px;
-  background: var(--bg-2);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius);
-  position: relative;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
-}
-
-.hero-glance-panel::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.4), transparent);
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 .glance-card {
@@ -1939,15 +1860,7 @@ section {
     aspect-ratio: 3/4;
     margin: 0 auto;
   }
-  .portrait-interactive-frame .portrait-tag {
-    bottom: 10px;
-    left: 10px;
-    padding: 6px 10px;
-    gap: 6px;
-  }
-  .tag-mono {
-    font-size: 0.6rem;
-  }
+
 
   /* Project Showcase Mobile */
   .project-showcase-item,
