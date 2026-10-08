@@ -309,8 +309,8 @@ main, nav, footer { position: relative; z-index: 1; }
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-top: calc(72px + clamp(24px, 4vh, 48px));
-  padding-bottom: clamp(28px, 4.5vh, 52px);
+  padding-top: 72px; /* Ensure content starts below the fixed navbar */
+  padding-bottom: 0; /* Let flexbox handle vertical centering */
   padding-left: var(--pad-x);
   padding-right: var(--pad-x);
   max-width: 1320px;
@@ -325,7 +325,7 @@ main, nav, footer { position: relative; z-index: 1; }
   display: grid;
   grid-template-columns: minmax(280px, 1.05fr) minmax(350px, 1.35fr) minmax(280px, 1.05fr);
   gap: clamp(20px, 2.5vw, 44px);
-  align-items: flex-start;
+  align-items: center; /* Sejajarkan teks kiri dan kanan dengan gambar tengah */
   width: 100%;
   margin: auto 0;
 }
@@ -338,7 +338,6 @@ main, nav, footer { position: relative; z-index: 1; }
 /* ── Kolom Kiri: Nama & Intro Editorial ── */
 .hero-col-left {
   width: 100%;
-  padding-top: 20px;
   display: flex;
   flex-direction: column;
 }
@@ -457,7 +456,10 @@ main, nav, footer { position: relative; z-index: 1; }
   letter-spacing: 0.14em;
   color: #7d8590;
   text-transform: uppercase;
-  margin-top: clamp(28px, 4.5vh, 48px);
+  position: absolute;
+  bottom: clamp(20px, 4vh, 40px);
+  left: var(--pad-x);
+  margin-top: 0;
   padding-top: 0;
 }
 
@@ -514,8 +516,8 @@ main, nav, footer { position: relative; z-index: 1; }
   position: relative;
   aspect-ratio: 1 / 1.25;
   width: 100%;
-  max-width: clamp(380px, 34vw, 500px);
-  max-height: min(65vh, 560px);
+  max-width: clamp(380px, 38vw, 540px);
+  max-height: min(72vh, 660px);
   background: transparent;
   border: none;
   outline: none;
@@ -591,7 +593,6 @@ main, nav, footer { position: relative; z-index: 1; }
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding-top: 20px;
 }
 
 .hero-glance-editorial {
@@ -1815,6 +1816,7 @@ section {
   .nav-links { display: none; }
   .nav-menu-btn { display: flex; }
   .cursor, .cursor-ring { display: none; }
+  .hero-scroll-pill { display: none; }
 
   /* Hero Tablet */
   .hero-layout,
