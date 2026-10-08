@@ -52,39 +52,35 @@
   <main>
 
     <!-- ═══════════════════════════════════════ HERO ═══════════════════════════════════════ -->
+    <!-- ═══════════════════════════════════════ HERO ═══════════════════════════════════════ -->
     <section id="hero">
       <div class="hero-layout hero-layout-3col">
 
         <!-- KOLOM KIRI: Identitas & CTA -->
         <div class="hero-col hero-col-left">
-          <p class="hero-eyebrow reveal-up" style="display: none;"></p>
-          <h1 class="hero-name reveal-up"></h1>
-          <p class="hero-role reveal-up"></p>
-          <p class="hero-desc reveal-up"></p>
+          <p class="hero-eyebrow">INFORMATICS STUDENT</p>
+          <h1 class="hero-name">
+            M. Ihwal<br>
+            <span class="hero-name-accent">Maulana</span>
+          </h1>
+          <div class="hero-accent-line"></div>
+          <p class="hero-desc">
+            Mahasiswa Manajemen Informatika di Politeknik LP3I Pekanbaru. Saya memimpin BEM dan LP3I Computer Club, lalu membangun aplikasi yang dipakai organisasi itu sendiri, seperti sistem absensi dan KTM digital.
+          </p>
 
-          <div class="hero-meta-row reveal-up">
-            <div class="hero-meta-item">
-              <span class="hero-meta-value"></span>
-              <span class="hero-meta-label"></span>
-            </div>
-            <div class="hero-meta-item">
-              <span class="hero-meta-value"></span>
-              <span class="hero-meta-label"></span>
-            </div>
-            <div class="hero-meta-item">
-              <span class="hero-meta-value"></span>
-              <span class="hero-meta-label"></span>
-            </div>
+          <div class="hero-actions">
+            <a href="#projects" class="btn-primary">Lihat Proyek</a>
+            <a href="#contact" class="btn-ghost">Hubungi Saya</a>
           </div>
 
-          <div class="hero-actions reveal-up">
-            <a href="#projects" class="btn-primary"></a>
-            <a href="#contact" class="btn-ghost"></a>
+          <div class="hero-scroll-pill">
+            <span class="scroll-tag">SCROLL |</span>
+            <div class="scroll-mouse-icon"></div>
           </div>
         </div>
 
         <!-- KOLOM TENGAH: Focal Point Dual-Layer Interactive Spotlight Portrait -->
-        <div class="hero-col hero-col-center reveal-fade">
+        <div class="hero-col hero-col-center">
           <div class="portrait-stage">
             <div class="portrait-interactive-frame" id="heroInteractivePortrait">
               <!-- Layer 1 (Dasar): Foto Formal -->
@@ -100,52 +96,63 @@
           </div>
         </div>
 
-        <!-- KOLOM KANAN: Text Ringan Editorial (FOCUS, CORE TECH, KARYA UNGGULAN) -->
-        <div class="hero-col hero-col-right reveal-up">
-          <div class="hero-editorial-aside">
+        <!-- KOLOM KANAN: Text Ringan Editorial (01 FOCUS, 02 CORE TECH, 03 KARYA UNGGULAN) -->
+        <div class="hero-col hero-col-right">
+          <div class="hero-glance-editorial">
             
-            <!-- FOCUS -->
-            <div class="editorial-block">
-              <span class="editorial-label">FOCUS</span>
-              <p class="editorial-text" id="heroGlanceFocus">
-                Sistem kasir ritel offline-first, aplikasi mobile native Android, dan integrasi multimodal AI Google Gemini.
+            <!-- 01 FOCUS -->
+            <div class="glance-section">
+              <div class="glance-head-row">
+                <span class="glance-num">01</span>
+                <span class="glance-label">FOCUS</span>
+              </div>
+              <p class="glance-body" id="heroGlanceFocus">
+                Dua proyek utama saya lahir dari organisasi yang saya pimpin: sistem absensi untuk anggota LCC dan KTM digital yang bisa diverifikasi lewat QR. Target saya menjadi Full Stack Developer.
               </p>
             </div>
 
-            <!-- CORE TECH -->
-            <div class="editorial-block">
-              <span class="editorial-label">CORE TECH</span>
-              <div class="editorial-tech-list" id="heroGlanceStack">
-                <span class="editorial-chip">React.js</span>
-                <span class="editorial-chip">Node.js</span>
-                <span class="editorial-chip">SQLite / Supabase</span>
-                <span class="editorial-chip">Gemini AI</span>
-                <span class="editorial-chip">Android Java</span>
-                <span class="editorial-chip">Tailwind CSS</span>
+            <!-- 02 CORE TECH -->
+            <div class="glance-section">
+              <div class="glance-head-row">
+                <span class="glance-num">02</span>
+                <span class="glance-label">CORE TECH</span>
+              </div>
+              <div class="core-tech-grid" id="heroGlanceStack">
+                <span class="tech-pill">JavaScript</span>
+                <span class="tech-pill">TypeScript</span>
+                <span class="tech-pill">Java</span>
+                <span class="tech-pill">SQL</span>
+                <span class="tech-pill">HTML5</span>
+                <span class="tech-pill">CSS3</span>
+                <span class="tech-pill">React.js</span>
+                <span class="tech-pill">Next.js</span>
               </div>
             </div>
 
-            <!-- KARYA UNGGULAN -->
-            <div class="editorial-block">
-              <span class="editorial-label">KARYA UNGGULAN</span>
-              <div class="editorial-project-list" id="heroGlanceProjects">
-                <a href="#projects" class="editorial-project-row">
-                  <span class="proj-title">WariPOS</span>
-                  <span class="proj-sep">—</span>
-                  <span class="proj-subtitle">Retail POS Suite</span>
-                  <span class="proj-arrow">↗</span>
+            <!-- 03 KARYA UNGGULAN -->
+            <div class="glance-section">
+              <div class="glance-head-row">
+                <span class="glance-num">03</span>
+                <span class="glance-label">KARYA UNGGULAN</span>
+              </div>
+              <div class="featured-proj-list" id="heroGlanceProjects">
+                <a href="#projects" class="proj-entry">
+                  <span class="proj-link-icon">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                  </span>
+                  <div class="proj-text">
+                    <div class="proj-name">Sistem Absensi LCC</div>
+                    <div class="proj-sub">Absensi anggota LP3I Computer Club lewat scan QR.</div>
+                  </div>
                 </a>
-                <a href="#projects" class="editorial-project-row">
-                  <span class="proj-title">CariKostKita</span>
-                  <span class="proj-sep">—</span>
-                  <span class="proj-subtitle">Native Android App</span>
-                  <span class="proj-arrow">↗</span>
-                </a>
-                <a href="#projects" class="editorial-project-row">
-                  <span class="proj-title">Duo Chat</span>
-                  <span class="proj-sep">—</span>
-                  <span class="proj-subtitle">Private Messenger</span>
-                  <span class="proj-arrow">↗</span>
+                <a href="#projects" class="proj-entry">
+                  <span class="proj-link-icon">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                  </span>
+                  <div class="proj-text">
+                    <div class="proj-name">KTM Digital</div>
+                    <div class="proj-sub">Kartu Tanda Mahasiswa digital yang bisa diverifikasi lewat QR.</div>
+                  </div>
                 </a>
               </div>
             </div>
@@ -153,11 +160,6 @@
           </div>
         </div>
 
-      </div>
-
-      <div class="hero-scroll-hint reveal-up">
-        <div class="scroll-line"></div>
-        <span>Gulir</span>
       </div>
     </section>
 

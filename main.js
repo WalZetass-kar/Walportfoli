@@ -708,7 +708,6 @@
       if (heroName) {
         const titleRaw = (landing && landing.hero && landing.hero.title) || profile.name || '';
         heroName.innerHTML = formatHeading(titleRaw);
-        heroName.style.whiteSpace = 'nowrap';
       }
 
       const heroRole = document.querySelector('.hero-role');
@@ -776,16 +775,14 @@
       if (eyebrow) {
         if (landing.hero.eyebrow && landing.hero.eyebrow.trim()) {
           eyebrow.style.display = '';
-          eyebrow.innerHTML = `<span class="dot"></span> ${escapeHTML(landing.hero.eyebrow)}`;
-        } else {
-          eyebrow.style.display = 'none';
+          eyebrow.textContent = landing.hero.eyebrow.trim();
         }
       }
 
       const b1 = document.querySelector('#hero .hero-actions .btn-primary');
       if (b1) {
         b1.style.display = '';
-        b1.textContent = landing.hero.btn1Text || 'Lihat Karya Pilihan →';
+        b1.textContent = landing.hero.btn1Text || 'Lihat Proyek';
         b1.href = landing.hero.btn1Link || '#projects';
       }
 
@@ -837,35 +834,38 @@
       }
     }
 
-    // Hero Right Column: Glance Panel (About / Skills / Projects)
+    // Hero Right Column: Glance Panel (01 FOCUS / 02 CORE TECH / 03 KARYA UNGGULAN)
     const glanceFocus = document.getElementById('heroGlanceFocus');
     if (glanceFocus) {
-      const focusText = (landing && landing.about && landing.about.text2) || (landing && landing.hero && landing.hero.bio) || (profile && profile.bio) || '';
+      const focusText = (landing && landing.hero && landing.hero.focusText) || '';
       if (focusText) {
         glanceFocus.textContent = focusText;
       }
     }
 
     const glanceStack = document.getElementById('heroGlanceStack');
-    if (glanceStack && Array.isArray(skills) && skills.length > 0) {
-      const topSkills = skills.slice(0, 8);
-      glanceStack.innerHTML = topSkills.map(s => {
+    if (glanceStack && landing && landing.hero && Array.isArray(landing.hero.coreTech) && landing.hero.coreTech.length > 0) {
+      glanceStack.innerHTML = landing.hero.coreTech.map(s => {
         const sName = escapeHTML(typeof s === 'string' ? s : (s.name || s.title || ''));
-        return `<span class="editorial-chip">${sName}</span>`;
+        return `<span class="tech-pill">${sName}</span>`;
       }).join('');
     }
 
     const glanceProjects = document.getElementById('heroGlanceProjects');
-    if (glanceProjects && Array.isArray(projects) && projects.length > 0) {
-      glanceProjects.innerHTML = projects.slice(0, 3).map(p => {
+    if (glanceProjects && landing && landing.hero && Array.isArray(landing.hero.featuredProjects) && landing.hero.featuredProjects.length > 0) {
+      glanceProjects.innerHTML = landing.hero.featuredProjects.map(p => {
         const pTitle = escapeHTML(p.title || 'Project');
-        const pSub = escapeHTML(p.tagline || p.category || p.role || 'Featured Project');
+        const pSub = escapeHTML(p.desc || p.tagline || p.subtitle || '');
+        const pLink = escapeHTML(p.link || '#projects');
         return `
-          <a href="#projects" class="editorial-project-row">
-            <span class="proj-title">${pTitle}</span>
-            <span class="proj-sep">—</span>
-            <span class="proj-subtitle">${pSub}</span>
-            <span class="proj-arrow">↗</span>
+          <a href="${pLink}" class="proj-entry">
+            <span class="proj-link-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </span>
+            <div class="proj-text">
+              <div class="proj-name">${pTitle}</div>
+              <div class="proj-sub">${pSub}</div>
+            </div>
           </a>
         `;
       }).join('');

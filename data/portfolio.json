@@ -22,9 +22,12 @@
   },
   "landing": {
     "hero": {
+      "eyebrow": "INFORMATICS STUDENT",
+      "title": "M. Ihwal Maulana",
+      "bio": "Mahasiswa Manajemen Informatika di Politeknik LP3I Pekanbaru. Saya memimpin BEM dan LP3I Computer Club, lalu membangun aplikasi yang dipakai organisasi itu sendiri, seperti sistem absensi dan KTM digital.",
       "btn1Link": "#projects",
       "btn2Link": "#contact",
-      "btn1Text": "Lihat Karya Pilihan",
+      "btn1Text": "Lihat Proyek",
       "btn2Text": "Hubungi Saya",
       "enabled": true
     },
