@@ -837,6 +837,41 @@
       }
     }
 
+    // Hero Right Column: Glance Panel (About / Skills / Projects)
+    const glanceFocus = document.getElementById('heroGlanceFocus');
+    if (glanceFocus) {
+      const focusText = (landing && landing.about && landing.about.text2) || (landing && landing.hero && landing.hero.bio) || (profile && profile.bio) || '';
+      if (focusText) {
+        glanceFocus.textContent = focusText;
+      }
+    }
+
+    const glanceStack = document.getElementById('heroGlanceStack');
+    if (glanceStack && Array.isArray(skills) && skills.length > 0) {
+      const topSkills = skills.slice(0, 8);
+      glanceStack.innerHTML = topSkills.map(s => {
+        const sName = escapeHTML(typeof s === 'string' ? s : (s.name || s.title || ''));
+        return `<span class="tech-chip">${sName}</span>`;
+      }).join('');
+    }
+
+    const glanceProjects = document.getElementById('heroGlanceProjects');
+    if (glanceProjects && Array.isArray(projects) && projects.length > 0) {
+      glanceProjects.innerHTML = projects.slice(0, 3).map(p => {
+        const pTitle = escapeHTML(p.title || 'Project');
+        const pSub = escapeHTML(p.tagline || p.category || p.role || 'Featured Project');
+        return `
+          <a href="#projects" class="glance-link-item">
+            <div class="glance-link-meta">
+              <span class="glance-link-title">${pTitle}</span>
+              <span class="glance-link-sub">${pSub}</span>
+            </div>
+            <span class="glance-link-arrow">↗</span>
+          </a>
+        `;
+      }).join('');
+    }
+
     // Marquee
     const marqueeEl = document.getElementById('marquee') || document.querySelector('.marquee-wrap');
     if (marqueeEl) {
@@ -1250,8 +1285,116 @@
     }
   }
 
+  /* ─────────────────────────────────────────────────────────────
+     INTERACTIVE DUAL-LAYER SPOTLIGHT PORTRAIT
+     - Base: Formal photo (#heroPortraitImg)
+     - Top: Anonymous photo (#heroPortraitAnon with radial-mask)
+     - Cursor-following radial mask (radius 120-180px, feathered)
+     - Subtle 3D tilt & smooth 350-450ms fade-out on exit
+     - High-performance 60-120fps via requestAnimationFrame
+  ───────────────────────────────────────────────────────────── */
+  function initInteractivePortrait() {
+    const frame = document.getElementById('heroInteractivePortrait');
+    const anonLayer = document.getElementById('portraitAnonLayer');
+    if (!frame || !anonLayer) return;
+    if (frame._portraitControllerInitialized) return;
+    frame._portraitControllerInitialized = true;
+
+    let rafId = null;
+    let targetX = 0;
+    let targetY = 0;
+    let currentX = 0;
+    let currentY = 0;
+    let targetTiltX = 0;
+    let targetTiltY = 0;
+    let currentTiltX = 0;
+    let currentTiltY = 0;
+    let isHovered = false;
+    const maskRadius = 150; // sweetspot 120px - 180px
+
+    function renderFrame() {
+      if (!isHovered) {
+        // Smooth reset tilt
+        currentTiltX += (0 - currentTiltX) * 0.14;
+        currentTiltY += (0 - currentTiltY) * 0.14;
+        if (Math.abs(currentTiltX) > 0.05 || Math.abs(currentTiltY) > 0.05) {
+          frame.style.transform = `perspective(1000px) rotateX(${currentTiltX.toFixed(2)}deg) rotateY(${currentTiltY.toFixed(2)}deg) scale3d(1, 1, 1)`;
+          rafId = requestAnimationFrame(renderFrame);
+        } else {
+          frame.style.transform = '';
+          rafId = null;
+        }
+        return;
+      }
+
+      // Smooth interpolation for mouse position & 3D tilt
+      currentX += (targetX - currentX) * 0.22;
+      currentY += (targetY - currentY) * 0.22;
+      currentTiltX += (targetTiltX - currentTiltX) * 0.18;
+      currentTiltY += (targetTiltY - currentTiltY) * 0.18;
+
+      anonLayer.style.setProperty('--mask-x', `${currentX.toFixed(1)}px`);
+      anonLayer.style.setProperty('--mask-y', `${currentY.toFixed(1)}px`);
+      anonLayer.style.setProperty('--mask-r', `${maskRadius}px`);
+      anonLayer.style.setProperty('--mask-opacity', '1');
+
+      frame.style.transform = `perspective(1000px) rotateX(${currentTiltX.toFixed(2)}deg) rotateY(${currentTiltY.toFixed(2)}deg) scale3d(1.02, 1.02, 1)`;
+
+      rafId = requestAnimationFrame(renderFrame);
+    }
+
+    function onPointerMove(clientX, clientY) {
+      const rect = frame.getBoundingClientRect();
+      targetX = clientX - rect.left;
+      targetY = clientY - rect.top;
+
+      const normX = (targetX / rect.width) * 2 - 1;
+      const normY = (targetY / rect.height) * 2 - 1;
+      targetTiltY = normX * 4;
+      targetTiltX = -normY * 4;
+
+      if (!isHovered) {
+        isHovered = true;
+        currentX = targetX;
+        currentY = targetY;
+        anonLayer.style.setProperty('--mask-x', `${currentX}px`);
+        anonLayer.style.setProperty('--mask-y', `${currentY}px`);
+        anonLayer.style.setProperty('--mask-r', `${maskRadius}px`);
+        anonLayer.style.setProperty('--mask-opacity', '1');
+        if (!rafId) rafId = requestAnimationFrame(renderFrame);
+      }
+    }
+
+    function onPointerLeave() {
+      isHovered = false;
+      anonLayer.style.setProperty('--mask-opacity', '0');
+      if (!rafId) rafId = requestAnimationFrame(renderFrame);
+    }
+
+    frame.addEventListener('pointerenter', (e) => onPointerMove(e.clientX, e.clientY));
+    frame.addEventListener('pointermove', (e) => onPointerMove(e.clientX, e.clientY));
+    frame.addEventListener('pointerleave', onPointerLeave);
+
+    // Touch support for mobile
+    frame.addEventListener('touchstart', (e) => {
+      if (e.touches && e.touches[0]) {
+        onPointerMove(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    }, { passive: true });
+
+    frame.addEventListener('touchmove', (e) => {
+      if (e.touches && e.touches[0]) {
+        onPointerMove(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    }, { passive: true });
+
+    frame.addEventListener('touchend', onPointerLeave, { passive: true });
+    frame.addEventListener('touchcancel', onPointerLeave, { passive: true });
+  }
+
   async function fetchAndRender() {
     try {
+      initInteractivePortrait();
       if (typeof PortfolioAPI !== 'undefined') {
         const data = await PortfolioAPI.getPortfolio();
         renderPortfolio(data);

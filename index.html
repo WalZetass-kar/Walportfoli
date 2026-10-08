@@ -53,9 +53,10 @@
 
     <!-- ═══════════════════════════════════════ HERO ═══════════════════════════════════════ -->
     <section id="hero">
-      <div class="hero-layout">
+      <div class="hero-layout hero-layout-3col">
 
-        <div class="hero-left">
+        <!-- KOLOM KIRI: Identitas & CTA -->
+        <div class="hero-col hero-col-left">
           <p class="hero-eyebrow reveal-up" style="display: none;"></p>
           <h1 class="hero-name reveal-up"></h1>
           <p class="hero-role reveal-up"></p>
@@ -82,16 +83,102 @@
           </div>
         </div>
 
-        <div class="hero-right reveal-fade">
-          <div class="portrait-frame">
-            <div class="portrait-img">
-              <img id="heroPortraitImg" src="assets/profil.png" alt="Foto Profil" onerror="this.onerror=null;this.src='profil.png'" />
-              <div class="portrait-overlay"></div>
+        <!-- KOLOM TENGAH: Focal Point Dual-Layer Interactive Spotlight Portrait -->
+        <div class="hero-col hero-col-center reveal-fade">
+          <div class="portrait-stage">
+            <div class="portrait-interactive-frame" id="heroInteractivePortrait">
+              <!-- Layer 1 (Dasar): Foto Formal -->
+              <div class="portrait-layer portrait-layer-base">
+                <img id="heroPortraitImg" src="assets/profil.png" alt="M Ihwal Maulana - Formal" onerror="this.onerror=null;this.src='profil.png'" />
+              </div>
+
+              <!-- Layer 2 (Atas): Foto Anonymous dengan Cursor-Following Radial Mask -->
+              <div class="portrait-layer portrait-layer-anon" id="portraitAnonLayer">
+                <img id="heroPortraitAnon" src="assets/anonim.png" alt="M Ihwal Maulana - Anonymous" onerror="this.onerror=null;this.src='anonim.png'" />
+              </div>
+
+              <!-- Border Casing & Ambient Shadow Minimalis -->
+              <div class="portrait-casing"></div>
+
+              <!-- Location Tag -->
+              <div class="portrait-tag">
+                <span class="dot"></span>
+                <span class="tag-mono"></span>
+              </div>
             </div>
-            <div class="portrait-tag">
-              <span class="dot"></span>
-              <span class="tag-mono"></span>
+
+            <!-- Hint Navigasi Interaktif -->
+            <div class="portrait-spotlight-hint">
+              <span class="hint-badge">
+                <span class="hint-glow"></span>
+                <span class="hint-label">Arahkan kursor ke foto</span>
+              </span>
             </div>
+          </div>
+        </div>
+
+        <!-- KOLOM KANAN: Quick Overview About / Skills / Projects -->
+        <div class="hero-col hero-col-right reveal-up">
+          <div class="hero-glance-panel">
+            
+            <!-- 01 Fokus Rekayasa (About snippet) -->
+            <div class="glance-card">
+              <div class="glance-head">
+                <span class="glance-num">01</span>
+                <span class="glance-label">Fokus Rekayasa</span>
+              </div>
+              <p class="glance-desc" id="heroGlanceFocus">
+                Sistem kasir ritel offline-first, aplikasi mobile native Android, dan integrasi multimodal AI Google Gemini.
+              </p>
+            </div>
+
+            <!-- 02 Core Tech Stack (Skills chips) -->
+            <div class="glance-card">
+              <div class="glance-head">
+                <span class="glance-num">02</span>
+                <span class="glance-label">Core Tech Stack</span>
+              </div>
+              <div class="glance-chips" id="heroGlanceStack">
+                <span class="tech-chip">React.js</span>
+                <span class="tech-chip">Node.js</span>
+                <span class="tech-chip">SQLite / Supabase</span>
+                <span class="tech-chip">Gemini AI</span>
+                <span class="tech-chip">Android Java</span>
+                <span class="tech-chip">Tailwind CSS</span>
+              </div>
+            </div>
+
+            <!-- 03 Karya Unggulan (Projects quick links) -->
+            <div class="glance-card">
+              <div class="glance-head">
+                <span class="glance-num">03</span>
+                <span class="glance-label">Karya Unggulan</span>
+              </div>
+              <div class="glance-links" id="heroGlanceProjects">
+                <a href="#projects" class="glance-link-item">
+                  <div class="glance-link-meta">
+                    <span class="glance-link-title">WariPOS</span>
+                    <span class="glance-link-sub">Retail POS Suite (Offline-First)</span>
+                  </div>
+                  <span class="glance-link-arrow">↗</span>
+                </a>
+                <a href="#projects" class="glance-link-item">
+                  <div class="glance-link-meta">
+                    <span class="glance-link-title">CariKostKita</span>
+                    <span class="glance-link-sub">Native Android Property Hub</span>
+                  </div>
+                  <span class="glance-link-arrow">↗</span>
+                </a>
+                <a href="#projects" class="glance-link-item">
+                  <div class="glance-link-meta">
+                    <span class="glance-link-title">Duo Chat</span>
+                    <span class="glance-link-sub">Private Couple Messenger</span>
+                  </div>
+                  <span class="glance-link-arrow">↗</span>
+                </a>
+              </div>
+            </div>
+
           </div>
         </div>
 
