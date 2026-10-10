@@ -343,6 +343,135 @@ async function hydrateAbout() {
     }
     if (!data) return;
 
+    // ── Konten halaman About (dulu 100% hardcoded di about.html) ──
+    const ap = (data.landing && data.landing.aboutpage) || {};
+
+    if (ap.kicker) {
+      const el = document.querySelector('.statement-kicker');
+      if (el) el.innerHTML = ap.kicker;
+    }
+    if (ap.statement) {
+      const el = document.querySelector('.statement-title');
+      if (el) el.innerHTML = ap.statement;
+    }
+    if (ap.manifesto) {
+      const el = document.querySelector('blockquote');
+      if (el) el.innerHTML = ap.manifesto;
+    }
+
+    // Baris meta (Nama / Akun / Lokasi / Fokus / Status)
+    if (Array.isArray(ap.metaRows) && ap.metaRows.length) {
+      const rows = document.querySelectorAll('.about-meta-item');
+      ap.metaRows.forEach((row, i) => {
+        const el = rows[i];
+        if (!el) return;
+        const lab = el.querySelector('.meta-label');
+        const val = el.querySelector('.meta-val');
+        if (lab && row.label) lab.textContent = row.label;
+        if (val && row.value) val.innerHTML = row.value;
+      });
+    }
+
+    // Paragraf narasi
+    if (Array.isArray(ap.body) && ap.body.length) {
+      const ps = document.querySelectorAll('.about-body-text');
+      ap.body.forEach((txt, i) => { if (ps[i]) ps[i].innerHTML = txt; });
+    }
+
+    // Chapter rail (nomor + label tiap section)
+    if (Array.isArray(ap.chapters) && ap.chapters.length) {
+      const rails = document.querySelectorAll('.chapter-rail');
+      ap.chapters.forEach((ch, i) => {
+        const rail = rails[i];
+        if (!rail) return;
+        const num = rail.querySelector('.chapter-num');
+        const lab = rail.querySelector('.chapter-label');
+        if (num && ch.num) num.textContent = ch.num;
+        if (lab && ch.label) lab.textContent = ch.label;
+      });
+    }
+
+    // Header tiap section
+    const headerMap = [
+      ['#toolbox', ap.toolbox],
+      ['#experience', ap.journey],
+      ['#education', ap.education],
+      ['#certificates', ap.credentials],
+    ];
+    headerMap.forEach(([sel, cfg]) => {
+      if (!cfg) return;
+      const sec = document.querySelector(sel);
+      if (!sec) return;
+      const lab = sec.querySelector('.section-label');
+      const ttl = sec.querySelector('h2');
+      const intro = sec.querySelector('.toolbox-intro, .certs-intro');
+      if (lab && cfg.label) lab.textContent = cfg.label;
+      if (ttl && cfg.title) ttl.innerHTML = cfg.title;
+      if (intro && cfg.intro) intro.textContent = cfg.intro;
+    });
+
+    // Blok kontak
+    if (ap.contact) {
+      const c = ap.contact;
+      const headline = document.querySelector('.contact-headline');
+      if (headline && c.headline) {
+        const lines = c.headline.split('\n');
+        headline.innerHTML = lines
+          .map((ln, i) => `<span class="headline-line${i === 1 ? ' headline-line--italic' : ''}">${ln.trim()}</span>`)
+          .join('');
+      }
+      const tagline = document.querySelector('.contact-tagline');
+      if (tagline && c.tagline) tagline.innerHTML = c.tagline;
+      const setByTitle = (title, sel, val) => {
+        if (!val) return;
+        document.querySelectorAll('.contact-info-block').forEach(b => {
+          const t = b.querySelector('.info-block-title');
+          if (t && t.textContent.trim() === title) {
+            const body = b.querySelector('.info-body');
+            if (body) body.innerHTML = val;
+          }
+        });
+      };
+      if (c.channelTitle) {
+        document.querySelectorAll('.contact-info-block .info-block-title').forEach(t => {
+          if (t.textContent.trim() === 'Kanal Komunikasi') t.textContent = c.channelTitle;
+        });
+      }
+      setByTitle(c.responseTitle || 'Waktu respon', '.info-body', c.responseBody);
+      setByTitle(c.hoursTitle || 'Jam kerja', '.info-body', c.hoursBody);
+      const hoursTitle = c.hoursTitle || 'Jam kerja';
+      document.querySelectorAll('.contact-info-block').forEach(b => {
+        const t = b.querySelector('.info-block-title');
+        if (t && t.textContent.trim() === 'Jam kerja') {
+          const note = b.querySelector('.info-body-sm');
+          if (note && c.hoursNote) note.textContent = c.hoursNote;
+        }
+      });
+      const availStatus = document.querySelector('.avail-status');
+      if (availStatus && c.availStatus) availStatus.textContent = c.availStatus;
+      const availNext = document.querySelector('.avail-next');
+      if (availNext && c.availNext) availNext.innerHTML = c.availNext;
+    }
+
+    // Counter: label & target dari DB, angka auto tetap ikut hitungan
+    if (Array.isArray(ap.counters) && ap.counters.length) {
+      const items = document.querySelectorAll('.counter-item');
+      ap.counters.forEach((c, i) => {
+        const item = items[i];
+        if (!item) return;
+        const suf = item.querySelector('.counter-suffix');
+        const lab = item.querySelector('.counter-label');
+        const num = item.querySelector('.counter-num');
+        if (suf && c.suffix) suf.textContent = c.suffix;
+        if (lab && c.label) lab.textContent = c.label;
+        // source 'projects' / 'certificates' = hitung otomatis, selain itu nilai tetap
+        if (c.source !== 'projects' && c.source !== 'certificates' && num) {
+          num.dataset.target = c.target;
+          num.textContent = c.target;
+        }
+      });
+    }
+
     // Portrait / Avatar
     if (data.profile && data.profile.avatar) {
       let av = data.profile.avatar;
@@ -413,6 +542,7 @@ async function hydrateAbout() {
           </div>
         </div>
       `).join('');
+    }
     }
 
     // Experience Timeline
@@ -539,21 +669,30 @@ async function hydrateAbout() {
    INIT
 ───────────────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
-  initHeroLoad();
-  initReveal();
-  initCounters();
-  initContactCanvas();
-  initToolboxInteractions();
-  initTimeline();
-  initContactForm();
-  initScrollSpy();
-  initCertTilt();
-  hydrateAbout();
+  // Satu init yang melempar (mis. WebGL tidak tersedia) sebelumnya
+  // membuat SEMUA init berikutnya, termasuk hydrateAbout, berhenti.
+  // Efek visual tidak boleh menghalangi hidrasi data.
+  const safe = (name, fn) => {
+    try { fn(); } catch (e) { console.warn(`[about] ${name} gagal:`, e && e.message); }
+  };
+
+  // Data dulu, supaya konten tidak pernah tertahan oleh animasi.
+  safe('hydrateAbout', hydrateAbout);
+
+  safe('initHeroLoad', initHeroLoad);
+  safe('initReveal', initReveal);
+  safe('initCounters', initCounters);
+  safe('initContactCanvas', initContactCanvas);
+  safe('initToolboxInteractions', initToolboxInteractions);
+  safe('initTimeline', initTimeline);
+  safe('initContactForm', initContactForm);
+  safe('initScrollSpy', initScrollSpy);
+  safe('initCertTilt', initCertTilt);
 
   // Real-time synchronization
   if (typeof PortfolioAPI !== 'undefined' && PortfolioAPI.onUpdate) {
     PortfolioAPI.onUpdate(() => {
-      hydrateAbout();
+      safe('hydrateAbout', hydrateAbout);
     });
   }
 });

@@ -85,6 +85,7 @@ function initSchema() {
       gallery_json TEXT,
       next_id TEXT,
       next_title TEXT,
+      featured INTEGER DEFAULT 0,
       order_index INTEGER DEFAULT 0,
       created_at TEXT DEFAULT (datetime('now')),
       updated_at TEXT DEFAULT (datetime('now'))
@@ -182,6 +183,61 @@ function initSchema() {
       expires_at TEXT NOT NULL
     );
   `);
+
+  // ── Migrasi ringan: tambah kolom baru ke tabel yang sudah ada ──
+  // CREATE TABLE IF NOT EXISTS di atas tidak mengubah tabel lama,
+  // jadi kolom baru harus dicek satu per satu lalu di-ALTER bila belum ada.
+  const migrations = [
+    ['projects', 'featured', 'INTEGER DEFAULT 0'],
+  ];
+  for (const [table, column, type] of migrations) {
+    const cols = db.prepare(`PRAGMA table_info(${table})`).all();
+    if (cols.length && !cols.some(c => c.name === column)) {
+      db.exec(`ALTER TABLE ${table} ADD COLUMN ${column} ${type}`);
+      console.log(`  → migrasi: ${table}.${column} ditambahkan`);
+    }
+  }
+
+  // ── Backfill landing section ──
+  // Section baru (aboutpage, detail, chrome, dst.) hanya otomatis ada di DB
+  // yang baru di-seed. DB lama perlu diisi ulang, tapi tanpa menimpa
+  // nilai yang mungkin sudah diedit lewat admin.
+  const insMissing = db.prepare(`
+    INSERT INTO landing_sections (id, enabled, content_json)
+    VALUES (?, ?, ?)
+  `);
+  for (const [secId, secData] of Object.entries(INITIAL_LANDING)) {
+    const row = db.prepare('SELECT id, content_json FROM landing_sections WHERE id = ?').get(secId);
+    if (!row) {
+      insMissing.run(secId, secData.enabled !== false ? 1 : 0, JSON.stringify(secData));
+      console.log(`  → backfill: landing section "${secId}" dibuat`);
+      continue;
+    }
+    // Section sudah ada: tambahkan hanya key yang belum punya,
+    // supaya hasil edit lewat admin tidak tertimpa.
+    const current = parseJSON(row.content_json, {});
+    const added = Object.keys(secData).filter(k => !(k in current));
+    if (added.length) {
+      const merged = { ...secData, ...current };
+      db.prepare('UPDATE landing_sections SET content_json = ? WHERE id = ?')
+        .run(JSON.stringify(merged), secId);
+      console.log(`  → backfill: "${secId}" +${added.length} field baru (${added.join(', ')})`);
+    }
+  }
+
+  // Hero sekarang membaca nama/role/bio dari tabel profile. Key lama di
+  // landing_sections masih ada di DB lama dan akan membayangi, jadi dibuang.
+  const heroRow = db.prepare('SELECT content_json FROM landing_sections WHERE id = ?').get('hero');
+  if (heroRow) {
+    const hero = parseJSON(heroRow.content_json, {});
+    const stale = ['title', 'role', 'bio'].filter(k => k in hero);
+    if (stale.length) {
+      stale.forEach(k => delete hero[k]);
+      db.prepare('UPDATE landing_sections SET content_json = ? WHERE id = ?')
+        .run(JSON.stringify(hero), 'hero');
+      console.log(`  → migrasi: hero.${stale.join(', hero.')} dihapus (sekarang dari profile)`);
+    }
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -210,14 +266,24 @@ const INITIAL_PROFILE = {
 const INITIAL_LANDING = {
   hero: {
     enabled: true,
-    eyebrow: '',
-    title: 'M Ihwal Maulana',
-    role: 'Mahasiswa Manajemen Informatika · Developer · AI Enthusiast',
-    bio: 'Saya mahasiswa aktif Manajemen Informatika di Politeknik LP3I Kampus Pekanbaru. Berfokus pada rekayasa perangkat lunak multi-platform, sistem kasir ritel offline-first, dan integrasi kecerdasan buatan berbasis Google Gemini.',
+    eyebrow: 'INFORMATICS STUDENT',
+    // title / role / bio TIDAK lagi dipakai — hero memakai profile.name,
+    // profile.title, profile.bio supaya admin jadi satu-satunya sumber.
     btn1Text: 'Lihat Karya Pilihan →',
     btn1Link: '#projects',
     btn2Text: 'Hubungi Saya',
-    btn2Link: '#contact'
+    btn2Link: '#contact',
+    portraitAlt: 'M Ihwal Maulana - Formal',
+    anonAvatar: 'assets/anonim.png',
+    anonAlt: 'M Ihwal Maulana - Anonymous',
+    scrollTag: 'SCROLL',
+    focusText: 'Dua proyek utama saya lahir dari organisasi yang saya pimpin: sistem absensi untuk anggota LCC dan KTM digital yang bisa diverifikasi lewat QR. Target saya menjadi Full Stack Developer.',
+    coreTech: ['JavaScript', 'TypeScript', 'Java', 'SQL', 'HTML5', 'CSS3', 'React.js', 'Next.js'],
+    glanceLabels: ['FOCUS', 'CORE TECH', 'KARYA UNGGULAN'],
+    featuredProjects: [
+      { title: 'Sistem Absensi LCC', desc: 'Absensi anggota LP3I Computer Club lewat scan QR.', link: '#projects' },
+      { title: 'KTM Digital', desc: 'Kartu Tanda Mahasiswa digital yang bisa diverifikasi lewat QR.', link: '#projects' }
+    ]
   },
   marquee: {
     enabled: true,
@@ -241,7 +307,129 @@ const INITIAL_LANDING = {
     label: '03 — Karya Pilihan',
     headline: 'Showcase<br><em>Proyek Nyata</em>',
     btnText: 'Lihat Arsip Lengkap →',
-    btnLink: 'projects.html'
+    btnLink: 'projects.html',
+    // Chrome halaman projects.html
+    pageLabel: 'Karya Pilihan',
+    pageHeadline: 'Sistem & Aplikasi<br><em>berorientasi solusi nyata</em>',
+    pageSub: 'Kumpulan proyek yang saya bangun sendiri: aplikasi web, mobile, desktop & POS, backend REST API, sampai perkakas berbasis AI.',
+    pageMetaPeriod: '2023 – Sekarang',
+    pageMetaEcosystem: 'WalZetass-Kar Ecosystem',
+    filterLabels: ['Semua', 'Unggulan', 'Web App', 'Desktop & POS', 'Mobile App', 'AI Tools', 'Backend'],
+    ctaLabel: 'Punya ide proyek?',
+    ctaHeadline: 'Mari bangun<br><em>sesuatu yang hebat</em>',
+    ctaBtnText: 'Hubungi Saya →',
+    ctaBtnLink: '#contact',
+    emptyText: 'Belum ada karya yang dipublikasikan.'
+  },
+  // ── Konten halaman about.html (sebelumnya 100% hardcoded) ──
+  aboutpage: {
+    enabled: true,
+    kicker: 'Pekanbaru, Riau, Indonesia · Mahasiswa Manajemen Informatika & Developer',
+    statement: 'Saya merancang sistem<br>yang <em>efisien</em> dan<br>berorientasi <em>solusi nyata.</em>',
+    metaRows: [
+      { label: 'Nama', value: 'M Ihwal Maulana' },
+      { label: 'Akun', value: 'WalZetass' },
+      { label: 'Lokasi', value: 'Pekanbaru, Indonesia' },
+      { label: 'Fokus', value: 'Aplikasi Bisnis & Native System' },
+      { label: 'Status', value: 'Aktif Mahasiswa LP3I' }
+    ],
+    body: [
+      'Saya adalah mahasiswa Manajemen Informatika di Politeknik LP3I Kampus Pekanbaru sekaligus pengembang perangkat lunak independen. Berfokus pada perancangan sistem yang benar-benar dipakai di lapangan, bukan sekadar demo yang berhenti di layar.',
+      'Pendekatan rekayasa saya berakar dari pemecahan masalah konkret di lapangan: bagaimana sistem tetap andal bekerja tanpa koneksi internet, bagaimana alur data kas tetap presisi, dan bagaimana antarmuka maniac-mempermudah pengguna harian.',
+      'Ketika tidak sedang membuat kode, saya aktif dalam organisasi BEM Politeknik LP3I Pekanbaru pada Divisi Kominfo & Media Kreatif, mendalami Google GenAI SDK, dan mengelola 21+ repositori open source di GitHub.'
+    ],
+    manifesto: 'Kode adalah instrumen. Solusi nyata adalah dampaknya.',
+    counters: [
+      { target: 21, suffix: '+', label: 'Repositori GitHub', source: 'static' },
+      { target: 0, suffix: '+', label: 'Sistem Mandiri Selesai', source: 'projects' },
+      { target: 0, suffix: '+', label: 'Kredensial Kompetensi', source: 'certificates' },
+      { target: 100, suffix: '%', label: 'Dedikasi & Kesiapan', source: 'static' }
+    ],
+    chapters: [
+      { num: '01', label: 'Tentang' },
+      { num: '02', label: 'Toolbox' },
+      { num: '03', label: 'Pengalaman' },
+      { num: '04', label: 'Pendidikan' },
+      { num: '05', label: 'Kredensial' },
+      { num: '06', label: 'Kontak' }
+    ],
+    toolbox: {
+      label: 'Alat & Teknologi',
+      title: 'Keahlian di balik<br>setiap <em>karya</em>',
+      intro: 'Rangkaian teknologi yang dikurasi — bukan sekadar setiap alat yang ada, melainkan alat yang membuat hasil karya lebih baik.'
+    },
+    journey: {
+      label: 'Perjalanan Nyata',
+      title: 'Jejak akademis,<br>organisasi & <em>rekayasa</em>'
+    },
+    education: {
+      label: 'Latar Belakang Akademis',
+      title: 'Fondasi<br><em>pengetahuan</em>'
+    },
+    credentials: {
+      label: 'Sertifikasi',
+      title: 'Bukti<br><em>pembelajaran</em>',
+      intro: 'Setiap sertifikasi adalah investasi yang disengaja — mengonfirmasi kompetensi teknis dan pemahaman arsitektural.'
+    },
+    contact: {
+      headline: 'MARI\nKITA\nBANGUN.',
+      tagline: 'Terbuka untuk kolaborasi proyek, pengembangan sistem,<br>dan peluang rekayasa perangkat lunak.',
+      channelTitle: 'Kanal Komunikasi',
+      responseTitle: 'Waktu respon',
+      responseBody: 'Saya biasanya merespons dalam <strong>24 jam</strong> pada hari kerja. Untuk proyek mendesak, beri tanda [MENDESAK] pada subjek pesan.',
+      hoursTitle: 'Jam kerja',
+      hoursBody: 'WIB (UTC+7) · Sen–Jum<br>09:00 — 18:00 waktu lokal',
+      hoursNote: 'Tersedia untuk kolaborasi asinkron di zona waktu mana pun.',
+      availStatus: 'Tersedia untuk proyek',
+      availNext: 'Slot terdekat: <strong>Oktober 2026</strong>'
+    }
+  },
+  // ── Label & tombol di project-detail.html ──
+  detail: {
+    enabled: true,
+    backLink: '← Kembali ke Karya',
+    breadcrumbLabel: 'Studi Kasus',
+    summaryLabel: 'Ringkasan',
+    stackLabel: 'Stack Teknologi',
+    challengesTitle: 'Tantangan nyata yang <em>dihadapi</em>',
+    challengesLabel: 'Tantangan',
+    solutionTitle: 'Pendekatan teknis yang <em>berhasil</em>',
+    solutionLabel: 'Solusi',
+    resultsTitle: 'Dampak nyata <em>terukur</em>',
+    resultsLabel: 'Hasil',
+    galleryTitle: 'Tangkapan <em>layar lainnya</em>',
+    galleryLabel: 'Galeri',
+    nextLabel: 'Proyek Selanjutnya',
+    tocLabels: ['Ringkasan', 'Tangkapan Layar', 'Tantangan', 'Solusi', 'Detail', 'Hasil', 'Galeri'],
+    notFoundTitle: 'Proyek Tidak Ditemukan',
+    notFoundBody: 'Proyek yang Anda cari tidak tersedia.'
+  },
+  // ── Chrome global: nav, brand, form, footer ──
+  chrome: {
+    enabled: true,
+    brand: 'WalZetass',
+    navLabels: ['Tentang', 'Karya', 'Keahlian', 'Perjalanan', 'Sertifikasi', 'Kontak'],
+    formName: 'Nama Lengkap',
+    formEmail: 'Alamat Email',
+    formProject: 'Cakupan / Kebutuhan Rekayasa',
+    formMessage: 'Pesan Anda',
+    formPlaceholderName: 'Nama Anda',
+    formPlaceholderEmail: 'email@domain.com',
+    formPlaceholderProject: 'Sistem POS · Mobile Android · Google Gemini AI',
+    formPlaceholderMessage: 'Ceritakan tujuan, kebutuhan sistem, atau peluang kolaborasi...',
+    formSubmit: 'Kirim Pesan',
+    formSending: 'Mengirim…',
+    formErrEmpty: 'Harap lengkapi semua kolom…',
+    formErrEmail: 'Format email tidak valid.',
+    formOk: 'Pesan terkirim. Terima kasih!',
+    formFail: 'Gagal mengirim. Coba lagi atau hubungi via email.',
+    copyEmailBtn: 'Salin Email',
+    copyEmailOk: '✓ Tersalin!',
+    glanceOverlay: 'Lihat Studi Kasus ↗',
+    emptyProjects: 'Belum ada karya yang dipublikasikan.',
+    emptySkills: 'Belum ada keahlian yang dicatat.',
+    emptyTimeline: 'Belum ada perjalanan yang dicatat.',
+    emptyCerts: 'Belum ada kredensial yang dicatat.'
   },
   skills: {
     enabled: true,
@@ -710,8 +898,28 @@ function getLandingSections() {
   return result;
 }
 
+// Merge dalam (deep) — payload hanya menimpa key yang dikirimnya.
+// Tanpa ini, satu PUT berisi satu field akan menghapus seluruh isi section.
+function deepMerge(target, source) {
+  const out = { ...target };
+  for (const [k, v] of Object.entries(source)) {
+    if (k === 'enabled') continue;
+    if (v && typeof v === 'object' && !Array.isArray(v) &&
+        out[k] && typeof out[k] === 'object' && !Array.isArray(out[k])) {
+      out[k] = deepMerge(out[k], v);
+    } else {
+      out[k] = v;
+    }
+  }
+  return out;
+}
+
 function updateLandingSection(secId, data) {
-  const enabled = data.enabled !== false ? 1 : 0;
+  const existingRow = db.prepare('SELECT content_json FROM landing_sections WHERE id = ?').get(secId);
+  const existing = existingRow ? parseJSON(existingRow.content_json, {}) : {};
+  const merged = deepMerge(existing, data || {});
+  const enabled = (data && data.enabled !== false) ? 1 : 0;
+
   const stmt = db.prepare(`
     INSERT INTO landing_sections (id, enabled, content_json, updated_at)
     VALUES (?, ?, ?, datetime('now'))
@@ -720,7 +928,7 @@ function updateLandingSection(secId, data) {
       content_json = excluded.content_json,
       updated_at = datetime('now')
   `);
-  stmt.run(secId, enabled, JSON.stringify(data));
+  stmt.run(secId, enabled, JSON.stringify(merged));
   addLog(`Bagian ${secId} diperbarui`);
   return getLandingSections()[secId];
 }
@@ -759,6 +967,7 @@ function mapProjectRow(r) {
     gallery: parseJSON(r.gallery_json, []),
     nextId: r.next_id,
     nextTitle: r.next_title,
+    featured: r.featured ? 1 : 0,
     order_index: r.order_index,
     createdAt: r.created_at,
     updatedAt: r.updated_at
@@ -782,7 +991,7 @@ function saveProject(proj) {
   const id = proj.id || ('p' + Date.now());
   const slug = proj.slug || (proj.title ? proj.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : id);
   const title = proj.title || 'Proyek Baru';
-  const titlePlain = proj.titlePlain || title.replace(/<[^>]*>?/gm, '');
+  const titlePlain = proj.titlePlain || proj.title_plain || title.replace(/<[^>]*>?/gm, '');
 
   const stmt = db.prepare(`
     INSERT INTO projects (
@@ -790,13 +999,13 @@ function saveProject(proj) {
       status, live_url, github_url, cover, spread1, spread2, fullwidth,
       stack_json, overview_title, overview_body1, overview_body2,
       challenges_json, solution_paras_json, results_json, gallery_json,
-      next_id, next_title, order_index, updated_at
+      next_id, next_title, featured, order_index, updated_at
     ) VALUES (
       ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
       ?, ?, ?, ?, ?, ?, ?,
       ?, ?, ?, ?,
       ?, ?, ?, ?,
-      ?, ?, ?, datetime('now')
+      ?, ?, ?, ?, datetime('now')
     )
     ON CONFLICT(id) DO UPDATE SET
       slug = excluded.slug,
@@ -826,6 +1035,7 @@ function saveProject(proj) {
       gallery_json = excluded.gallery_json,
       next_id = excluded.next_id,
       next_title = excluded.next_title,
+      featured = excluded.featured,
       order_index = excluded.order_index,
       updated_at = datetime('now')
   `);
@@ -843,13 +1053,17 @@ function saveProject(proj) {
     proj.role || '',
     proj.duration || '',
     proj.status || 'published',
-    proj.live || proj.liveUrl || '#',
-    proj.github || proj.githubUrl || '#',
+    proj.live || proj.liveUrl || proj.live_url || '#',
+    proj.github || proj.githubUrl || proj.github_url || '#',
     proj.cover || '',
     proj.spread1 || '',
     proj.spread2 || '',
     proj.fullwidth || '',
-    JSON.stringify(proj.stack || []),
+    JSON.stringify(
+      Array.isArray(proj.stack)
+        ? proj.stack
+        : (typeof proj.stack_json === 'string' ? parseJSON(proj.stack_json, []) : (proj.stack || []))
+    ),
     proj.overviewTitle || '',
     proj.overviewBody1 || '',
     proj.overviewBody2 || '',
@@ -859,6 +1073,7 @@ function saveProject(proj) {
     JSON.stringify(proj.gallery || []),
     proj.nextId || '',
     proj.nextTitle || '',
+    proj.featured ? 1 : 0,
     proj.order_index || 0
   );
 

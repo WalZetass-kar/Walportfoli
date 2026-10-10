@@ -356,6 +356,7 @@ async function loadSection(section) {
     case 'contact':      await loadContact(); break;
     case 'inbox':        await loadInbox(); break;
     case 'settings':     loadSettings(); break;
+    case 'pages':        await loadPagesEditor(); break;
   }
 }
 
@@ -597,10 +598,10 @@ function renderProjectsList() {
         </button>
       </div>
       <div class="item-body">
-        <div class="item-title">${escapeHtml(p.title || 'Tanpa Judul')}</div>
+        <div class="item-title">${p.featured ? '⭐ ' : ''}${escapeHtml(p.title || 'Tanpa Judul')}</div>
         <div class="item-meta">
           <span class="status-dot ${p.status === 'published' ? '' : 'status-dot--draft'}"></span>
-          ${escapeHtml(p.category || '—')} · ${escapeHtml(p.year || '—')} · ${p.status === 'published' ? 'Published' : 'Draft'}
+          ${escapeHtml(p.category || '—')} · ${escapeHtml(p.year || '—')} · ${p.status === 'published' ? 'Published' : 'Draft'}${p.featured ? ' · <strong>Unggulan</strong>' : ''}
         </div>
       </div>
       <div class="item-actions">
@@ -645,6 +646,7 @@ function openProjectModal(project = null) {
   document.getElementById('projectCategory').value = project ? (project.category || '') : '';
   document.getElementById('projectYear').value = project ? (project.year || '') : '';
   document.getElementById('projectStatus').value = project ? (project.status || 'published') : 'published';
+  document.getElementById('projectFeatured').value = project && project.featured ? '1' : '0';
   document.getElementById('projectTagline').value = project ? (project.tagline || '') : '';
   document.getElementById('projectDesc').value = project ? (project.desc || '') : '';
   document.getElementById('projectStack').value = project ? (project.stack_json ? JSON.parse(project.stack_json).join(', ') : '') : '';
@@ -695,6 +697,7 @@ async function saveProject() {
       category:    document.getElementById('projectCategory').value.trim(),
       year:        document.getElementById('projectYear').value.trim(),
       status:      document.getElementById('projectStatus').value,
+      featured:    document.getElementById('projectFeatured').value === '1' ? 1 : 0,
       tagline:     document.getElementById('projectTagline').value.trim(),
       desc:        document.getElementById('projectDesc').value.trim(),
       stack_json:  JSON.stringify(stack),
@@ -1339,6 +1342,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // ── About ──
   document.getElementById('saveAboutBtn').addEventListener('click', saveAbout);
+
+  // ── Halaman & Chrome ──
+  const savePagesBtn = document.getElementById('savePagesBtn');
+  if (savePagesBtn && typeof savePagesEditor === 'function') {
+    savePagesBtn.addEventListener('click', savePagesEditor);
+  }
 
   // ── Projects ──
   document.getElementById('addProjectBtn').addEventListener('click', () => openProjectModal());

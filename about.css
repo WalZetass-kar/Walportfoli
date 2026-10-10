@@ -72,7 +72,7 @@ section {
 /* ── Opening statement ───────────────────────────────────── */
 .about-main {
   display: grid;
-  grid-template-columns: 1fr 340px;
+  grid-template-columns: 1fr 420px;
   gap: clamp(32px, 4vw, 56px);
   align-items: start;
   max-width: var(--max-w);

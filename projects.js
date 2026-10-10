@@ -37,6 +37,79 @@ function setHref(id, href) {
 }
 
 /* ─────────────────────────────────────────────────────────────
+   PAGE CHROME — Judul, sub, filter, CTA (dari landing_sections)
+───────────────────────────────────────────────────────────── */
+function hydrateProjectsPageChrome(landing) {
+  const p = (landing && landing.projects) || {};
+  const set = (sel, val, html) => {
+    if (!val) return;
+    document.querySelectorAll(sel).forEach(el => {
+      if (html) el.innerHTML = val; else el.textContent = val;
+    });
+  };
+
+  set('.page-hero .section-label', p.pageLabel);
+  set('.page-hero .page-hero-title', p.pageHeadline, true);
+  set('.page-hero .page-hero-sub', p.pageSub, true);
+
+  // Meta: jumlah proyek dihitung dari data, periode & ecosystem dari DB
+  const metaNum = document.querySelector('.page-hero-meta .meta-num');
+  if (metaNum && typeof window.__projectCount === 'number') metaNum.textContent = window.__projectCount;
+  set('.page-hero-meta [data-meta="period"]', p.pageMetaPeriod);
+  set('.page-hero-meta [data-meta="ecosystem"]', p.pageMetaEcosystem);
+
+  // Label filter
+  if (Array.isArray(p.filterLabels) && p.filterLabels.length) {
+    const btns = document.querySelectorAll('.filter-bar .filter-btn');
+    btns.forEach((btn, i) => {
+      const lbl = p.filterLabels[i];
+      if (!lbl) return;
+      // textContent sudah aman secara escaping, jadi jangan pakai escapeHTML
+      if (i === 1) btn.textContent = '⭐ ' + lbl;
+      else btn.textContent = lbl;
+    });
+  }
+
+  // CTA
+  set('.projects-cta .cta-label', p.ctaLabel);
+  set('.projects-cta .cta-title', p.ctaHeadline, true);
+  const ctaBtn = document.querySelector('.projects-cta a.btn-primary, .projects-cta a.btn-ghost');
+  if (ctaBtn && p.ctaBtnText) {
+    ctaBtn.textContent = p.ctaBtnText;
+    if (p.ctaBtnLink) ctaBtn.href = p.ctaBtnLink;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   DETAIL LABELS — Judul bagian di project-detail.html
+───────────────────────────────────────────────────────────── */
+function hydrateDetailLabels(landing) {
+  const d = (landing && landing.detail) || {};
+  const put = (id, val) => { if (val) setText(id, val); };
+  const putHTML = (id, val) => { if (val) setHTML(id, val); };
+
+  put('d-back', d.backLink);
+  put('d-breadcrumbLabel', d.breadcrumbLabel);
+  put('d-summaryLabel', d.summaryLabel);
+  put('d-stackLabel', d.stackLabel);
+  putHTML('d-challengesTitle', d.challengesTitle);
+  put('d-challengesLabel', d.challengesLabel);
+  putHTML('d-solutionTitle', d.solutionTitle);
+  put('d-solutionLabel', d.solutionLabel);
+  putHTML('d-resultsTitle', d.resultsTitle);
+  put('d-resultsLabel', d.resultsLabel);
+  putHTML('d-galleryTitle', d.galleryTitle);
+  put('d-galleryLabel', d.galleryLabel);
+  put('d-nextLabel', d.nextLabel);
+
+  if (Array.isArray(d.tocLabels) && d.tocLabels.length) {
+    document.querySelectorAll('.d-toc a, .toc a').forEach((a, i) => {
+      if (d.tocLabels[i]) a.textContent = d.tocLabels[i];
+    });
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
    PROJECTS LIST — Dynamic Showcase Rendering & Filter
 ───────────────────────────────────────────────────────────── */
 function initFilter() {
@@ -54,7 +127,10 @@ function initFilter() {
       articles.forEach(art => {
         const cat = (art.dataset.category || '').toLowerCase();
         const tags = (art.dataset.tags || '').toLowerCase();
-        const show = filter === 'all' || cat.includes(filter) || tags.includes(filter);
+        const feat = art.dataset.featured === '1';
+        const show = filter === 'all'
+          || (filter === 'featured' && feat)
+          || cat.includes(filter) || tags.includes(filter);
         art.style.display = show ? '' : 'none';
         if (show) {
           // Re-trigger reveals for newly shown items
@@ -113,12 +189,15 @@ async function renderProjectsShowcase() {
       const slugOrId = p.slug || p.id;
       const stack = Array.isArray(p.stack) ? p.stack : [];
       const titleFormatted = p.title.includes('<br>') ? p.title : `${p.title}`;
-      const coverImg = p.cover || 'assets/mockups/ecommerce-main.svg';
+      const coverImg = p.cover || 'assets/mockups/placeholder.svg';
       const tagsAttr = Array.isArray(p.tags) ? p.tags.join(' ') : (p.tags || '');
       const isIcon = coverImg.includes('-icon') || coverImg.includes('icon.png');
+      const cleanUrl = v => { const s = (v || '').trim(); return !s || s === '#' || s === 'undefined' ? '' : s; };
+      const liveUrl = cleanUrl(p.live || p.liveUrl);
+      const ghUrl = cleanUrl(p.github || p.githubUrl);
 
       return `
-      <article class="showcase ${isReverse ? 'showcase--reverse' : ''}" data-category="${escapeHTML(cat)}" data-tags="${escapeHTML(tagsAttr)}" id="proj-${escapeHTML(num)}">
+      <article class="showcase ${isReverse ? 'showcase--reverse' : ''}" data-category="${escapeHTML(cat)}" data-tags="${escapeHTML(tagsAttr)}" data-featured="${p.featured ? 1 : 0}" id="proj-${escapeHTML(num)}">
         <div class="showcase-inner">
 
           <div class="showcase-image reveal-clip visible">
@@ -151,8 +230,8 @@ async function renderProjectsShowcase() {
             </div>
             <div class="showcase-actions reveal-up visible">
               <a href="project-detail.html?id=${encodeURIComponent(slugOrId)}" class="btn-primary">Studi Kasus →</a>
-              <a href="${escapeHTML(p.live || p.liveUrl || '#')}" class="btn-ghost" target="_blank" rel="noopener">Demo Langsung ↗</a>
-              <a href="${escapeHTML(p.github || p.githubUrl || '#')}" class="btn-ghost" target="_blank" rel="noopener">GitHub ↗</a>
+              ${liveUrl ? `<a href="${escapeHTML(liveUrl)}" class="btn-ghost" target="_blank" rel="noopener">Demo Langsung ↗</a>` : ''}
+              ${ghUrl ? `<a href="${escapeHTML(ghUrl)}" class="btn-ghost" target="_blank" rel="noopener">GitHub ↗</a>` : ''}
             </div>
           </div>
 
@@ -456,26 +535,55 @@ function initShowcaseTilt() {
 }
 
 /* ─────────────────────────────────────────────────────────────
+   CHROME LOADER — Ambil landing sections lalu isi halaman
+───────────────────────────────────────────────────────────── */
+async function hydratePageChrome() {
+  try {
+    let data = null;
+    if (typeof PortfolioAPI !== 'undefined') {
+      data = await PortfolioAPI.getPortfolio();
+    } else {
+      const res = await fetch('/api/portfolio');
+      data = (await res.json()).data;
+    }
+    if (!data) return;
+    window.__projectCount = (data.projects || []).length;
+    hydrateProjectsPageChrome(data.landing);
+    hydrateDetailLabels(data.landing);
+  } catch (e) {
+    console.warn('Gagal memuat chrome halaman:', e && e.message);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
    INIT
 ───────────────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
-  renderProjectsShowcase();
-  hydrateDetail();
-  initFilter();
-  initProgressBar();
-  initShowcaseTilt();
+  const safe = (name, fn) => {
+    try { fn(); } catch (e) { console.warn(`[projects] ${name} gagal:`, e && e.message); }
+  };
+
+  // Chrome dimuat lebih dulu supaya judul/filter tidak sempat tampil kosong
+  safe('hydratePageChrome', hydratePageChrome);
+
+  safe('renderProjectsShowcase', renderProjectsShowcase);
+  safe('hydrateDetail', hydrateDetail);
+  safe('initFilter', initFilter);
+  safe('initProgressBar', initProgressBar);
+  safe('initShowcaseTilt', initShowcaseTilt);
 
   // Stagger-init the TOC after page loads
-  setTimeout(initTOC, 400);
+  setTimeout(safe.bind(null, 'initTOC', initTOC), 400);
 
   // Run dynamic reveals after hydration settles
-  setTimeout(initRevealsDynamic, 100);
+  setTimeout(safe.bind(null, 'initRevealsDynamic', initRevealsDynamic), 100);
 
   // Real-time synchronization
   if (typeof PortfolioAPI !== 'undefined' && PortfolioAPI.onUpdate) {
     PortfolioAPI.onUpdate(() => {
-      renderProjectsShowcase();
-      hydrateDetail();
+      safe('hydratePageChrome', hydratePageChrome);
+      safe('renderProjectsShowcase', renderProjectsShowcase);
+      safe('hydrateDetail', hydrateDetail);
     });
   }
 });

@@ -6,6 +6,24 @@
 'use strict';
 
 /* ───────────────────────────────────────────────
+   0. RESET SCROLL ON RELOAD
+   Browser sekaligus restore posisi scroll ke fragment (#about, dll)
+   setiap page di-refresh. Kita buang hash-nya dan balik ke atas.
+─────────────────────────────────────────────── */
+(function resetScrollOnReload() {
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+  window.addEventListener('load', function () {
+    if (!location.hash) {
+      window.scrollTo(0, 0);
+      return;
+    }
+    history.replaceState(null, '', location.pathname + location.search);
+    window.scrollTo(0, 0);
+  });
+})();
+
+/* ───────────────────────────────────────────────
    1. THREE.JS ABSTRACT BACKGROUND
 ─────────────────────────────────────────────── */
 /* ───────────────────────────────────────────────
@@ -685,7 +703,11 @@
 
     // Derived states
     const publishedProjects = (projects || []).filter(p => p.status !== 'draft');
-    const hasProjects = publishedProjects.length > 0;
+    // Homepage hanya memajang project yang ditandai unggulan (featured).
+    // Sisanya tetap ada, tapi hanya di halaman projects.html.
+    const featuredProjects = publishedProjects.filter(p => p.featured);
+    const homeProjects = (featuredProjects.length ? featuredProjects : publishedProjects).slice(0, 6);
+    const hasProjects = homeProjects.length > 0;
     const hasSkills = Array.isArray(skills) && skills.length > 0;
     // Combine experience + education for the "Perjalanan" section
     const allTimeline = [
@@ -704,15 +726,16 @@
         heroPortrait.src = av;
       }
 
+      // Nama/judul/bio hero sekarang HANYA dari tabel profile,
+      // supaya form admin benar-benar mengubah apa yang tampil.
       const heroName = document.querySelector('.hero-name');
       if (heroName) {
-        const titleRaw = (landing && landing.hero && landing.hero.title) || profile.name || '';
-        heroName.innerHTML = formatHeading(titleRaw);
+        heroName.innerHTML = formatHeading(profile.name || '');
       }
 
       const heroRole = document.querySelector('.hero-role');
       if (heroRole) {
-        const roleRaw = (landing && landing.hero && landing.hero.role) || profile.title || '';
+        const roleRaw = profile.title || '';
         const cleanRole = escapeHTML(roleRaw).replace(/<br\s*\/?>/gi, ' ').trim();
         heroRole.innerHTML = '<span id="heroRoleText"></span><span class="typing-cursor">|</span>';
         const roleTextEl = document.getElementById('heroRoleText');
@@ -758,7 +781,7 @@
 
       const heroBio = document.querySelector('#hero .hero-desc, #hero .hero-bio, .hero-desc, .hero-bio');
       if (heroBio) {
-        heroBio.textContent = (landing && landing.hero && landing.hero.bio) || profile.bio || '';
+        heroBio.textContent = profile.bio || '';
       }
 
       if (profile.location) {
@@ -972,7 +995,10 @@
         if (head) head.innerHTML = formatHeading(landing.projects.headline || 'Showcase<br><em>Proyek Nyata</em>');
         const btn = document.querySelector('#projects .projects-header .btn-ghost, #projects .btn-ghost');
         if (btn) {
-          btn.textContent = landing.projects.btnText || 'Lihat Arsip Lengkap →';
+          const archived = publishedProjects.length - homeProjects.length;
+          btn.textContent = archived > 0
+            ? `Lihat Semua ${publishedProjects.length} Proyek →`
+            : (landing.projects.btnText || 'Lihat Arsip Lengkap →');
           if (landing.projects.btnLink) btn.href = landing.projects.btnLink;
         }
       }
@@ -983,7 +1009,7 @@
         if (!hasProjects) {
           listContainer.innerHTML = `<div class="empty-state" style="padding: 4rem 0; text-align: center; color: var(--text-dim); width: 100%;"><p>Belum ada karya yang dipublikasikan.</p></div>`;
         } else {
-          listContainer.innerHTML = publishedProjects.map((p, idx) => {
+          listContainer.innerHTML = homeProjects.map((p, idx) => {
           const num = p.num || String(idx + 1).padStart(2, '0');
           const cat = p.category ? p.category.toUpperCase() : 'WEB APPLICATION';
           const year = p.year || '2024';
@@ -1268,11 +1294,131 @@
       }
     }
 
-    // SEO & Meta
+    // ── Chrome global: brand, nav, tombol, form, footer ──
+    // Semua string yang sebelumnya ditulis langsung di HTML,
+    // sekarang bisa diubah dari admin.
+    const chrome = landing.chrome || {};
+    const heroSec = landing.hero || {};
+
+    const setText = (root, sel, val) => {
+      if (!val) return;
+      root.querySelectorAll(sel).forEach(el => { el.textContent = val; });
+    };
+
+    if (chrome.brand) {
+      document.querySelectorAll('.nav-logo, #footer .footer-logo').forEach(el => {
+        if (!el.dataset.chromeBound) { el.textContent = chrome.brand; el.dataset.chromeBound = '1'; }
+      });
+    }
+
+    // Label menu navigasi (desktop + mobile) mengikuti urutan chrome.navLabels
+    if (Array.isArray(chrome.navLabels) && chrome.navLabels.length) {
+      const navLinks = document.querySelectorAll('.nav-link, .mobile-link');
+      navLinks.forEach(link => {
+        // Cocokkan berdasarkan posisi, tapi lewati link yang bukan menu utama
+        const i = Array.from(navLinks).indexOf(link);
+        const perGroup = Math.ceil(navLinks.length / 2);
+        const idx = i < perGroup ? i : i - perGroup;
+        const nextLabel = chrome.navLabels[idx];
+        if (nextLabel && link.dataset.chromeBound !== '1') {
+          link.textContent = nextLabel;
+          link.dataset.chromeBound = '1';
+        }
+      });
+    }
+
+    if (chrome.scrollTag) setText(document, '.scroll-tag', chrome.scrollTag);
+    if (heroSec.portraitAlt) {
+      const p = document.getElementById('heroPortraitImg');
+      if (p) p.alt = heroSec.portraitAlt;
+    }
+    if (heroSec.anonAvatar) {
+      const a = document.getElementById('heroPortraitAnon');
+      if (a) a.src = heroSec.anonAvatar;
+    }
+    if (heroSec.anonAlt) {
+      const a = document.getElementById('heroPortraitAnon');
+      if (a) a.alt = heroSec.anonAlt;
+    }
+    if (Array.isArray(heroSec.glanceLabels)) {
+      document.querySelectorAll('#hero .glance-label').forEach((el, i) => {
+        if (heroSec.glanceLabels[i]) el.textContent = heroSec.glanceLabels[i];
+      });
+    }
+
+    if (chrome.formName) document.querySelectorAll('label[for="name"]').forEach(el => el.textContent = chrome.formName);
+    if (chrome.formEmail) document.querySelectorAll('label[for="email"]').forEach(el => el.textContent = chrome.formEmail);
+    if (chrome.formProject) document.querySelectorAll('label[for="project"]').forEach(el => el.textContent = chrome.formProject);
+    if (chrome.formMessage) document.querySelectorAll('label[for="message"]').forEach(el => el.textContent = chrome.formMessage);
+    if (chrome.formPlaceholderName) { const e = document.getElementById('name'); if (e) e.placeholder = chrome.formPlaceholderName; }
+    if (chrome.formPlaceholderEmail) { const e = document.getElementById('email'); if (e) e.placeholder = chrome.formPlaceholderEmail; }
+    if (chrome.formPlaceholderProject) { const e = document.getElementById('project'); if (e) e.placeholder = chrome.formPlaceholderProject; }
+    if (chrome.formPlaceholderMessage) { const e = document.getElementById('message'); if (e) e.placeholder = chrome.formPlaceholderMessage; }
+    if (chrome.formSubmit) document.querySelectorAll('#contactForm .btn-text, #contactForm .btn-icon').forEach(el => {
+      if (el.classList.contains('btn-text')) el.textContent = chrome.formSubmit;
+    });
+    if (chrome.copyEmailBtn) {
+      const b = document.getElementById('copyEmailBtn');
+      if (b && !b.dataset.chromeBound) {
+        const span = b.querySelector('span') || b;
+        span.textContent = chrome.copyEmailBtn;
+        b.dataset.chromeBound = '1';
+      }
+    }
+
+    if (chrome.emptyProjects) window.__chromeEmpty = Object.assign(window.__chromeEmpty || {}, { projects: chrome.emptyProjects });
+    if (chrome.emptySkills) window.__chromeEmpty = Object.assign(window.__chromeEmpty || {}, { skills: chrome.emptySkills });
+    if (chrome.emptyTimeline) window.__chromeEmpty = Object.assign(window.__chromeEmpty || {}, { timeline: chrome.emptyTimeline });
+    if (chrome.emptyCerts) window.__chromeEmpty = Object.assign(window.__chromeEmpty || {}, { certs: chrome.emptyCerts });
+
+    // ── SEO untuk halaman selain home ──
+    // Dulu hanya seo.pages.home yang pernah dipakai; about/projects/detail
+    // sudah ada di DB tapi tidak pernah ditulis ke DOM.
+    // Halamanabout/projects/detail memakai <body class="page-*">
+    const bodyClass = document.body ? document.body.className : '';
+    const pageKey = bodyClass.match(/page-(about|projects|detail)/) ?
+      bodyClass.match(/page-(about|projects|detail)/)[1] : null;
+    // project-detail memakai SEO halaman projects
+    const seoKey = pageKey === 'detail' ? 'projects' : pageKey;
+    const seoPage = (seo && seo.pages) ? (seoKey ? seo.pages[seoKey] : null) : null;
+    if (seoPage) {
+      if (seoPage.title) document.title = seoPage.title;
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (seoPage.desc && metaDesc) metaDesc.setAttribute('content', seoPage.desc);
+    }
+
+    // Open Graph / Twitter — sebelumnya tidak pernah ditulis sama sekali
+    const applyMeta = (selector, attr, value) => {
+      if (!value) return;
+      let el = document.head.querySelector(selector);
+      if (!el) {
+        el = document.createElement('meta');
+        const [, name, content] = selector.match(/meta\[(\w+)="([^"]+)"\]/);
+        el.setAttribute(name, content);
+        document.head.appendChild(el);
+      }
+      el.setAttribute(attr, value);
+    };
+    const activeSeo = seoPage || (seo && seo.pages ? seo.pages.home : null);
+    if (activeSeo) {
+      applyMeta('meta[property="og:title"]', 'content', activeSeo.ogTitle || activeSeo.title);
+      applyMeta('meta[property="og:description"]', 'content', activeSeo.ogDesc || activeSeo.desc);
+      applyMeta('meta[property="og:image"]', 'content', activeSeo.ogImage);
+      applyMeta('meta[name="twitter:title"]', 'content', activeSeo.twitterTitle || activeSeo.ogTitle || activeSeo.title);
+      applyMeta('meta[name="twitter:description"]', 'content', activeSeo.twitterDesc || activeSeo.ogDesc || activeSeo.desc);
+      applyMeta('meta[name="twitter:image"]', 'content', activeSeo.twitterImage || activeSeo.ogImage);
+      if (activeSeo.canonical) {
+        let link = document.head.querySelector('link[rel="canonical"]');
+        if (!link) { link = document.createElement('link'); link.rel = 'canonical'; document.head.appendChild(link); }
+        link.href = activeSeo.canonical;
+      }
+    }
+
+    // SEO home tetap dipasang apa pun halamannya
     if (seo && seo.pages && seo.pages.home) {
       const hSeo = seo.pages.home;
-      if (hSeo.title) document.title = hSeo.title;
-      if (hSeo.desc) {
+      if (hSeo.title && !seoPage) document.title = hSeo.title;
+      if (hSeo.desc && !seoPage) {
         const mDesc = document.querySelector('meta[name="description"]');
         if (mDesc) mDesc.setAttribute('content', hSeo.desc);
       }
