@@ -9,6 +9,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('walzetass_theme');
+        var theme = (saved === 'light' || saved === 'dark') ? saved : 'dark';
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {}
+    })();
+  </script>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="projects.css" />
 </head>
@@ -26,9 +35,28 @@
         <a href="about.html#experience">Pengalaman</a>
         <a href="about.html#contact">Kontak</a>
       </div>
-      <button class="nav-menu-btn" id="menuBtn" aria-label="Menu">
-        <span></span><span></span>
-      </button>
+      <div class="nav-actions">
+        <button type="button" class="theme-toggle-btn" id="themeToggleBtn" aria-label="Ganti tema Gelap atau Terang" title="Ganti Tema (Dark / Light)">
+          <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4.5"></circle>
+            <line x1="12" y1="2" x2="12" y2="4.5"></line>
+            <line x1="12" y1="19.5" x2="12" y2="22"></line>
+            <line x1="4.93" y1="4.93" x2="6.7" y2="6.7"></line>
+            <line x1="17.3" y1="17.3" x2="19.07" y2="19.07"></line>
+            <line x1="2" y1="12" x2="4.5" y2="12"></line>
+            <line x1="19.5" y1="12" x2="22" y2="12"></line>
+            <line x1="4.93" y1="19.07" x2="6.7" y2="17.3"></line>
+            <line x1="17.3" y1="6.7" x2="19.07" y2="4.93"></line>
+          </svg>
+          <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <span class="theme-toggle-label" id="themeToggleLabel">Light</span>
+        </button>
+        <button class="nav-menu-btn" id="menuBtn" aria-label="Menu">
+          <span></span><span></span>
+        </button>
+      </div>
     </div>
   </nav>
 

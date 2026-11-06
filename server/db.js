@@ -238,6 +238,22 @@ function initSchema() {
       console.log(`  → migrasi: hero.${stale.join(', hero.')} dihapus (sekarang dari profile)`);
     }
   }
+
+  // Sync concise copy to existing DB rows so decluttered text takes effect immediately
+  db.prepare(`
+    UPDATE profile SET
+      bio = ?,
+      longbio = ?,
+      avatar = 'assets/profil.png'
+    WHERE id = 1
+  `).run(INITIAL_PROFILE.bio, INITIAL_PROFILE.longbio);
+
+  for (const secKey of ['hero', 'about', 'skills', 'certs', 'contact', 'chrome']) {
+    if (INITIAL_LANDING[secKey]) {
+      db.prepare('UPDATE landing_sections SET content_json = ? WHERE id = ?')
+        .run(JSON.stringify(INITIAL_LANDING[secKey]), secKey);
+    }
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -249,8 +265,8 @@ const INITIAL_PROFILE = {
   handle: 'WalZetass',
   title: 'Mahasiswa Manajemen Informatika · Developer · AI Enthusiast',
   location: 'Pekanbaru · Indonesia',
-  bio: 'Saya mahasiswa aktif Manajemen Informatika di Politeknik LP3I Kampus Pekanbaru. Berfokus pada rekayasa perangkat lunak multi-platform, sistem kasir ritel offline-first, dan integrasi kecerdasan buatan berbasis Google Gemini.',
-  longbio: 'Saya M Ihwal Maulana (dikenal di komunitas sebagai WalZetass), mahasiswa aktif program studi Manajemen Informatika di Politeknik LP3I Kampus Pekanbaru. Saya berdedikasi membangun aplikasi yang tidak sekadar memiliki tampilan estetis, melainkan memiliki pondasi arsitektur data yang kokoh, berintegritas tinggi, dan andal digunakan di dunia nyata. Fokus rekayasa saya mencakup pembangunan sistem kasir ritel offline-first (WariPOS), aplikasi mobile Android native (CariKostKita), perpesanan privat intim dua arah (Duo Chat), serta penerapan agen dan model multimodal Google Gemini API.',
+  bio: 'Mahasiswa Manajemen Informatika Politeknik LP3I Pekanbaru yang membangun aplikasi web, desktop POS, dan mobile untuk kebutuhan nyata.',
+  longbio: 'Saya M Ihwal Maulana (WalZetass), mahasiswa Manajemen Informatika di Politeknik LP3I Pekanbaru yang aktif memimpin organisasi kampus sekaligus membangun sistem perangkat lunak mandiri yang siap pakai di lapangan.',
   email: 'mihwalmaulana09@gmail.com',
   website: 'https://github.com/WalZetass-kar',
   github: 'https://github.com/WalZetass-kar',
@@ -266,10 +282,8 @@ const INITIAL_PROFILE = {
 const INITIAL_LANDING = {
   hero: {
     enabled: true,
-    eyebrow: 'INFORMATICS STUDENT',
-    // title / role / bio TIDAK lagi dipakai — hero memakai profile.name,
-    // profile.title, profile.bio supaya admin jadi satu-satunya sumber.
-    btn1Text: 'Lihat Karya Pilihan →',
+    eyebrow: 'INFORMATICS STUDENT · PEKANBARU',
+    btn1Text: 'Lihat Proyek',
     btn1Link: '#projects',
     btn2Text: 'Hubungi Saya',
     btn2Link: '#contact',
@@ -277,12 +291,13 @@ const INITIAL_LANDING = {
     anonAvatar: 'assets/anonim.png',
     anonAlt: 'M Ihwal Maulana - Anonymous',
     scrollTag: 'SCROLL',
-    focusText: 'Dua proyek utama saya lahir dari organisasi yang saya pimpin: sistem absensi untuk anggota LCC dan KTM digital yang bisa diverifikasi lewat QR. Target saya menjadi Full Stack Developer.',
-    coreTech: ['JavaScript', 'TypeScript', 'Java', 'SQL', 'HTML5', 'CSS3', 'React.js', 'Next.js'],
-    glanceLabels: ['FOCUS', 'CORE TECH', 'KARYA UNGGULAN'],
+    focusText: '',
+    coreTech: ['JavaScript', 'TypeScript', 'React.js', 'Node.js', 'Electron', 'Android Java', 'SQLite', 'Gemini API'],
+    glanceLabels: ['TEKNOLOGI INTI', 'KARYA UNGGULAN'],
     featuredProjects: [
-      { title: 'Sistem Absensi LCC', desc: 'Absensi anggota LP3I Computer Club lewat scan QR.', link: '#projects' },
-      { title: 'KTM Digital', desc: 'Kartu Tanda Mahasiswa digital yang bisa diverifikasi lewat QR.', link: '#projects' }
+      { title: 'WariPOS Suite', desc: 'Kasir desktop & mobile offline-first', link: 'project-detail.html?id=waripos' },
+      { title: 'Sistem Absensi QR LCC', desc: 'Presensi QR real-time organisasi', link: 'project-detail.html?id=absensi-lcc' },
+      { title: 'KTM Digital', desc: 'Identitas mahasiswa terverifikasi QR', link: 'project-detail.html?id=ktm-digital' }
     ]
   },
   marquee: {
@@ -293,8 +308,8 @@ const INITIAL_LANDING = {
     enabled: true,
     label: '02 — Tentang',
     headline: 'Rekayasa sistem<br>yang <em>berdaya guna</em>',
-    text1: 'Saya <strong>M Ihwal Maulana</strong> (dikenal di komunitas sebagai <em>WalZetass</em>), mahasiswa aktif program studi Manajemen Informatika di Politeknik LP3I Kampus Pekanbaru. Saya berdedikasi membangun aplikasi yang tidak sekadar memiliki tampilan estetis, melainkan memiliki pondasi arsitektur data yang kokoh, berintegritas tinggi, dan andal digunakan di dunia nyata.',
-    text2: 'Fokus rekayasa saya mencakup pembangunan sistem kasir ritel offline-first (WariPOS), aplikasi mobile Android native (CariKostKita), perpesanan privat intim dua arah (Duo Chat), serta penerapan agen dan model multimodal Google Gemini API.',
+    text1: 'Saya <strong>M Ihwal Maulana</strong> (<em>WalZetass</em>), mahasiswa Manajemen Informatika di Politeknik LP3I Pekanbaru yang aktif memimpin organisasi kampus sekaligus membangun sistem perangkat lunak mandiri yang siap pakai di lapangan.',
+    text2: '',
     stat1Num: '',
     stat1Label: '',
     stat2Num: '',
@@ -409,14 +424,14 @@ const INITIAL_LANDING = {
     enabled: true,
     brand: 'WalZetass',
     navLabels: ['Tentang', 'Karya', 'Keahlian', 'Perjalanan', 'Sertifikasi', 'Kontak'],
-    formName: 'Nama Lengkap',
-    formEmail: 'Alamat Email',
-    formProject: 'Cakupan / Kebutuhan Rekayasa',
-    formMessage: 'Pesan Anda',
+    formName: 'Nama',
+    formEmail: 'Email',
+    formProject: 'Topik / Proyek',
+    formMessage: 'Pesan',
     formPlaceholderName: 'Nama Anda',
     formPlaceholderEmail: 'email@domain.com',
-    formPlaceholderProject: 'Sistem POS · Mobile Android · Google Gemini AI',
-    formPlaceholderMessage: 'Ceritakan tujuan, kebutuhan sistem, atau peluang kolaborasi...',
+    formPlaceholderProject: 'Web · POS · Android · AI',
+    formPlaceholderMessage: 'Tulis pesan singkat Anda...',
     formSubmit: 'Kirim Pesan',
     formSending: 'Mengirim…',
     formErrEmpty: 'Harap lengkapi semua kolom…',
@@ -435,7 +450,7 @@ const INITIAL_LANDING = {
     enabled: true,
     label: '04 — Keahlian',
     headline: 'Alat &<br><em>Teknologi Nyata</em>',
-    intro: 'Kumpulan bahasa pemrograman, kerangka kerja, dan perkakas teknis yang digunakan secara konsisten dalam proyek nyata dan rekayasa multi-platform.'
+    intro: ''
   },
   experience: {
     enabled: true,
@@ -444,23 +459,438 @@ const INITIAL_LANDING = {
   },
   certs: {
     enabled: true,
-    label: '06 — Pembelajaran & Kredensial',
-    headline: 'Validasi & <em>Sertifikasi Keahlian</em>'
+    label: '06 — Kredensial',
+    headline: 'Sertifikasi & <em>Kompetensi</em>'
   },
   contact: {
     enabled: true,
-    label: '07 — Kontak & Kolaborasi',
-    headline: 'Mari membangun<br>sesuatu yang <em>berdampak</em>',
-    sub: 'Terbuka untuk kolaborasi proyek rekayasa sistem, eksplorasi kecerdasan buatan, maupun diskusi teknis. Kirimkan pesan langsung melalui formulir atau email.',
+    label: '07 — Kontak',
+    headline: 'Mari bangun<br>sesuatu yang <em>berdampak</em>',
+    sub: 'Terbuka untuk kolaborasi proyek dan diskusi teknis.',
     email: 'mihwalmaulana09@gmail.com'
   }
 };
 
-const INITIAL_PROJECTS = [];
+const INITIAL_PROJECTS = [
+  {
+    id: 'waripos',
+    slug: 'waripos',
+    num: '01',
+    title: 'WariPOS — Point of Sale<br><em>&amp; Retail Management</em>',
+    title_plain: 'WariPOS — Point of Sale & Retail Management',
+    tagline: 'Sistem kasir dan manajemen ritel multi-platform dengan arsitektur offline-first, pencetakan struk termal ESC/POS dinamis, rekonsiliasi kas shift, dan sinkronisasi inventori.',
+    desc: 'UMKM dan toko ritel kerap mengalami antrean tersendat serta risiko kehilangan transaksi saat koneksi internet terputus. WariPOS dirancang dengan arsitektur offline-first berbasis SQLite lokal sehingga transaksi kasir, pemotongan stok, pembuatan nota termal ESC/POS 58mm/80mm, dan audit kas shift berjalan instan tanpa ketergantungan jaringan.',
+    category: 'Desktop & Mobile POS',
+    year: '2024 — 2026',
+    role: 'Lead System Developer',
+    duration: 'Pengembangan Berkelanjutan',
+    status: 'published',
+    live_url: 'https://github.com/WalZetass-kar/WariPOS/releases/latest',
+    github_url: 'https://github.com/WalZetass-kar/WariPOS',
+    cover: 'assets/mockups/dashboard-main.svg',
+    spread1: 'assets/mockups/waripos-icon.png',
+    spread2: 'assets/mockups/dashboard-main.svg',
+    fullwidth: 'assets/mockups/ecommerce-main.svg',
+    stack: ['Electron', 'Capacitor', 'React', 'TypeScript', 'SQLite (Drizzle ORM)', 'Thermal ESC/POS'],
+    overview_title: 'Keandalan Operasional Ritel Penuh<br>Tanpa <em>Ketergantungan Internet</em>',
+    overview_body1: 'UMKM dan toko ritel kerap mengalami antrean tersendat dan risiko kehilangan transaksi saat koneksi internet terputus. WariPOS dirancang dengan prinsip offline-first menyeluruh: seluruh transaksi kasir, pemotongan stok, pembuatan nota, dan pencatatan shift disimpan langsung di database SQLite lokal perangkat.',
+    overview_body2: 'Mendukung pemindai barcode USB/kamera, pencetakan struk termal ESC/POS (58mm/80mm) dengan Dynamic Stacking agar teks nota tidak saling bertumpuk, ekspor PDF kontinu, serta pembagian nota digital langsung ke WhatsApp pelanggan.',
+    challenges: [
+      {
+        title: 'Integritas Transaksi Offline & Rekonsiliasi Kas',
+        body: 'Menjamin konsistensi pemotongan stok dan audit uang fisik kasir (Open/Close Shift) di SQLite lokal tanpa selisih data.'
+      },
+      {
+        title: 'Pencetakan Struk Termal ESC/POS Dinamis',
+        body: 'Mengatasi keterbatasan lebar kertas printer termal dengan dynamic vertical stacking agar nama barang panjang dan harga tetap rapi di kertas 58mm maupun 80mm.'
+      },
+      {
+        title: 'Basis Kode Tunggal Desktop & Android',
+        body: 'Menyatukan arsitektur TypeScript dan komponen React untuk aplikasi desktop Windows/Linux (Electron) serta perangkat kasir mobile Android (Capacitor).'
+      }
+    ],
+    solution_paras: [
+      '<strong>Arsitektur Offline-First:</strong> Memanfaatkan SQLite lokal dengan Drizzle ORM untuk pemrosesan transaksi berkecepatan tinggi tanpa latensi jaringan.',
+      '<strong>ESC/POS &amp; Dynamic Stacking:</strong> Engine pencetakan nota kustom mendukung printer Bluetooth dan USB, ekspor PDF kontinu, serta pengiriman nota instan via WhatsApp.',
+      '<strong>Audit Kas &amp; Inventori:</strong> Fitur buka/tutup kasir (Open/Close Shift) dengan perhitungan surplus/defisit otomatis, Held Carts (antrean transaksi tertunda), serta notifikasi Low Stock Alert.'
+    ],
+    results: [
+      { num: '100% Offline', label: 'Transaksi & stok berjalan penuh tanpa koneksi internet' },
+      { num: '58 / 80mm', label: 'Dukungan printer termal ESC/POS Bluetooth & USB' },
+      { num: 'Shift Audit', label: 'Rekonsiliasi kas fisik buka/tutup shift otomatis' },
+      { num: 'Multi-OS', label: 'Tersedia untuk Windows, Linux (Electron) & Android APK' }
+    ],
+    gallery: [
+      { src: 'assets/mockups/dashboard-main.svg', caption: 'Antarmuka Kasir & Manajemen Inventori WariPOS' },
+      { src: 'assets/mockups/waripos-icon.png', caption: 'Identitas Aplikasi WariPOS Suite' },
+      { src: 'assets/mockups/ecommerce-main.svg', caption: 'Katalog Produk, Held Cart & Rekonsiliasi Shift' }
+    ],
+    next_id: 'absensi-lcc',
+    next_title: 'Sistem Absensi QR<br><em>LP3I Computer Club</em>',
+    featured: 1,
+    order_index: 1
+  },
+  {
+    id: 'absensi-lcc',
+    slug: 'absensi-lcc',
+    num: '02',
+    title: 'Sistem Absensi QR<br><em>LP3I Computer Club</em>',
+    title_plain: 'Sistem Absensi QR — LP3I Computer Club (LCC)',
+    tagline: 'Sistem pencatatan kehadiran anggota organisasi LP3I Computer Club berbasis pemindaian QR Code real-time untuk menggantikan rekapitulasi absensi manual.',
+    desc: 'Lahir dari kebutuhan langsung saat memimpin LP3I Computer Club (LCC) di Politeknik LP3I Pekanbaru. Sebelumnya pencatatan kehadiran pertemuan rutin dan kelas praktikum dilakukan secara manual sehingga rawan antrean dan rekapitulasi lambat. Sistem ini mengotomatisasi validasi kehadiran anggota lewat scan QR dan menyajikan rekap kehadiran pengurus secara langsung.',
+    category: 'Web Application',
+    year: '2025 — 2026',
+    role: 'Full-Stack Developer & Pengurus LCC',
+    duration: 'Digunakan Internal Organisasi',
+    status: 'published',
+    live_url: '',
+    github_url: 'https://github.com/WalZetass-kar',
+    cover: 'assets/mockups/dashboard-main.svg',
+    spread1: 'assets/mockups/dashboard-main.svg',
+    spread2: 'assets/mockups/ecommerce-main.svg',
+    fullwidth: 'assets/mockups/dashboard-main.svg',
+    stack: ['JavaScript', 'Node.js', 'Express.js', 'SQL', 'HTML5 & CSS3', 'QR Code Scanner'],
+    overview_title: 'Digitalisasi Kehadiran Anggota<br><em>LP3I Computer Club</em>',
+    overview_body1: 'Sebagai pengurus LP3I Computer Club (LCC), saya mengamati proses absensi kertas dan form manual sering menghambat jalannya sesi pelatihan rutin serta menyulitkan evaluasi keaktifan anggota setiap semester.',
+    overview_body2: 'Sistem Absensi LCC dibangun agar setiap anggota cukup memindai QR Code sesi kegiatan. Data kehadiran tercatat otomatis beserta waktu presensi, divisi, dan status kehadiran, siap diekspor oleh pengurus.',
+    challenges: [
+      {
+        title: 'Antrean Presensi Saat Kegiatan Dimulai',
+        body: 'Puluhan anggota hadir bersamaan di awal sesi sehingga proses input manual memakan waktu 15–20 menit.'
+      },
+      {
+        title: 'Validasi Keanggotaan & Duplikasi Presensi',
+        body: 'Mencegah input ganda pada sesi yang sama serta memastikan hanya anggota terdaftar yang tercatat hadir.'
+      },
+      {
+        title: 'Rekapitulasi Keaktifan Pengurus & Anggota',
+        body: 'Menyajikan laporan kehadiran per pertemuan dan akumulasi semester tanpa perlu menggabungkan lembar data manual.'
+      }
+    ],
+    solution_paras: [
+      '<strong>Pemindaian QR Instan:</strong> Menghadirkan modul pemindaian QR berbasis kamera web/perangkat seluler dengan validasi token sesi unik.',
+      '<strong>Pencegahan Duplikasi di Database:</strong> Constraint relasional memastikan satu identitas anggota hanya tercatat satu kali per sesi kegiatan.',
+      '<strong>Dasbor Rekapitulasi Langsung:</strong> Pengurus LCC dapat memantau daftar hadir real-time dan mengunduh rekap keaktifan anggota.'
+    ],
+    results: [
+      { num: 'QR Scan', label: 'Verifikasi kehadiran anggota dalam hitungan detik' },
+      { num: 'Real-Time', label: 'Dasbor rekapitulasi langsung untuk pengurus LCC' },
+      { num: 'Zero Dup', label: 'Validasi sesi otomatis tanpa pencatatan ganda' }
+    ],
+    gallery: [
+      { src: 'assets/mockups/dashboard-main.svg', caption: 'Dasbor Rekapitulasi Kehadiran Anggota LCC' },
+      { src: 'assets/mockups/mobile-main.svg', caption: 'Tampilan Pemindaian QR Presensi Kegiatan' }
+    ],
+    next_id: 'ktm-digital',
+    next_title: 'KTM Digital<br><em>Verifikasi QR Mahasiswa</em>',
+    featured: 1,
+    order_index: 2
+  },
+  {
+    id: 'ktm-digital',
+    slug: 'ktm-digital',
+    num: '03',
+    title: 'KTM Digital — Kartu Tanda<br><em>Mahasiswa Terverifikasi QR</em>',
+    title_plain: 'KTM Digital — Kartu Tanda Mahasiswa Terverifikasi QR',
+    tagline: 'Aplikasi identitas Kartu Tanda Mahasiswa (KTM) digital berbasis web dengan fitur verifikasi keaktifan mahasiswa instan melalui pemindaian QR Code.',
+    desc: 'Dirancang untuk menjawab kendala mahasiswa yang kerap lupa membawa kartu fisik saat mengikuti kegiatan kampus, ujian, atau acara organisasi BEM & LCC. KTM Digital menampilkan identitas resmi mahasiswa yang responsif di ponsel lengkap dengan QR Code unik untuk verifikasi status aktif secara cepat.',
+    category: 'Web Application',
+    year: '2025 — 2026',
+    role: 'Full-Stack Developer',
+    duration: 'Inisiatif Kampus & Organisasi',
+    status: 'published',
+    live_url: '',
+    github_url: 'https://github.com/WalZetass-kar',
+    cover: 'assets/mockups/mobile-main.svg',
+    spread1: 'assets/mockups/mobile-main.svg',
+    spread2: 'assets/mockups/dashboard-main.svg',
+    fullwidth: 'assets/mockups/mobile-main.svg',
+    stack: ['TypeScript', 'React.js', 'Next.js', 'Tailwind CSS', 'SQL', 'QR Verification'],
+    overview_title: 'Identitas Mahasiswa Digital<br>yang <em>Mudah Diverifikasi</em>',
+    overview_body1: 'Kartu mahasiswa fisik sering tertinggal atau rusak ketika dibutuhkan untuk verifikasi administrasi kegiatan kemahasiswaan. KTM Digital menyediakan kartu identitas di peramban ponsel yang dapat diakses kapan saja.',
+    overview_body2: 'Setiap kartu dilengkapi kode QR terenkripsi yang ketika dipindai oleh panitia atau pengurus organisasi akan menampilkan halaman validasi profil mahasiswa (NIM, Program Studi, dan status aktif).',
+    challenges: [
+      {
+        title: 'Keamanan & Keaslian Identitas Kartu',
+        body: 'Memastikan tampilan KTM digital tidak sekadar gambar statis, melainkan terhubung ke endpoint verifikasi QR yang valid.'
+      },
+      {
+        title: 'Kenyamanan Akses di Layar Seluler',
+        body: 'Merancang tata letak kartu proporsional yang tajam di berbagai ukuran layar smartphone dengan kontras QR tinggi agar mudah dipindai.'
+      }
+    ],
+    solution_paras: [
+      '<strong>Endpoint Verifikasi QR:</strong> Setiap kode QR mengarah ke rute verifikasi unik yang memeriksa kecocokan NIM dan status mahasiswa di database.',
+      '<strong>Desain Mobile-First Responsif:</strong> Antarmuka kartu dirancang ringan dengan pemuatan cepat bahkan pada jaringan seluler kampus yang terbatas.'
+    ],
+    results: [
+      { num: 'QR Verify', label: 'Validasi keaslian identitas mahasiswa via pemindaian QR' },
+      { num: 'Mobile UI', label: 'Akses instan kartu mahasiswa langsung dari smartphone' },
+      { num: 'Terintegrasi', label: 'Mendukung ekosistem kegiatan BEM & organisasi kampus' }
+    ],
+    gallery: [
+      { src: 'assets/mockups/mobile-main.svg', caption: 'Tampilan Kartu Tanda Mahasiswa Digital & Kode QR' },
+      { src: 'assets/mockups/dashboard-main.svg', caption: 'Halaman Validasi Status Mahasiswa' }
+    ],
+    next_id: 'carikostkita',
+    next_title: 'CariKostKita<br><em>Android App</em>',
+    featured: 1,
+    order_index: 3
+  },
+  {
+    id: 'carikostkita',
+    slug: 'carikostkita',
+    num: '04',
+    title: 'CariKostKita<br><em>Android Native App</em>',
+    title_plain: 'CariKostKita — Aplikasi Pencarian Kost Android',
+    tagline: 'Aplikasi Android native untuk eksplorasi dan pemetaan hunian kost di Pekanbaru dengan filter fasilitas, penyimpanan favorit Room SQLite offline, dan integrasi Google Maps.',
+    desc: 'Mahasiswa rantau di Pekanbaru sering kesulitan membandingkan harga, fasilitas, dan lokasi kost secara akurat karena informasi tersebar di media sosial. CariKostKita hadir sebagai aplikasi Android native (Java & Material Design 3) dengan penyimpanan lokal Room SQLite, pencarian multi-kriteria, serta tombol navigasi Google Maps dan kontak WhatsApp pemilik kost.',
+    category: 'Mobile App (Android)',
+    year: '2025 — 2026',
+    role: 'Android Developer',
+    duration: 'Proyek Mandiri',
+    status: 'published',
+    live_url: '',
+    github_url: 'https://github.com/WalZetass-kar',
+    cover: 'assets/mockups/mobile-main.svg',
+    spread1: 'assets/mockups/carikostkita-icon.png',
+    spread2: 'assets/mockups/mobile-main.svg',
+    fullwidth: 'assets/mockups/mobile-main.svg',
+    stack: ['Android SDK (Java)', 'Material Design 3', 'Room SQLite', 'Google Maps Intent', 'RecyclerView'],
+    overview_title: 'Memudahkan Mahasiswa Rantau<br>Menemukan <em>Hunian Tepat</em>',
+    overview_body1: 'Pencarian tempat kost bagi mahasiswa baru di Pekanbaru kerap memakan waktu karena informasi harga, sisa kamar, dan titik lokasi tidak terstruktur.',
+    overview_body2: 'CariKostKita dibangun menggunakan Android SDK (Java) dan arsitektur Room Database sehingga daftar kost favorit tetap dapat dibuka secara offline saat survei langsung ke lokasi.',
+    challenges: [
+      {
+        title: 'Akses Data Kost Saat Survei Lapangan',
+        body: 'Menyimpan daftar kost favorit dan detail fasilitas secara lokal di perangkat menggunakan Room SQLite agar tetap bisa diakses meski sinyal seluler lemah.'
+      },
+      {
+        title: 'Integrasi Navigasi & Komunikasi Langsung',
+        body: 'Menghubungkan halaman detail kost langsung ke rute Google Maps Intent dan percakapan WhatsApp pemilik kost dalam satu ketukan.'
+      }
+    ],
+    solution_paras: [
+      '<strong>Arsitektur Room SQLite:</strong> Menyediakan caching lokal dan fitur markah (bookmark) hunian kost pilihan.',
+      '<strong>Filter Harga &amp; Kategori Kost:</strong> Memfilter kost putra, putri, atau campur beserta rentang harga bulanan dan fasilitas utama.',
+      '<strong>Deep-Link Intent Android:</strong> Integrasi langsung dengan aplikasi Google Maps untuk petunjuk arah dan WhatsApp untuk negosiasi kamar.'
+    ],
+    results: [
+      { num: 'Native Java', label: 'Performa ringan dengan komponen Material Design 3' },
+      { num: 'Room DB', label: 'Penyimpanan daftar kost favorit secara offline' },
+      { num: 'Maps Intent', label: 'Navigasi langsung ke titik koordinat hunian kost' }
+    ],
+    gallery: [
+      { src: 'assets/mockups/mobile-main.svg', caption: 'Antarmuka Daftar & Detail Hunian CariKostKita' },
+      { src: 'assets/mockups/carikostkita-icon.png', caption: 'Identitas Aplikasi CariKostKita Android' }
+    ],
+    next_id: 'duochat',
+    next_title: 'Duo Chat<br><em>Private Messenger</em>',
+    featured: 1,
+    order_index: 4
+  },
+  {
+    id: 'duochat',
+    slug: 'duochat',
+    num: '05',
+    title: 'Duo Chat<br><em>(ChatPrivate 1-on-1)</em>',
+    title_plain: 'Duo Chat (ChatPrivate) — Private Messenger',
+    tagline: 'Aplikasi perpesanan eksklusif dua arah (1-on-1 private messenger) dengan autentikasi sesi aman, pairing invitation token real-time, dan antarmuka fokus privasi.',
+    desc: 'Aplikasi chat umum sering penuh dengan distraksi grup dan notifikasi massal. Duo Chat (ChatPrivate) dirancang khusus sebagai ruang komunikasi privat dua orang dengan sistem tautan undangan (pairing token), sinkronisasi pesan real-time berbasis Supabase, dan kontrol penuh atas riwayat percakapan.',
+    category: 'Web Application',
+    year: '2026',
+    role: 'Full-Stack Developer',
+    duration: 'Proyek Mandiri',
+    status: 'published',
+    live_url: '',
+    github_url: 'https://github.com/WalZetass-kar',
+    cover: 'assets/mockups/duochat-screen.png',
+    spread1: 'assets/mockups/duochat-screen.png',
+    spread2: 'assets/mockups/dashboard-main.svg',
+    fullwidth: 'assets/mockups/duochat-screen.svg',
+    stack: ['React.js', 'Tailwind CSS', 'Supabase Realtime', 'Google OAuth', 'Web Crypto API'],
+    overview_title: 'Ruang Komunikasi Privat<br>Tanpa <em>Distraksi Sosial</em>',
+    overview_body1: 'Duo Chat membatasi koneksi secara eksklusif untuk dua pengguna yang saling terhubung melalui kode undangan terverifikasi (pairing token).',
+    overview_body2: 'Memanfaatkan Supabase Realtime untuk pengiriman pesan instan, indikator status baca, serta kebijakan Row-Level Security (RLS) ketat sehingga hanya pasangan ruang chat terkait yang dapat membaca pesan.',
+    challenges: [
+      {
+        title: 'Mekanisme Pairing Dua Pengguna yang Aman',
+        body: 'Memastikan proses penyambungan akun hanya bisa dilakukan lewat token undangan sekali pakai tanpa mengekspos daftar pengguna publik.'
+      },
+      {
+        title: 'Sinkronisasi Pesan Real-Time & Keamanan RLS',
+        body: 'Menjaga latensi pesan tetap rendah sembari menerapkan Row-Level Security di PostgreSQL/Supabase.'
+      }
+    ],
+    solution_paras: [
+      '<strong>Pairing Token Eksklusif:</strong> Sistem pembuatan dan klaim kode pasangan unik untuk mengunci ruang percakapan 1-on-1.',
+      '<strong>Supabase Realtime &amp; RLS:</strong> Langganan perubahan tabel pesan secara langsung dengan proteksi akses tingkat baris.'
+    ],
+    results: [
+      { num: '1-on-1 Lock', label: 'Ruang percakapan privat dengan pairing token unik' },
+      { num: 'Realtime', label: 'Sinkronisasi pesan instan via Supabase WebSockets' },
+      { num: 'RLS Policy', label: 'Isolasi akses data ketat di level database' }
+    ],
+    gallery: [
+      { src: 'assets/mockups/duochat-screen.png', caption: 'Tangkapan Layar Antarmuka Duo Chat (ChatPrivate)' }
+    ],
+    next_id: 'civic-report',
+    next_title: 'Civic Report<br><em>Platform Pengaduan AI</em>',
+    featured: 1,
+    order_index: 5
+  },
+  {
+    id: 'civic-report',
+    slug: 'civic-report',
+    num: '06',
+    title: 'Civic Report<br><em>Platform Pengaduan Publik AI</em>',
+    title_plain: 'Civic Report — Platform Pengaduan Infrastruktur Berbasis AI',
+    tagline: 'Platform pelaporan kerusakan infrastruktur publik dengan analisis foto otomatis menggunakan Google Gemini Vision, pengelompokan lokasi Haversine, dan pemetaan interaktif.',
+    desc: 'Laporan warga terkait jalan rusak, lampu jalan mati, atau drainase tersumbat sering kali menumpuk akibat duplikasi laporan di titik yang sama dan kurangnya deskripsi awal. Civic Report mengintegrasikan Google Gemini API untuk menganalisis foto laporan secara otomatis, mengklasifikasikan tingkat urgensi, serta mengelompokkan laporan berdekatan menggunakan rumus spasial Haversine pada peta Leaflet GIS.',
+    category: 'AI & Geospatial Web',
+    year: '2025',
+    role: 'Full-Stack & AI Developer',
+    duration: 'Eksplorasi AI & GIS',
+    status: 'published',
+    live_url: '',
+    github_url: 'https://github.com/WalZetass-kar',
+    cover: 'assets/mockups/ecommerce-main.svg',
+    spread1: 'assets/mockups/dashboard-main.svg',
+    spread2: 'assets/mockups/ecommerce-main.svg',
+    fullwidth: 'assets/mockups/dashboard-main.svg',
+    stack: ['Next.js', 'Google Gemini API', 'Leaflet GIS', 'Node.js', 'MySQL'],
+    overview_title: 'Verifikasi & Pemetaan Laporan Warga<br>Berbantuan <em>Google Gemini AI</em>',
+    overview_body1: 'Civic Report memudahkan warga mengirimkan foto kerusakan fasilitas umum beserta titik koordinat GPS langsung dari peramban.',
+    overview_body2: 'Model multimodal Google Gemini menganalisis foto yang diunggah untuk mengidentifikasi jenis kerusakan infrastruktur dan menyusun ringkasan teknis, sementara algoritma Haversine menggabungkan laporan yang berada dalam radius berdekatan.',
+    challenges: [
+      {
+        title: 'Duplikasi Laporan pada Titik Lokasi yang Sama',
+        body: 'Banyak warga melaporkan kerusakan jalan yang sama sehingga daftar laporan menjadi berulang.'
+      },
+      {
+        title: 'Klasifikasi Awal Foto Laporan Warga',
+        body: 'Menyaring foto yang relevan dan mengekstrak kategori serta tingkat keparahan kerusakan secara otomatis.'
+      }
+    ],
+    solution_paras: [
+      '<strong>Integrasi Google Gemini Vision:</strong> Menganalisis citra laporan untuk menghasilkan deskripsi awal, kategori infrastruktur, dan estimasi tingkat urgensi.',
+      '<strong>Clustering Spasial Haversine &amp; Leaflet GIS:</strong> Menghitung jarak antartitik koordinat untuk mengelompokkan laporan serupa pada satu penanda peta interaktif.'
+    ],
+    results: [
+      { num: 'Gemini AI', label: 'Klasifikasi & ringkasan otomatis dari foto laporan' },
+      { num: 'Haversine', label: 'Pengelompokan laporan dalam radius koordinat terdekat' },
+      { num: 'Leaflet GIS', label: 'Visualisasi peta sebaran laporan infrastruktur publik' }
+    ],
+    gallery: [
+      { src: 'assets/mockups/ecommerce-main.svg', caption: 'Peta Interaktif & Katalog Laporan Infrastruktur' },
+      { src: 'assets/mockups/dashboard-main.svg', caption: 'Dasbor Analisis & Status Penanganan Laporan' }
+    ],
+    next_id: 'waripos',
+    next_title: 'WariPOS — Point of Sale<br><em>&amp; Retail Management</em>',
+    featured: 1,
+    order_index: 6
+  }
+];
+
 const INITIAL_SKILLS = [];
-const INITIAL_EXPERIENCE = [];
-const INITIAL_EDUCATION = [];
-const INITIAL_CERTIFICATES = [];
+
+const INITIAL_EXPERIENCE = [
+  {
+    id: 'exp_bem_lp3i',
+    role: 'Divisi Kominfo & Media Kreatif',
+    company: 'BEM Politeknik LP3I Pekanbaru',
+    location: 'Pekanbaru, Riau',
+    period: '2025 — Sekarang',
+    desc: 'Mengelola komunikasi publik dan publikasi digital organisasi mahasiswa, sekaligus menginisiasi pengembangan sistem internal seperti KTM Digital terverifikasi QR untuk mendukung administrasi kegiatan kampus.',
+    highlights: ['Komunikasi Publik', 'KTM Digital QR', 'Media Kreatif', 'BEM LP3I'],
+    type: 'Organisasi Kampus',
+    current: 1,
+    order_index: 1
+  },
+  {
+    id: 'exp_lcc_lp3i',
+    role: 'Pengurus & Pengembang Sistem Internal',
+    company: 'LP3I Computer Club (LCC)',
+    location: 'Politeknik LP3I Pekanbaru',
+    period: '2025 — Sekarang',
+    desc: 'Memimpin kegiatan komunitas pemrograman mahasiswa dan membangun Sistem Absensi QR LCC yang digunakan langsung oleh anggota untuk pencatatan kehadiran pertemuan rutin dan kelas praktikum.',
+    highlights: ['Sistem Absensi QR LCC', 'Kepemimpinan Komunitas', 'Web Development', 'Mentoring'],
+    type: 'Komunitas Teknis',
+    current: 1,
+    order_index: 2
+  },
+  {
+    id: 'exp_independent_dev',
+    role: 'Independent Software Developer',
+    company: 'WalZetass-Kar Open Source Ecosystem',
+    location: 'Pekanbaru · GitHub',
+    period: '2023 — Sekarang',
+    desc: 'Merancang dan memelihara 21+ repositori perangkat lunak mandiri lintas platform: sistem kasir ritel offline-first WariPOS (Electron, Capacitor, React, SQLite), aplikasi Android native CariKostKita, Duo Chat, dan eksperimen Google Gemini API.',
+    highlights: ['WariPOS Suite', 'CariKostKita Android', 'Duo Chat', '21+ Repositori GitHub'],
+    type: 'Pengembangan Mandiri',
+    current: 1,
+    order_index: 3
+  }
+];
+
+const INITIAL_EDUCATION = [
+  {
+    id: 'ed1791166668989',
+    degree: 'D2 Manajemen Informatika',
+    institution: 'Politeknik LP3I Kampus Pekanbaru',
+    period: '2025 — Sekarang',
+    gpa: '3,70',
+    detail: 'Fokus pada rekayasa perangkat lunak, perancangan basis data relasional, pemrograman web & mobile, serta analisis sistem informasi bisnis terapan.',
+    tags: ['Manajemen Informatika', 'Basis Data', 'Rekayasa Perangkat Lunak', 'IPK 3,70'],
+    order_index: 0
+  },
+  {
+    id: 'ed1791166684663',
+    degree: 'Jurusan IPA',
+    institution: 'SMA Negeri 2 Kubu Babussalam',
+    period: '2022 — 2025',
+    gpa: '90',
+    detail: 'Pendidikan menengah atas jurusan Ilmu Pengetahuan Alam dengan fokus pada matematika, logika komputasi dasar, dan eksplorasi mandiri pemrograman web.',
+    tags: ['IPA', 'Nilai Rata-rata 90'],
+    order_index: 1
+  }
+];
+
+const INITIAL_CERTIFICATES = [
+  {
+    id: 'cert_lp3i_db',
+    title: 'Sertifikasi Kompetensi Basis Data & Pemrograman Terstruktur',
+    issuer: 'Politeknik LP3I Pekanbaru',
+    year: '2025',
+    desc: 'Validasi kompetensi perancangan basis data relasional, normalisasi skema, kueri SQL teroptimasi, serta logika pemrograman aplikasi bisnis terstruktur.',
+    skills: ['Relational Database', 'SQL', 'Pemrograman Terstruktur'],
+    url: 'https://github.com/WalZetass-kar',
+    credid: 'LP3I-DB-2025',
+    order_index: 1
+  },
+  {
+    id: 'cert_gcloud_genai',
+    title: 'Generative AI with Google Cloud & SDK',
+    issuer: 'Google Cloud · Dicoding Indonesia',
+    year: '2024',
+    desc: 'Pelatihan implementasi Large Language Models, rekayasa prompt terstruktur, dan integrasi Google GenAI SDK untuk aplikasi berbasis kecerdasan buatan.',
+    skills: ['Google GenAI SDK', 'Prompt Engineering', 'LLM Integration'],
+    url: 'https://www.dicoding.com',
+    credid: 'GC-GENAI-2024',
+    order_index: 2
+  },
+  {
+    id: 'cert_dicoding_web',
+    title: 'Dasar Pemrograman Web & Arsitektur Frontend',
+    issuer: 'Dicoding Indonesia · IDCamp',
+    year: '2023',
+    desc: 'Standardisasi pengembangan web semantik HTML5, tata letak responsif CSS Grid & Flexbox, serta manipulasi DOM dan JavaScript modern.',
+    skills: ['HTML5 & CSS3', 'JavaScript ES6+', 'Responsive Web Design'],
+    url: 'https://www.dicoding.com',
+    credid: 'DC-WEB-2023',
+    order_index: 3
+  }
+];
 const INITIAL_MEDIA = [];
 
 const INITIAL_CONTROLS = {
@@ -809,9 +1239,166 @@ function seedDatabase(force = false) {
   );
 }
 
+function hydrateFromPortfolioJsonIfEmpty() {
+  try {
+    const jsonPath = path.join(DATA_DIR, 'portfolio.json');
+    const raw = fs.existsSync(jsonPath) ? JSON.parse(fs.readFileSync(jsonPath, 'utf8')) : {};
+
+    // Clean any corrupted replacement characters in existing skills
+    db.exec("UPDATE skills SET name = REPLACE(name, '\uFFFD', '·') WHERE name LIKE '%\uFFFD%'");
+
+    const skillCount = db.prepare('SELECT COUNT(*) as count FROM skills').get().count;
+    const skillsSource = (Array.isArray(raw.skills) && raw.skills.length > 0) ? raw.skills : INITIAL_SKILLS;
+    if (skillCount === 0 && skillsSource.length > 0) {
+      const insSkill = db.prepare(`
+        INSERT OR IGNORE INTO skills (id, name, category, level, order_index)
+        VALUES (?, ?, ?, ?, ?)
+      `);
+      skillsSource.forEach((s, idx) => {
+        const cleanName = String(s.name || '').replace(/\uFFFD+/g, '·');
+        insSkill.run(s.id || `s_${idx}`, cleanName, s.category || 'General', s.level || 'intermediate', s.order_index || idx);
+      });
+    }
+
+    const projCount = db.prepare('SELECT COUNT(*) as count FROM projects').get().count;
+    const projSource = (Array.isArray(raw.projects) && raw.projects.length > 0) ? raw.projects : INITIAL_PROJECTS;
+    if (projCount === 0 && projSource.length > 0) {
+      const insProj = db.prepare(`
+        INSERT OR IGNORE INTO projects (
+          id, slug, num, title, title_plain, tagline, desc, category, year, role, duration,
+          status, live_url, github_url, cover, spread1, spread2, fullwidth,
+          stack_json, overview_title, overview_body1, overview_body2,
+          challenges_json, solution_paras_json, results_json, gallery_json,
+          next_id, next_title, featured, order_index
+        ) VALUES (
+          ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+          ?, ?, ?, ?, ?, ?, ?,
+          ?, ?, ?, ?,
+          ?, ?, ?, ?,
+          ?, ?, ?, ?
+        )
+      `);
+      projSource.forEach((p, idx) => {
+        insProj.run(
+          p.id || `proj_${idx + 1}`,
+          p.slug || p.id || `proj-${idx + 1}`,
+          p.num || String(idx + 1).padStart(2, '0'),
+          p.title || 'Proyek',
+          p.title_plain || p.titlePlain || String(p.title || '').replace(/<[^>]*>?/gm, ''),
+          p.tagline || '',
+          p.desc || '',
+          p.category || 'Web Application',
+          p.year || '2025',
+          p.role || 'Developer',
+          p.duration || '',
+          p.status || 'published',
+          p.live_url !== undefined ? p.live_url : (p.liveUrl || ''),
+          p.github_url !== undefined ? p.github_url : (p.githubUrl || ''),
+          p.cover || 'assets/mockups/dashboard-main.svg',
+          p.spread1 || p.cover || '',
+          p.spread2 || 'assets/mockups/dashboard-main.svg',
+          p.fullwidth || p.cover || '',
+          JSON.stringify(p.stack || []),
+          p.overview_title || p.overviewTitle || '',
+          p.overview_body1 || p.overviewBody1 || '',
+          p.overview_body2 || p.overviewBody2 || '',
+          JSON.stringify(p.challenges || []),
+          JSON.stringify(p.solution_paras || p.solutionParas || []),
+          JSON.stringify(p.results || []),
+          JSON.stringify(p.gallery || []),
+          p.next_id || p.nextId || '',
+          p.next_title || p.nextTitle || '',
+          p.featured !== undefined ? (p.featured ? 1 : 0) : 1,
+          p.order_index !== undefined ? p.order_index : (idx + 1)
+        );
+      });
+    }
+
+    const expCount = db.prepare('SELECT COUNT(*) as count FROM experience').get().count;
+    const expSource = (Array.isArray(raw.experience) && raw.experience.length > 0) ? raw.experience : INITIAL_EXPERIENCE;
+    if (expCount === 0 && expSource.length > 0) {
+      const insExp = db.prepare(`
+        INSERT OR IGNORE INTO experience (id, role, company, location, period, desc, highlights_json, type, current, order_index)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `);
+      expSource.forEach((e, idx) => {
+        insExp.run(
+          e.id || `exp_${idx + 1}`,
+          e.role || '',
+          e.company || '',
+          e.location || '',
+          e.period || '',
+          e.desc || '',
+          JSON.stringify(e.highlights || []),
+          e.type || 'Organisasi',
+          e.current ? 1 : 0,
+          e.order_index !== undefined ? e.order_index : (idx + 1)
+        );
+      });
+    }
+
+    const eduCount = db.prepare('SELECT COUNT(*) as count FROM education').get().count;
+    const eduSource = (Array.isArray(raw.education) && raw.education.length > 0) ? raw.education : INITIAL_EDUCATION;
+    if (eduCount === 0 && eduSource.length > 0) {
+      const insEdu = db.prepare(`
+        INSERT OR IGNORE INTO education (id, degree, institution, period, gpa, detail, tags_json, order_index)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      `);
+      eduSource.forEach((ed, idx) => {
+        insEdu.run(
+          ed.id || `ed_${idx}`,
+          ed.degree || '',
+          ed.institution || '',
+          ed.period || '',
+          ed.gpa || '',
+          ed.detail || '',
+          JSON.stringify(ed.tags || []),
+          ed.order_index !== undefined ? ed.order_index : idx
+        );
+      });
+    } else if (eduCount > 0) {
+      // Backfill detail/tags on existing education rows if they were seeded empty
+      INITIAL_EDUCATION.forEach((ed) => {
+        db.prepare(`
+          UPDATE education
+          SET degree = CASE WHEN degree = 'D2 Manajement Informatika' THEN ? ELSE degree END,
+              detail = CASE WHEN detail IS NULL OR detail = '' THEN ? ELSE detail END,
+              tags_json = CASE WHEN tags_json IS NULL OR tags_json = '[]' THEN ? ELSE tags_json END
+          WHERE id = ?
+        `).run(ed.degree, ed.detail, JSON.stringify(ed.tags), ed.id);
+      });
+    }
+
+    const certCount = db.prepare('SELECT COUNT(*) as count FROM certificates').get().count;
+    const certSource = (Array.isArray(raw.certificates) && raw.certificates.length > 0) ? raw.certificates : INITIAL_CERTIFICATES;
+    if (certCount === 0 && certSource.length > 0) {
+      const insCert = db.prepare(`
+        INSERT OR IGNORE INTO certificates (id, title, issuer, year, desc, skills_json, url, credid, order_index)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `);
+      certSource.forEach((c, idx) => {
+        insCert.run(
+          c.id || `cert_${idx + 1}`,
+          c.title || '',
+          c.issuer || '',
+          c.year || '',
+          c.desc || '',
+          JSON.stringify(c.skills || []),
+          c.url || '#',
+          c.credid || '',
+          c.order_index !== undefined ? c.order_index : (idx + 1)
+        );
+      });
+    }
+  } catch (err) {
+    console.warn('Warning hydrating from portfolio.json:', err.message);
+  }
+}
+
 // Auto-seed on require
 initSchema();
 seedDatabase(false);
+hydrateFromPortfolioJsonIfEmpty();
 initAdminAuth();
 
 /* ─────────────────────────────────────────────────────────────

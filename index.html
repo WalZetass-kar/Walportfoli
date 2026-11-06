@@ -4,23 +4,91 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>M Ihwal Maulana — Mahasiswa Manajemen Informatika · Developer · AI Enthusiast</title>
-  <meta name="description" content="Portofolio resmi M Ihwal Maulana (WalZetass): WariPOS, CariKostKita Android, Duo Chat, dan Civic Report berbasis Google Gemini AI." />
-  <meta name="theme-color" content="#111110" />
+  <meta name="description" content="Portofolio resmi M Ihwal Maulana (WalZetass): Mahasiswa Manajemen Informatika Politeknik LP3I Pekanbaru, pengembang WariPOS, Sistem Absensi QR LCC, KTM Digital, CariKostKita Android, Duo Chat, dan Civic Report." />
+  <meta name="author" content="M Ihwal Maulana" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0c0e12" />
+  <link rel="canonical" href="https://walzetass-kar.github.io/" />
+
+  <!-- Open Graph -->
   <meta property="og:title" content="M Ihwal Maulana — Mahasiswa Manajemen Informatika · Developer · AI Enthusiast" />
-  <meta property="og:description" content="Mahasiswa Manajemen Informatika Politeknik LP3I Pekanbaru · Developer Multi-Platform & AI Enthusiast." />
+  <meta property="og:description" content="Mahasiswa Manajemen Informatika Politeknik LP3I Pekanbaru · Pengembang WariPOS, Sistem Absensi QR LCC, KTM Digital, dan CariKostKita." />
   <meta property="og:type" content="website" />
+  <meta property="og:locale" content="id_ID" />
+  <meta property="og:image" content="assets/profil.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="M Ihwal Maulana — Developer &amp; AI Enthusiast" />
+  <meta name="twitter:description" content="Portofolio rekayasa perangkat lunak M Ihwal Maulana (WalZetass): WariPOS, Sistem Absensi QR LCC, KTM Digital, CariKostKita." />
+  <meta name="twitter:image" content="assets/profil.png" />
+
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://walzetass-kar.github.io/#person",
+        "name": "M Ihwal Maulana",
+        "alternateName": "WalZetass",
+        "jobTitle": "Mahasiswa Manajemen Informatika & Software Developer",
+        "affiliation": {
+          "@type": "CollegeOrUniversity",
+          "name": "Politeknik LP3I Kampus Pekanbaru"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Pekanbaru",
+          "addressRegion": "Riau",
+          "addressCountry": "ID"
+        },
+        "email": "mailto:mihwalmaulana09@gmail.com",
+        "url": "https://walzetass-kar.github.io/",
+        "sameAs": [
+          "https://github.com/WalZetass-kar",
+          "https://www.linkedin.com/in/m-ihwal-maulana-15792a353/",
+          "https://twitter.com/walzetass"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://walzetass-kar.github.io/#website",
+        "url": "https://walzetass-kar.github.io/",
+        "name": "WalZetass — Portofolio M Ihwal Maulana",
+        "inLanguage": "id-ID",
+        "publisher": {
+          "@id": "https://walzetass-kar.github.io/#person"
+        }
+      }
+    ]
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('walzetass_theme');
+        var theme = (saved === 'light' || saved === 'dark') ? saved : 'dark';
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {}
+    })();
+  </script>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
+  <a href="#main-content" class="skip-link">Lewati ke konten utama</a>
+
   <!-- Three.js Canvas Background -->
-  <canvas id="bg-canvas"></canvas>
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
   <!-- Navigation -->
-  <nav id="nav">
+  <nav id="nav" aria-label="Navigasi Utama">
     <div class="nav-inner">
       <a href="#hero" class="nav-logo">WalZetass</a>
       <div class="nav-links">
@@ -31,14 +99,33 @@
         <a href="#certificates" class="nav-link">Sertifikasi</a>
         <a href="#contact" class="nav-link">Kontak</a>
       </div>
-      <button class="nav-menu-btn" id="menuBtn" aria-label="Menu">
-        <span></span><span></span>
-      </button>
+      <div class="nav-actions">
+        <button type="button" class="theme-toggle-btn" id="themeToggleBtn" aria-label="Ganti tema Gelap atau Terang" title="Ganti Tema (Dark / Light)">
+          <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4.5"></circle>
+            <line x1="12" y1="2" x2="12" y2="4.5"></line>
+            <line x1="12" y1="19.5" x2="12" y2="22"></line>
+            <line x1="4.93" y1="4.93" x2="6.7" y2="6.7"></line>
+            <line x1="17.3" y1="17.3" x2="19.07" y2="19.07"></line>
+            <line x1="2" y1="12" x2="4.5" y2="12"></line>
+            <line x1="19.5" y1="12" x2="22" y2="12"></line>
+            <line x1="4.93" y1="19.07" x2="6.7" y2="17.3"></line>
+            <line x1="17.3" y1="6.7" x2="19.07" y2="4.93"></line>
+          </svg>
+          <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <span class="theme-toggle-label" id="themeToggleLabel">Light</span>
+        </button>
+        <button class="nav-menu-btn" id="menuBtn" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="mobileMenu">
+          <span></span><span></span>
+        </button>
+      </div>
     </div>
   </nav>
 
   <!-- Mobile Menu -->
-  <div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu" id="mobileMenu" aria-label="Menu Mobile">
     <div class="mobile-menu-inner">
       <a href="#about" class="mobile-link">Tentang</a>
       <a href="#projects" class="mobile-link">Karya</a>
@@ -49,109 +136,101 @@
     </div>
   </div>
 
-  <main>
+  <main id="main-content">
 
     <!-- ═══════════════════════════════════════ HERO ═══════════════════════════════════════ -->
-    <!-- ═══════════════════════════════════════ HERO ═══════════════════════════════════════ -->
-    <section id="hero">
+    <section id="hero" aria-label="Pengantar dan Identitas">
       <div class="hero-layout hero-layout-3col">
 
-        <!-- KOLOM KIRI: Identitas & CTA -->
+        <!-- KOLOM KIRI: Identitas Utama, Deskripsi & CTA -->
         <div class="hero-col hero-col-left">
-          <p class="hero-eyebrow">INFORMATICS STUDENT</p>
-          <h1 class="hero-name">
+          <p class="hero-eyebrow reveal-up">INFORMATICS STUDENT · PEKANBARU</p>
+          <h1 class="hero-name reveal-up">
             M. Ihwal<br>
             <span class="hero-name-accent">Maulana</span>
           </h1>
-          <div class="hero-accent-line"></div>
-          <p class="hero-desc">
-            Mahasiswa Manajemen Informatika di Politeknik LP3I Pekanbaru. Saya memimpin BEM dan LP3I Computer Club, lalu membangun aplikasi yang dipakai organisasi itu sendiri, seperti sistem absensi dan KTM digital.
+          <div class="hero-accent-line reveal-fade" aria-hidden="true"></div>
+          <p class="hero-desc reveal-up">
+            Mahasiswa Manajemen Informatika Politeknik LP3I Pekanbaru yang membangun aplikasi web, desktop POS, dan mobile untuk kebutuhan nyata.
           </p>
 
-          <div class="hero-actions">
+          <div class="hero-actions reveal-up">
             <a href="#projects" class="btn-primary">Lihat Proyek</a>
             <a href="#contact" class="btn-ghost">Hubungi Saya</a>
-          </div>
-
-          <div class="hero-scroll-pill">
-            <span class="scroll-tag">SCROLL |</span>
-            <div class="scroll-mouse-icon"></div>
           </div>
         </div>
 
         <!-- KOLOM TENGAH: Focal Point Dual-Layer Interactive Spotlight Portrait -->
-        <div class="hero-col hero-col-center">
+        <div class="hero-col hero-col-center reveal-fade">
           <div class="portrait-stage">
-            <div class="portrait-interactive-frame" id="heroInteractivePortrait">
+            <div class="portrait-interactive-frame portrait-hover-fx" id="heroInteractivePortrait" role="img" tabindex="0" data-interactive="spotlight-tilt" aria-label="Potret interaktif M Ihwal Maulana">
               <!-- Layer 1 (Dasar): Foto Formal -->
               <div class="portrait-layer portrait-layer-base">
-                <img id="heroPortraitImg" src="assets/profil.png" alt="M Ihwal Maulana - Formal" onerror="this.onerror=null;this.src='profil.png'" />
+                <img id="heroPortraitImg" src="assets/profil.png" alt="M Ihwal Maulana — Potret Formal" fetchpriority="high" decoding="async" onerror="this.onerror=null;this.src='profil.png'" />
               </div>
 
               <!-- Layer 2 (Atas): Foto Anonymous dengan Cursor-Following Radial Mask -->
-              <div class="portrait-layer portrait-layer-anon" id="portraitAnonLayer">
-                <img id="heroPortraitAnon" src="assets/anonim.png" alt="M Ihwal Maulana - Anonymous" onerror="this.onerror=null;this.src='anonim.png'" />
+              <div class="portrait-layer portrait-layer-anon" id="portraitAnonLayer" aria-hidden="true">
+                <img id="heroPortraitAnon" src="assets/anonim.png" alt="" decoding="async" onerror="this.onerror=null;this.src='anonim.png'" />
               </div>
             </div>
           </div>
         </div>
 
-        <!-- KOLOM KANAN: Text Ringan Editorial (01 FOCUS, 02 CORE TECH, 03 KARYA UNGGULAN) -->
-        <div class="hero-col hero-col-right">
+        <!-- KOLOM KANAN: Ringkasan Editorial Ringkas -->
+        <div class="hero-col hero-col-right reveal-up">
           <div class="hero-glance-editorial">
-            
-            <!-- 01 FOCUS -->
+
+            <!-- 01 CORE TECH -->
             <div class="glance-section">
               <div class="glance-head-row">
                 <span class="glance-num">01</span>
-                <span class="glance-label">FOCUS</span>
-              </div>
-              <p class="glance-body" id="heroGlanceFocus">
-                Dua proyek utama saya lahir dari organisasi yang saya pimpin: sistem absensi untuk anggota LCC dan KTM digital yang bisa diverifikasi lewat QR. Target saya menjadi Full Stack Developer.
-              </p>
-            </div>
-
-            <!-- 02 CORE TECH -->
-            <div class="glance-section">
-              <div class="glance-head-row">
-                <span class="glance-num">02</span>
-                <span class="glance-label">CORE TECH</span>
+                <span class="glance-label">TEKNOLOGI INTI</span>
               </div>
               <div class="core-tech-grid" id="heroGlanceStack">
                 <span class="tech-pill">JavaScript</span>
                 <span class="tech-pill">TypeScript</span>
-                <span class="tech-pill">Java</span>
-                <span class="tech-pill">SQL</span>
-                <span class="tech-pill">HTML5</span>
-                <span class="tech-pill">CSS3</span>
                 <span class="tech-pill">React.js</span>
-                <span class="tech-pill">Next.js</span>
+                <span class="tech-pill">Node.js</span>
+                <span class="tech-pill">Electron</span>
+                <span class="tech-pill">Android Java</span>
+                <span class="tech-pill">SQLite</span>
+                <span class="tech-pill">Gemini API</span>
               </div>
             </div>
 
-            <!-- 03 KARYA UNGGULAN -->
+            <!-- 02 KARYA UNGGULAN -->
             <div class="glance-section">
               <div class="glance-head-row">
-                <span class="glance-num">03</span>
+                <span class="glance-num">02</span>
                 <span class="glance-label">KARYA UNGGULAN</span>
               </div>
               <div class="featured-proj-list" id="heroGlanceProjects">
-                <a href="#projects" class="proj-entry">
-                  <span class="proj-link-icon">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                <a href="project-detail.html?id=waripos" class="proj-entry">
+                  <span class="proj-link-icon" aria-hidden="true">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
                   </span>
                   <div class="proj-text">
-                    <div class="proj-name">Sistem Absensi LCC</div>
-                    <div class="proj-sub">Absensi anggota LP3I Computer Club lewat scan QR.</div>
+                    <div class="proj-name">WariPOS Suite</div>
+                    <div class="proj-sub">Kasir desktop &amp; mobile offline-first</div>
                   </div>
                 </a>
-                <a href="#projects" class="proj-entry">
-                  <span class="proj-link-icon">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                <a href="project-detail.html?id=absensi-lcc" class="proj-entry">
+                  <span class="proj-link-icon" aria-hidden="true">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                  </span>
+                  <div class="proj-text">
+                    <div class="proj-name">Sistem Absensi QR LCC</div>
+                    <div class="proj-sub">Presensi QR real-time organisasi</div>
+                  </div>
+                </a>
+                <a href="project-detail.html?id=ktm-digital" class="proj-entry">
+                  <span class="proj-link-icon" aria-hidden="true">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
                   </span>
                   <div class="proj-text">
                     <div class="proj-name">KTM Digital</div>
-                    <div class="proj-sub">Kartu Tanda Mahasiswa digital yang bisa diverifikasi lewat QR.</div>
+                    <div class="proj-sub">Identitas mahasiswa terverifikasi QR</div>
                   </div>
                 </a>
               </div>
@@ -164,24 +243,23 @@
     </section>
 
     <!-- ═══════════════════════════════════════ ABOUT ═══════════════════════════════════════ -->
-    <section id="about">
+    <section id="about" aria-label="Tentang Saya">
 
       <!-- Section Marquee Header — Integrated Chapter Intro -->
-      <div class="marquee-wrap" id="marquee">
+      <div class="marquee-wrap" id="marquee" style="display:none">
         <div class="marquee-track" aria-hidden="true"></div>
       </div>
 
       <div class="section-inner about-layout">
 
         <div class="about-left">
-          <div class="section-label reveal-up"></div>
-          <h2 class="section-heading reveal-up"></h2>
+          <div class="section-label reveal-up">02 — Tentang</div>
+          <h2 class="section-heading reveal-up">Rekayasa sistem<br>yang <em>berdaya guna</em></h2>
         </div>
 
         <div class="about-right">
-          <p class="about-text reveal-up"></p>
-          <p class="about-text reveal-up"></p>
-          <div class="about-stats reveal-up">
+          <p class="about-text reveal-up">Saya <strong>M Ihwal Maulana</strong> (<em>WalZetass</em>), mahasiswa Manajemen Informatika di Politeknik LP3I Pekanbaru yang aktif memimpin organisasi kampus sekaligus membangun sistem perangkat lunak mandiri yang siap pakai di lapangan.</p>
+          <div class="about-stats reveal-up" style="display:none">
             <div class="stat">
               <span class="stat-number"></span>
               <span class="stat-label"></span>
@@ -201,32 +279,48 @@
     </section>
 
     <!-- ═══════════════════════════════════════ PROJECTS ═══════════════════════════════════════ -->
-    <section id="projects">
+    <section id="projects" aria-label="Showcase Proyek">
       <div class="section-inner">
         <div class="projects-header">
           <div class="projects-header-left reveal-up">
-            <div class="section-label"></div>
-            <h2 class="section-heading"></h2>
+            <div class="section-label">03 — Karya Pilihan</div>
+            <h2 class="section-heading">Showcase<br><em>Proyek Nyata</em></h2>
           </div>
           <div class="projects-header-right reveal-up">
-            <a href="projects.html" class="btn-ghost"></a>
+            <a href="projects.html" class="btn-ghost">Lihat Arsip Lengkap →</a>
           </div>
         </div>
 
-        <!-- Editorial project showcase — 100% dynamic from Admin / DB -->
-        <div class="project-showcase" id="projectListContainer"></div>
+        <!-- Editorial project showcase — hydrated from API / DB -->
+        <div class="project-showcase" id="projectListContainer" aria-live="polite">
+          <div class="loading-skeleton" role="status">Memuat showcase proyek...</div>
+        </div>
 
       </div>
     </section>
 
     <!-- ═══════════════════════════════════════ SKILLS ═══════════════════════════════════════ -->
-    <section id="skills">
+    <section id="skills" aria-label="Keahlian dan Teknologi">
       <div class="section-inner skills-layout">
 
         <div class="skills-left">
-          <div class="section-label reveal-up"></div>
-          <h2 class="section-heading reveal-up"></h2>
-          <p class="skills-intro reveal-up"></p>
+          <div class="section-label reveal-up">04 — Keahlian</div>
+          <h2 class="section-heading reveal-up">Alat &amp;<br><em>Teknologi Nyata</em></h2>
+
+          <!-- 04. 3D Interactive Skill Orbit / Tech Globe -->
+          <div class="skills-globe-wrap reveal-up" id="skillsGlobeWrap">
+            <div class="skills-globe-header">
+              <span class="skills-globe-tag">TECH ORBIT</span>
+              <span class="skills-globe-active" id="skillsGlobeActiveLabel">Geser untuk memutar</span>
+            </div>
+            <div class="skills-globe-stage" id="skillsGlobeStage">
+              <canvas id="skillsGlobeCanvas" aria-label="3D Interactive Tech Orbit Globe"></canvas>
+            </div>
+            <div class="skills-globe-footer">
+              <span class="skills-globe-hint">Geser untuk rotasi 360°</span>
+              <button type="button" class="skills-globe-reset" id="skillsGlobeResetBtn">Reset</button>
+            </div>
+          </div>
         </div>
 
         <div class="skills-right" id="skillsContainer"></div>
@@ -234,66 +328,66 @@
     </section>
 
     <!-- ═══════════════════════════════════════ EXPERIENCE ═══════════════════════════════════════ -->
-    <section id="experience">
+    <section id="experience" aria-label="Pengalaman dan Pendidikan">
       <div class="section-inner">
-        <div class="section-label reveal-up"></div>
-        <h2 class="section-heading reveal-up"></h2>
+        <div class="section-label reveal-up">05 — Jejak Perjalanan</div>
+        <h2 class="section-heading reveal-up">Pendidikan &amp;<br><em>Kontribusi</em></h2>
 
         <div class="timeline-wrap" id="timelineContainer"></div>
       </div>
     </section>
 
     <!-- ═══════════════════════════════════════ CERTIFICATES ═══════════════════════════════════════ -->
-    <section id="certificates">
+    <section id="certificates" aria-label="Sertifikasi dan Kredensial">
       <div class="section-inner">
-        <div class="section-label reveal-up"></div>
-        <h2 class="section-heading reveal-up"></h2>
+        <div class="section-label reveal-up">06 — Kredensial</div>
+        <h2 class="section-heading reveal-up">Sertifikasi &amp; <em>Kompetensi</em></h2>
 
         <div class="certs-gallery" id="certsContainer"></div>
       </div>
     </section>
 
     <!-- ═══════════════════════════════════════ CONTACT ═══════════════════════════════════════ -->
-    <section id="contact">
+    <section id="contact" aria-label="Kontak dan Kolaborasi">
       <div class="section-inner contact-layout">
 
         <div class="contact-left">
-          <div class="section-label reveal-up"></div>
-          <h2 class="section-heading reveal-up"></h2>
-          <p class="contact-sub reveal-up"></p>
+          <div class="section-label reveal-up">07 — Kontak</div>
+          <h2 class="section-heading reveal-up">Mari bangun<br>sesuatu yang <em>berdampak</em></h2>
+          <p class="contact-sub reveal-up">Terbuka untuk kolaborasi proyek dan diskusi teknis.</p>
 
           <div class="contact-direct-card reveal-up">
             <div class="email-copy-wrap">
-              <span class="email-text" id="contactEmailDisplay"></span>
+              <span class="email-text" id="contactEmailDisplay">mihwalmaulana09@gmail.com</span>
               <button type="button" class="btn-copy" id="copyEmailBtn" aria-label="Salin email ke clipboard">Salin Email</button>
             </div>
             <div class="contact-socials" id="contactSocialsContainer"></div>
           </div>
         </div>
 
-        <div class="contact-right reveal-fade">
+        <div class="contact-right">
           <form class="contact-form" id="contactForm" novalidate>
-            <div class="form-field">
-              <label for="name">Nama Lengkap</label>
-              <input type="text" id="name" name="name" placeholder="Nama Anda" required />
+            <div class="form-field reveal-up" data-delay="0">
+              <label for="name">Nama</label>
+              <input type="text" id="name" name="name" placeholder="Nama Anda" required autocomplete="name" />
             </div>
-            <div class="form-field">
-              <label for="email">Alamat Email</label>
-              <input type="email" id="email" name="email" placeholder="email@domain.com" required />
+            <div class="form-field reveal-up" data-delay="80">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="email@domain.com" required autocomplete="email" />
             </div>
-            <div class="form-field">
-              <label for="project">Cakupan / Kebutuhan Rekayasa</label>
-              <input type="text" id="project" name="project" placeholder="Sistem POS · Mobile Android · Google Gemini AI" />
+            <div class="form-field reveal-up" data-delay="160">
+              <label for="project">Topik / Proyek</label>
+              <input type="text" id="project" name="project" placeholder="Web · POS · Android · AI" />
             </div>
-            <div class="form-field">
-              <label for="message">Pesan Anda</label>
-              <textarea id="message" name="message" rows="4" placeholder="Ceritakan tujuan, kebutuhan sistem, atau peluang kolaborasi..." required></textarea>
+            <div class="form-field reveal-up" data-delay="240">
+              <label for="message">Pesan</label>
+              <textarea id="message" name="message" rows="4" placeholder="Tulis pesan singkat Anda..." required></textarea>
             </div>
-            <button type="submit" class="btn-primary btn-full">
+            <button type="submit" class="btn-primary btn-full reveal-up" data-delay="320">
               <span class="btn-text">Kirim Pesan</span>
-              <span class="btn-icon">→</span>
+              <span class="btn-icon" aria-hidden="true">→</span>
             </button>
-            <div class="form-status" id="formStatus"></div>
+            <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
           </form>
         </div>
 
@@ -306,11 +400,11 @@
   <footer id="footer">
     <div class="footer-inner">
       <div class="footer-left">
-        <span class="footer-logo"></span>
-        <span class="footer-copy"></span>
+        <span class="footer-logo">WalZetass</span>
+        <span class="footer-copy">© 2026 M Ihwal Maulana</span>
       </div>
       <div class="footer-right">
-        <span class="footer-mono"></span>
+        <span class="footer-mono">Pekanbaru · Indonesia</span>
       </div>
     </div>
   </footer>

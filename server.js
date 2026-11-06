@@ -12,7 +12,7 @@ const fs = require('fs');
 const db = require('./server/db');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const SERVER_PORT = 3000;
 
 // Enable CORS for all origins (supports Live Server, localhost, custom domains)
 app.use(cors());
@@ -536,10 +536,39 @@ app.use((req, res, next) => {
   next();
 });
 
-const server = app.listen(PORT, () => {
-  console.log(`✓ Portofolio backend server berjalan di http://localhost:${PORT}`);
-  console.log(`✓ API Portfolio: http://localhost:${PORT}/api/portfolio`);
-  console.log(`✓ Admin State:   http://localhost:${PORT}/api/admin/state`);
+const server = app.listen(SERVER_PORT, '0.0.0.0', () => {
+  console.log(`✓ Portofolio backend server berjalan di http://0.0.0.0:${SERVER_PORT}`);
+  console.log(`✓ API Portfolio: http://localhost:${SERVER_PORT}/api/portfolio`);
+  console.log(`✓ Admin State:   http://localhost:${SERVER_PORT}/api/admin/state`);
+});
+
+server.on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`Port ${SERVER_PORT} is currently in use. Waiting or retrying...`);
+  } else {
+    console.error('Server listen error:', err.message);
+  }
+});
+
+process.on('SIGTERM', () => {
+  server.close(() => {
+    process.exit(0);
+  });
+});
+
+process.on('SIGINT', () => {
+  server.close(() => {
+    process.exit(0);
+  });
+});
+
+process.on('unhandledRejection', (reason) => {
+  console.error('Unhandled Rejection:', reason);
+});
+
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception:', err);
 });
 
 module.exports = { app, server };
+

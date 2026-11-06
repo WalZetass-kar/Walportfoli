@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
+    "dev": "node server.js",
     "start": "node server.js",
+    "build": "echo \"Build complete\"",
+    "lint": "node --check server.js && node --check main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

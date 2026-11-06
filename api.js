@@ -22,13 +22,19 @@
       return 'http://localhost:3000';
     }
 
-    // If already running directly from our node server
-    if (loc.port === '3000') {
-      return loc.origin;
+    // Static live-server ports on local dev machine
+    if (['5500', '5501', '5502', '8080'].includes(loc.port)) {
+      return `${loc.protocol}//${loc.hostname || 'localhost'}:3000`;
     }
 
-    // Default to localhost:3000 if running from Live Server (5500, etc.)
-    return `${loc.protocol}//${loc.hostname || 'localhost'}:3000`;
+    // Same origin when served by Express (port 3000, Cloud Run, or reverse proxy)
+    return loc.origin;
+  }
+
+  function isStaticPagesHost() {
+    if (typeof window === 'undefined') return false;
+    const host = window.location.hostname || '';
+    return window.location.protocol === 'file:' || host.endsWith('.github.io');
   }
 
   let BASE_URL = resolveBaseUrl();
@@ -62,7 +68,7 @@
       broadcastChannel = new BroadcastChannel(CHANNEL_NAME);
     }
   } catch (e) {
-    console.warn('[PortfolioAPI] BroadcastChannel not supported in this environment');
+    // BroadcastChannel optional
   }
 
   // ── HTTP Request Helper ──────────────────────────
@@ -85,20 +91,15 @@
       config.body = JSON.stringify(config.body);
     }
 
-    try {
-      const response = await fetch(url, config);
-      const data = await response.json().catch(() => null);
+    const response = await fetch(url, config);
+    const data = await response.json().catch(() => null);
 
-      if (!response.ok) {
-        const errorMsg = (data && data.error) || `Request failed with status ${response.status}`;
-        throw new Error(errorMsg);
-      }
-
-      return data;
-    } catch (err) {
-      console.error(`[PortfolioAPI] Error requesting ${endpoint}:`, err.message);
-      throw err;
+    if (!response.ok) {
+      const errorMsg = (data && data.error) || `Request failed with status ${response.status}`;
+      throw new Error(errorMsg);
     }
+
+    return data;
   }
 
   // ── Cache helper ────────────────────────────────
@@ -129,9 +130,8 @@
 
     // ── Public Aggregate Data ───────────────────────
     async getPortfolio() {
-      // 1. Try local node server if available (e.g. localhost or custom backend)
-      const isLocal = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.port === '3000');
-      if (isLocal) {
+      // 1. Try Express backend server first whenever not on a purely static host
+      if (!isStaticPagesHost()) {
         try {
           const res = await request('/api/portfolio', { method: 'GET' });
           if (res && res.data) {
@@ -139,54 +139,11 @@
             return res.data;
           }
         } catch (e) {
-          console.warn('[PortfolioAPI] Local server error, falling back:', e.message);
+          // Fall through to static snapshot
         }
       }
 
-      // 2. Try Supabase REST API
-      try {
-        const [profData, landData, skillsData, expData, eduData, certsData, projData, ctrlData] = await Promise.all([
-          supabaseRequest('profile', '?id=eq.1&select=*').catch(() => null),
-          supabaseRequest('landing_sections', '?select=*').catch(() => null),
-          supabaseRequest('skills', '?select=*&order=order_index.asc,id.asc').catch(() => null),
-          supabaseRequest('experience', '?select=*&order=order_index.asc,created_at.desc').catch(() => null),
-          supabaseRequest('education', '?select=*&order=order_index.asc,created_at.desc').catch(() => null),
-          supabaseRequest('certificates', '?select=*&order=order_index.asc').catch(() => null),
-          supabaseRequest('projects', '?select=*&status=eq.published&order=order_index.asc').catch(() => null),
-          supabaseRequest('controls', '?id=eq.1&select=*').catch(() => null)
-        ]);
-
-        if (profData && profData.length > 0) {
-          const landing = {};
-          if (Array.isArray(landData)) {
-            landData.forEach(item => {
-              landing[item.key] = item.data;
-            });
-          }
-          const ctrl = (ctrlData && ctrlData[0] && ctrlData[0].data) || {};
-          const assembled = {
-            profile: profData[0],
-            landing,
-            skills: skillsData || [],
-            experience: expData || [],
-            education: eduData || [],
-            certificates: certsData || [],
-            projects: projData || [],
-            sections: ctrl.sections || {},
-            three: ctrl.three || {},
-            seo: ctrl.seo || {},
-            social: ctrl.social || {},
-            settings: ctrl.settings || {},
-            timestamp: new Date().toISOString()
-          };
-          setCached('portfolio', assembled);
-          return assembled;
-        }
-      } catch (err) {
-        console.warn('[PortfolioAPI] Supabase fetch error:', err.message);
-      }
-
-      // 3. Try static JSON snapshot on GitHub Pages / root
+      // 2. Try static JSON snapshot on GitHub Pages / root
       try {
         const isInSubdir = typeof window !== 'undefined' && (window.location.pathname.includes('/projects/') || window.location.pathname.includes('/admin/'));
         const jsonPath = isInSubdir ? '../data/portfolio.json' : 'data/portfolio.json';
@@ -199,10 +156,10 @@
           }
         }
       } catch (e) {
-        console.warn('[PortfolioAPI] Static snapshot load error:', e.message);
+        // Fall through
       }
 
-      // 4. Try localStorage cache
+      // 3. Try localStorage cache
       const cached = getCached('portfolio');
       if (cached) return cached;
 
@@ -221,7 +178,6 @@
       } catch (err) {
         const cached = getCached('admin_state');
         if (cached) {
-          console.warn('[PortfolioAPI] Menggunakan cache lokal state admin:', err.message);
           return cached;
         }
         throw err;
@@ -240,35 +196,24 @@
 
     // ── Projects CRUD ───────────────────────────────
     async getProjects(all = false) {
-      const isLocal = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.port === '3000');
-      if (isLocal) {
+      if (!isStaticPagesHost()) {
         try {
           const res = await request(`/api/projects?all=${all ? 'true' : 'false'}`);
-          if (res && res.data) return res.data;
+          if (res && Array.isArray(res.data)) return res.data;
         } catch (e) {}
       }
-      try {
-        const query = all ? '?select=*&order=order_index.asc' : '?select=*&status=eq.published&order=order_index.asc';
-        const data = await supabaseRequest('projects', query);
-        if (Array.isArray(data) && data.length) return data;
-      } catch (e) {}
 
       const port = await this.getPortfolio().catch(() => null);
-      return (port && port.projects) || [];
+      return (port && Array.isArray(port.projects)) ? port.projects : [];
     },
 
     async getProject(idOrSlug) {
-      const isLocal = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.port === '3000');
-      if (isLocal) {
+      if (!isStaticPagesHost()) {
         try {
           const res = await request(`/api/projects/${encodeURIComponent(idOrSlug)}`);
           if (res && res.data) return res.data;
         } catch (e) {}
       }
-      try {
-        const data = await supabaseRequest('projects', `?or=(id.eq.${encodeURIComponent(idOrSlug)},slug.eq.${encodeURIComponent(idOrSlug)})&select=*`);
-        if (data && data.length) return data[0];
-      } catch (e) {}
 
       const projs = await this.getProjects(true).catch(() => []);
       return projs.find(p => p.id === idOrSlug || p.slug === idOrSlug) || null;
@@ -432,16 +377,11 @@
 
     // ── Contact Submission ──────────────────────────
     async sendContact(data) {
-      const isLocal = typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.port === '3000');
-      if (isLocal) {
-        try {
-          return await request('/api/contact', { method: 'POST', body: data });
-        } catch (e) {
-          console.warn('[PortfolioAPI] Local contact endpoint failed, trying Supabase:', e.message);
-        }
+      if (!isStaticPagesHost()) {
+        return await request('/api/contact', { method: 'POST', body: data });
       }
 
-      // Send to Supabase directly
+      // Send to Supabase directly if hosted on static pages
       try {
         const id = 'msg_' + Date.now();
         const payload = {
@@ -458,7 +398,6 @@
         });
         return { success: true, message: 'Pesan berhasil terkirim' };
       } catch (err) {
-        console.error('[PortfolioAPI] Contact send error:', err);
         throw err;
       }
     },
